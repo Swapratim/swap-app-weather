@@ -78,13 +78,20 @@ def makeWebhookResult(data):
     if condition is None:
         return {}
 
+	atmosphere = item.get('atmosphere')
+    if condition is None:
+        return {}
+		
+	astronomy = item.get('astronomy')
+    if condition is None:
+        return {}
     # print(json.dumps(item, indent=4))
 
     speech = "Today in " + location.get('city') + "(" + location.get('country') + ") : " + condition.get('text') + \
              ", Temperature " + condition.get('temp') + " " + units.get('temperature') + \
-			 ", Humidity " + condition.get('humidity') + "%"  + \
-			 ", Sunrise " + condition.get('sunrise') + \
-			 ", Sunset " + condition.get('sunset')
+			 ", Humidity " + atmosphere.get('humidity') + "%"  + \
+			 ", Sunrise " + astronomy.get('sunrise') + \
+			 ", Sunset " + astronomy.get('sunset')
 
     print("Response:")
     print(speech)
