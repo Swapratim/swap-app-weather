@@ -71,7 +71,9 @@ def makeWebhookResult(data):
     item = channel.get('item')
     location = channel.get('location')
     units = channel.get('units')
-    if (location is None) or (item is None) or (units is None):
+    atmosphere = channel.get('atmosphere')
+	astronomy = channel.get('astronomy')
+	if (location is None) or (item is None) or (units is None) or (atmosphere is None) or (astronomy is None):
         return {}
 
     condition = item.get('condition')
