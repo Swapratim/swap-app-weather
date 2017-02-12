@@ -71,21 +71,23 @@ def makeWebhookResult(data):
     item = channel.get('item')
     location = channel.get('location')
     units = channel.get('units')
+	atmosphere = channel.get('atmosphere')
+	astronomy = channel.get('astronomy')
     if (location is None) or (item is None) or (units is None):
         return {}
 
     condition = item.get('condition')
     if condition is None:
         return {}
-
+		
 	atmosphere = item.get('atmosphere')
-    if condition is None:
+    if atmosphere is None:
         return {}
 		
 	astronomy = item.get('astronomy')
-    if condition is None:
+    if astronomy is None:
         return {}
-    # print(json.dumps(item, indent=4))
+	# print(json.dumps(item, indent=4))
 
     speech = "Today in " + location.get('city') + "(" + location.get('country') + ") : " + condition.get('text') + \
              ", Temperature " + condition.get('temp') + " " + units.get('temperature') + \
