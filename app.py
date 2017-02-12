@@ -38,7 +38,7 @@ def processRequest(req):
     yql_query = makeYqlQuery(req)
     if yql_query is None:
         return {}
-    yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json" + "&u=c"
+    yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
     result = urllib.request.urlopen(yql_url).read()
     data = json.loads(result)
     res = makeWebhookResult(data)
@@ -80,8 +80,11 @@ def makeWebhookResult(data):
 
     # print(json.dumps(item, indent=4))
 
-    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
-             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
+    speech = "Today in " + location.get('city') + "(" + location.get('country') + ")" + ": " + condition.get('text') + \
+             ", Temperature " + condition.get('temp') + " " + units.get('temperature') + \
+			 ", Humidity " + condition.get('humidity') + "%"  + \
+			 ", Sunrise " + condition.get('sunrise') + \
+			 ", Sunset " + condition.get('sunset')
 
     print("Response:")
     print(speech)
