@@ -37,36 +37,36 @@ def processRequest(req):
     baseurl = "https://www.googleapis.com/customsearch/v1?"
 	KEY = "AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM"
 	CSE = "003066316917117435589%3Avcms6hy5lxs"
-	
-    yql_query = makeYqlQuery(req)
-    if yql_query is None:
+	google_query = makeSearchQuery(req)
+    if google_query is None:
         return {}
-    yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
-    result = urllib.request.urlopen(yql_url).read()
+    google_query = baseurl + KEY + "&cx=" + CSE + "&q=" + search_string + "&num=1"
+    result = urllib.request.urlopen(google_query).read()
     data = json.loads(result)
     res = makeWebhookResult(data)
     return res
 
 
-def makeYqlQuery(req):
+def makeSearchQuery(req):
     result = req.get("result")
     parameters = result.get("parameters")
     search_string = parameters.get("any")
     if search_string is None:
         return None
 
-    return "https://www.googleapis.com/customsearch/v1?key="+ KEY + "&cx=" + CSE + "&q=" + search_string + "&num=1""
+    return baseurl + KEY + "&cx=" + CSE + "&q=" + search_string + "&num=1"
 
 
 def makeWebhookResult(data):
-    query = data.get('query')
-    if query is None:
+    parsed_input = data.get('query')
+    if parsed_input is None:
         return {}
 
-    items = query.get('query')
+    items = parsed_input.get['items']
     if items is None:
         return {}
-
+		
+	
     speech = items.get('snippet')
 
     print("Response:")
