@@ -40,7 +40,7 @@ def processRequest(req):
     google_query = makeSearchQuery(req)
     if google_query is None:
         return {}
-    google_query = baseurl + key + "&cx=" + cse + "&q=" + search_string + "&num=1"
+    google_query = baseurl + "key=" + key + "&cx=" + cse + "&q=" + search_string + "&num=1"
     result = urllib.request.urlopen(google_query).read()
     data = json.loads(result)
     res = makeWebhookResult(data)
@@ -54,7 +54,7 @@ def makeSearchQuery(req):
     if search_string is None:
         return None
 
-    return baseurl + key + "&cx=" + cse + "&q=" + search_string + "&num=1"
+    return baseurl + "key=" + key + "&cx=" + cse + "&q=" + search_string + "&num=1"
 
 
 def makeWebhookResult(data):
