@@ -25,7 +25,7 @@ def webhook():
     res = processRequest(req)
 
     res = json.dumps(res, indent=4)
-    # print(res)
+
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
@@ -35,13 +35,11 @@ def processRequest(req):
     if req.get("result").get("action") != "GoogleSearch":
         return {}
     baseurl = "https://www.googleapis.com/customsearch/v1?"
-    key = "AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM"
-    cse = "003066316917117435589%3Avcms6hy5lxs"
     google_query = makeSearchQuery(req)
     if google_query is None:
         return {}
-    google_query = baseurl + "key=" + key + "&cx=" + cse + "&q=" + search_string + "&num=1"
-    result = urllib.request.urlopen(google_query).read()
+    google_url = baseurl + urllib.parse.urlencode({'q': google_query})
+    result = urllib.request.urlopen(google_url).read()
     data = json.loads(result)
     res = makeWebhookResult(data)
     return res
@@ -51,10 +49,12 @@ def makeSearchQuery(req):
     result = req.get("result")
     parameters = result.get("parameters")
     search_string = parameters.get("any")
+    key = "AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM"
+    cse = "003066316917117435589%3Avcms6hy5lxs"
     if search_string is None:
         return None
 
-    return baseurl + "key=" + key + "&cx=" + cse + "&q=" + search_string + "&num=1"
+    return "key=" + key + "&cx=" + cse + "&q=" + search_string + "&num=1"
 
 
 def makeWebhookResult(data):
@@ -65,8 +65,7 @@ def makeWebhookResult(data):
     items = parsed_input.get['items']
     if items is None:
         return {}
-		
-	
+
     speech = items.get('snippet')
 
     print("Response:")
