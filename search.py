@@ -35,12 +35,12 @@ def processRequest(req):
     if req.get("result").get("action") != "GoogleSearch":
         return {}
     baseurl = "https://www.googleapis.com/customsearch/v1?"
-	KEY = "AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM"
-	CSE = "003066316917117435589%3Avcms6hy5lxs"
+	key = "AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM"
+	cse = "003066316917117435589%3Avcms6hy5lxs"
 	google_query = makeSearchQuery(req)
     if google_query is None:
         return {}
-    google_query = baseurl + KEY + "&cx=" + CSE + "&q=" + search_string + "&num=1"
+    google_query = baseurl + key + "&cx=" + cse + "&q=" + search_string + "&num=1"
     result = urllib.request.urlopen(google_query).read()
     data = json.loads(result)
     res = makeWebhookResult(data)
@@ -54,7 +54,7 @@ def makeSearchQuery(req):
     if search_string is None:
         return None
 
-    return baseurl + KEY + "&cx=" + CSE + "&q=" + search_string + "&num=1"
+    return baseurl + key + "&cx=" + cse + "&q=" + search_string + "&num=1"
 
 
 def makeWebhookResult(data):
