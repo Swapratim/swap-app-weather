@@ -39,6 +39,8 @@ def processRequest(req):
     if google_query is None:
         return {}
     google_url = baseurl + urllib.parse.urlencode({google_query})
+    print (google_url)
+    sys.stdout.flush()
     result = urllib.request.urlopen(google_url).read()
     data = json.loads(result)
     res = makeWebhookResult(data)
@@ -49,12 +51,14 @@ def makeSearchQuery(req):
     result = req.get("result")
     parameters = result.get("parameters")
     search_string = parameters.get("any")
+    print (search_string)
+    sys.stdout.flush()
     #key = "AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM"
     #cse = "003066316917117435589%3Avcms6hy5lxs"
     if search_string is None:
         return None
 
-    return "key=AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM&cx=003066316917117435589%3Avcms6hy5lxs&q='" + search_string + "'+ &num=1"
+    return "key=AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM&cx=003066316917117435589%3Avcms6hy5lxs&q='" + search_string + "'&num=1"
 
 
 def makeWebhookResult(data):
