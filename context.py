@@ -33,10 +33,10 @@ def webhook():
 
 def processRequest(req):
     if req.get("result").get("action") == "yahooWeatherForecast":
-        return redirect(app.py)
+        app.py
         print ("Redirection to yahooWeatherForecast")
     elif req.get("result").get("action") == "GoogleSearch":
-        return redirect(app.py)
+        app.py
         print ("Redirection to GoogleSearch")
     else:
         print ("Good Bye")
