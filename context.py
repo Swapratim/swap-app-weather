@@ -22,16 +22,6 @@ def webhook():
     print("Request:")
     print(json.dumps(req, indent=4))
 
-    res = processRequest(req)
-
-    res = json.dumps(res, indent=4)
-    # print(res)
-    r = make_response(res)
-    r.headers['Content-Type'] = 'application/json'
-    return r
-
-
-def processRequest(req):
     if req.get("result").get("action") == "yahooWeatherForecast":
         app.py
         print ("Redirection to yahooWeatherForecast")
@@ -40,6 +30,8 @@ def processRequest(req):
         print ("Redirection to GoogleSearch")
     else:
         print ("Good Bye")
+
+
 
 
 if __name__ == '__main__':
