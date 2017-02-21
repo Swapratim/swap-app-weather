@@ -36,7 +36,7 @@ def processRequest(req):
         app.py
         print ("Redirection to yahooWeatherForecast")
     elif req.get("result").get("action") == "GoogleSearch":
-        app.py
+        search.py
         print ("Redirection to GoogleSearch")
     else:
         print ("Good Bye")
