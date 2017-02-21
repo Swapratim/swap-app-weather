@@ -13,7 +13,7 @@ from flask import make_response
 
 # Flask app should start in global layout
 app = Flask(__name__)
-
+print ("Redirection lands to search.py")
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
