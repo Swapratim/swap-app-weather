@@ -10,15 +10,16 @@ import os
 from flask import Flask
 from flask import request
 from flask import make_response
+from context.py import req
 
 # Flask app should start in global layout
 app = Flask(__name__)
 print ("Redirection lands to app.py")
-from context.py import req
+
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    req = request.get_json(silent=True, force=True)
+    #req = request.get_json(silent=True, force=True)
 
     print("Request:")
     print(json.dumps(req, indent=4))
