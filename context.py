@@ -6,6 +6,8 @@ standard_library.install_aliases()
 import urllib.request, urllib.parse, urllib.error
 import json
 import os
+import app
+import search
 
 from flask import Flask
 from flask import request
@@ -23,10 +25,10 @@ def webhook():
     print(json.dumps(reqContext, indent=4))
     print("*******ACTION*******" + reqContext.get("result").get("action"))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
-        app.py
+        python app.py
         print ("Redirection to yahooWeatherForecast")
     elif reqContext.get("result").get("action") == "GoogleSearch":
-        search.py
+        python search.py
         print ("Redirection to GoogleSearch")
     else:
         print ("Good Bye")
