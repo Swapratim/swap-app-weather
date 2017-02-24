@@ -21,8 +21,7 @@ def webhook():
 
     print("Request:")
     print(json.dumps(reqContext, indent=4))
-    pritable_item = "*******ACTION*******" + reqContext.get("result").get("action")
-	print(pritable_item)
+    print("*******ACTION*******" + reqContext.get("result").get("action"))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
         app.py
         print ("Redirection to yahooWeatherForecast")
