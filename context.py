@@ -25,10 +25,10 @@ def webhook():
     print(json.dumps(reqContext, indent=4))
     print("*******ACTION*******" + reqContext.get("result").get("action"))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
-        python app.py
+        os.system("python app.py")
         print ("Redirection to yahooWeatherForecast")
     elif reqContext.get("result").get("action") == "GoogleSearch":
-        python search.py
+        os.system("python search.py")
         print ("Redirection to GoogleSearch")
     else:
         print ("Good Bye")
