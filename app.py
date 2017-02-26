@@ -10,14 +10,14 @@ import os
 from flask import Flask
 from flask import request
 from flask import make_response
-#from context.py import reqContext
+
 
 # Flask app should start in global layout
 app = Flask(__name__)
 print ("Redirection lands to app.py")
 
 
-@app.route('/webhook', methods=['POST'])
+#@app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
     #req = reqContext.get_json(silent=True, force=True)
@@ -44,11 +44,13 @@ def processRequest(req):
     yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
     result = urllib.request.urlopen(yql_url).read()
     data = json.loads(result)
+	print ("Before hitting makeWebhookResult function")
     res = makeWebhookResult(data)
     return res
 
 
 def makeYqlQuery(req):
+    print ("Within makeYqlQuery function")
     result = req.get("result")
     parameters = result.get("parameters")
     city = parameters.get("geo-city")
@@ -60,6 +62,8 @@ def makeYqlQuery(req):
 
 def makeWebhookResult(data):
     query = data.get('query')
+	print ("makeWebhookResult -- Result is loaded")
+	print (query)
     if query is None:
         return {}
 

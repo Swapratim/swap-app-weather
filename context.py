@@ -26,7 +26,7 @@ def webhook():
         os.system("python app.py")
         print ("Redirection to yahooWeatherForecast")
     elif reqContext.get("result").get("action") == "GoogleSearch":
-        os.system("python seaxrch.py")
+        os.system("python search.py")
         print ("Redirection to GoogleSearch")
     else:
         print ("Good Bye")
