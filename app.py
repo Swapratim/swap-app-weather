@@ -63,7 +63,6 @@ def makeYqlQuery(req):
 def makeWebhookResult(data):
     query = data.get('query')
     print ("makeWebhookResult -- Result is loaded")
-	print (query)
     if query is None:
         return {}
 
