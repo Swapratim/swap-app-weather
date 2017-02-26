@@ -15,7 +15,7 @@ from flask import make_response
 app = Flask(__name__)
 
 
-@app.route('/webhook', methods=['POST'])
+#@app.route('/webhook', methods=['POST'])
 def webhook():
     reqContext = request.get_json(silent=True, force=True)
 
@@ -23,8 +23,9 @@ def webhook():
     print(json.dumps(reqContext, indent=4))
     print("*******ACTION*******" + reqContext.get("result").get("action"))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
-        os.system("python app.py")
+        os.system("python app.py(reqContext)")
         print ("Redirection to yahooWeatherForecast")
+		
     elif reqContext.get("result").get("action") == "GoogleSearch":
         os.system("python search.py")
         print ("Redirection to GoogleSearch")
