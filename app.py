@@ -20,7 +20,7 @@ print ("Redirection lands to app.py")
 #@app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
-    print("Request:")
+    print("App.py request parameter*****:" + req)
     print(json.dumps(req, indent=4))
     print ("def webhook *****")
     res = processRequest(req)
