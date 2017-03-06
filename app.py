@@ -17,7 +17,7 @@ app = Flask(__name__)
 print ("Redirection lands to app.py")
 
 
-#@app.route('/webhook', methods=['POST'])
+@app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
     print("App.py request parameter*****:" + req)
@@ -105,4 +105,4 @@ if __name__ == '__main__':
 
     print("Starting app on port %d" % port)
 
-    #app.run(debug=False, port=port, host='0.0.0.0')
+    app.run(debug=False, port=port, host='0.0.0.0')
