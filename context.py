@@ -10,6 +10,7 @@ import os
 from flask import Flask
 from flask import request
 from flask import make_response
+from app.py import webhook
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -23,20 +24,26 @@ def webhook():
     print(json.dumps(reqContext, indent=4))
     print("*******ACTION*******" + reqContext.get("result").get("action"))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
-        return os.system('python app.py')
+        #return os.system('python app.py')
+		res = app.webhook
         print ("Redirection to yahooWeatherForecast")
 		
     elif reqContext.get("result").get("action") == "GoogleSearch":
-        return os.system('python search.py')
+        #return os.system('python search.py')
+		res = search.webhook
         print ("Redirection to GoogleSearch")
     else:
         print ("Good Bye")
 
 
+    # print(res)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
 
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 6000))
+    port = int(os.getenv('PORT', 5000))
 
     print("Starting app on port %d" % port)
 
