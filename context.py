@@ -25,6 +25,7 @@ def webhook():
     print("*******ACTION*******" + reqContext.get("result").get("action"))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
         #return os.system('python app.py')
+		from app import webhook
 		res = app.webhook(reqContext)
         print ("Redirection to yahooWeatherForecast")
 		
