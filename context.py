@@ -16,7 +16,7 @@ from flask import make_response
 context = Flask(__name__)
 
 
-@app.route('/webhook', methods=['POST'])
+@context.route('/webhook', methods=['POST'])
 def webhook():
     reqContext = request.get_json(silent=True, force=True)
 
