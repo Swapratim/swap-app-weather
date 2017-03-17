@@ -27,7 +27,7 @@ def webhook():
         #return os.system('python app.py')
         from flask import app
         app = app(reqContext)
-        return app.webhook()
+        return app.weatherhook()
         print ("Redirection to yahooWeatherForecast")
 		
     elif reqContext.get("result").get("action") == "GoogleSearch":
@@ -45,8 +45,8 @@ def webhook():
 
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 5000))
+    port = int(os.getenv('PORT', 6000))
 
     print("Starting app on port %d" % port)
 
-    app.run(debug=False, port=port, host='0.0.0.0')
+    context.run(debug=False, port=port, host='0.0.0.0')
