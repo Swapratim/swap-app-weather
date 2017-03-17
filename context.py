@@ -32,7 +32,7 @@ def webhook():
 		
     elif reqContext.get("result").get("action") == "GoogleSearch":
         #return os.system('python search.py')
-		res = search.webhook
+        res = search.webhook
         print ("Redirection to GoogleSearch")
     else:
         print ("Good Bye")
