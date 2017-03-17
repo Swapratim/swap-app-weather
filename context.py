@@ -27,6 +27,7 @@ def webhook():
         #return os.system('python app.py')
         from flask import app
         app = app(reqContext)
+		res = app.weatherhook()
         return app.weatherhook()
         print ("Redirection to yahooWeatherForecast")
 		
