@@ -12,32 +12,8 @@ from flask import request
 from flask import make_response
 
 
-# Flask app should start in global layout
-app = Flask(__name__)
-print ("Redirection lands to app.py")
-
-
-#@app.route('/webhook', methods=['POST'])
-def weatherhook():
-    req = request.get_json(silent=True, force=True)
-    #req = reqContext.get_json(silent=True, force=True)
-    print("Request:")
-    print(json.dumps(req, indent=4))
-    print ("def webhook *****")
-    res = processRequest(req)
-
-    res = json.dumps(res, indent=4)
-    # print(res)
-    r = make_response(res)
-    r.headers['Content-Type'] = 'application/json'
-    print (r)
-	return r
-
-
 def processRequest(req):
-    if req.get("result").get("action") != "yahooWeatherForecast":
-        return {}
-    print ("def processRequest *****" + req.get("result").get("action"))
+    print ("*******Within processRequest function within App")
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
     yql_query = makeYqlQuery(req)
     if yql_query is None:
@@ -101,8 +77,3 @@ def makeWebhookResult(data):
         "source": "apiai-weather-webhook-sample"
     }
 
-
-#if __name__ == '__main__':
-#    port = int(os.getenv('PORT', 5000))
-#    print("Starting app on port %d" % port)
-#    app.run(debug=False, port=port, host='0.0.0.0')

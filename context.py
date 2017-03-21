@@ -24,7 +24,7 @@ def webhook():
     print(json.dumps(reqContext, indent=4))
     print("*******ACTION*******" + reqContext.get("result").get("action"))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
-        #return os.system('python app.py')
+        print ("Before going to app.py")
         from flask import app
         app = app()
         result = app.processRequest(reqContext)
@@ -39,14 +39,8 @@ def webhook():
         print ("Good Bye")
 
 
-    # print(res)
-    #r = make_response(res)
-    #res.headers['Content-Type'] = 'application/json'
-    #return res
-
-
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 6000))
+    port = int(os.getenv('PORT', 5000))
 
     print("Starting app on port %d" % port)
 
