@@ -17,8 +17,8 @@ app = Flask(__name__)
 print ("Redirection lands to app.py")
 
 
-@app.route('/webhook', methods=['POST'])
-def webhook():
+#@app.route('/webhook', methods=['POST'])
+def weatherhook():
     req = request.get_json(silent=True, force=True)
     #req = reqContext.get_json(silent=True, force=True)
     print("Request:")
@@ -30,7 +30,8 @@ def webhook():
     # print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
-    return r
+    print (r)
+	return r
 
 
 def processRequest(req):
@@ -101,7 +102,7 @@ def makeWebhookResult(data):
     }
 
 
-if __name__ == '__main__':
-    port = int(os.getenv('PORT', 5000))
-    print("Starting app on port %d" % port)
-    app.run(debug=False, port=port, host='0.0.0.0')
+#if __name__ == '__main__':
+#    port = int(os.getenv('PORT', 5000))
+#    print("Starting app on port %d" % port)
+#    app.run(debug=False, port=port, host='0.0.0.0')
