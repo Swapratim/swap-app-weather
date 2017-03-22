@@ -11,6 +11,8 @@ from flask import Flask
 from flask import request
 from flask import make_response
 
+# Flask app should start in global layout
+app = Flask(__name__)
 
 def processRequest(req):
     print ("*******Within processRequest function within App")
@@ -23,6 +25,8 @@ def processRequest(req):
     data = json.loads(result)
     print ("Before hitting makeWebhookResult function")
     res = makeWebhookResult(data)
+    print ("Printing the res::::::::::::")
+    print (res)
     return res
 
 
@@ -77,3 +81,5 @@ def makeWebhookResult(data):
         "source": "apiai-weather-webhook-sample"
     }
 
+if __name__ == '__main__':
+    processRequest(req)
