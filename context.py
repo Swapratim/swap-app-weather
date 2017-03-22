@@ -26,12 +26,10 @@ def webhook():
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
         print ("Before going to app.py")
         import app
-        print ("111111111111111")
-        #app = app()
-        print ("222222222222222")
+        print ("app imported successfully")
         result = app.processRequest(reqContext)
-        print ("333333333333333")
-        print(result)
+        print ("Weather information updated and result assigned to RESULT variable")
+        print("¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤" + result)
         
 		
     elif reqContext.get("result").get("action") == "GoogleSearch":
