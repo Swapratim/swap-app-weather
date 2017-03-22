@@ -14,6 +14,22 @@ from flask import make_response
 # Flask app should start in global layout
 app = Flask(__name__)
 
+def weatherhook():
+    req = request.get_json(silent=True, force=True)
+    print("Request:")
+    print(json.dumps(req, indent=4))
+    print ("def webhook *****")
+    res = processRequest(req)
+
+    res = json.dumps(res, indent=4)
+    # print(res)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    print ("Printing the res::::::::::::")
+    print (r)
+    return r
+	
+	
 def processRequest(req):
     print ("*******Within processRequest function within App")
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
