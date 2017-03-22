@@ -32,7 +32,7 @@ def weatherhook():
     r.headers['Content-Type'] = 'application/json'
     print ("Printing the res::::::::::::")
     print (r)
-	return r
+    return r
 
 
 def processRequest(req):
