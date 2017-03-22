@@ -27,7 +27,7 @@ def webhook():
         print ("Before going to app.py")
         import app
         print ("app imported successfully")
-        result = app.weatherhook(reqContext)
+        result = app.weatherhook()
         print ("Weather information updated and result assigned to RESULT variable")
         print("Before printing the result")
         print (result)
