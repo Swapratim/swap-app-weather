@@ -26,10 +26,13 @@ def webhook():
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
         print ("Before going to app.py")
         from flask import app
+        print ("111111111111111")
         app = app()
+        print ("222222222222222")
         result = app.processRequest(reqContext)
+        print ("333333333333333")
         print(result)
-        print ("Redirection to yahooWeatherForecast")
+        
 		
     elif reqContext.get("result").get("action") == "GoogleSearch":
         #return os.system('python search.py')
