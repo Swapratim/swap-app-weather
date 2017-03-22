@@ -29,15 +29,8 @@ def webhook():
         print ("app imported successfully")
         result = app.weatherhook()
         print ("Weather information updated and result assigned to RESULT variable")
-        print("Before printing the result")
-        print (result)
-        return {
-        "speech": speech,
-        "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
-    }
+        print ("!!!!!!!!!!!" + result)
+        
 		
     elif reqContext.get("result").get("action") == "GoogleSearch":
         #return os.system('python search.py')
