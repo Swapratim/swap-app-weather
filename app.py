@@ -14,6 +14,7 @@ from flask import make_response
 # Flask app should start in global layout
 app = Flask(__name__)
 
+@context.route('/webhook', methods=['POST'])
 def weatherhook():
     req = request.get_json(silent=True, force=True)
     print("Request:")
@@ -39,7 +40,6 @@ def processRequest(req):
     data = json.loads(result)
     print ("Before hitting makeWebhookResult function")
     res = makeWebhookResult(data)
-    print ("Printing the res::::::::::::")
     print (res)
     return res
 
