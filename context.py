@@ -10,11 +10,11 @@ import os
 from flask import Flask
 from flask import request
 from flask import make_response
-from app import weatherhook
+
 
 # Flask app should start in global layout
 context = Flask(__name__)
-
+from app import weatherhook
 
 @context.route('/webhook', methods=['POST'])
 def webhook():
