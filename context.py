@@ -8,7 +8,7 @@ import json
 import os
 
 from flask import Flask
-from flask import request
+from flask import request, render_template
 from flask import make_response
 
 
@@ -27,7 +27,8 @@ def webhook():
         print ("Before going to weather.py")
         from weather import *
         print ("weather imported successfully")
-        result = weather.weatherhook()
+        WeatherObj = weather()
+        result = WeatherObj.weatherhook()
         print ("Weather information updated and result assigned to RESULT variable")
         print ("!!!!!!!!!!!" + result)
         return result
