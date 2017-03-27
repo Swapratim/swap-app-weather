@@ -27,7 +27,7 @@ def webhook():
         print ("Before going to app.py")
         from flask import app
         print ("app imported successfully")
-        result = app.weatherhook()
+        result = app.weatherhook(reqContext)
         print ("Weather information updated and result assigned to RESULT variable")
         print ("!!!!!!!!!!!" + result)
         
