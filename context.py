@@ -25,7 +25,7 @@ def webhook():
     print("*******ACTION*******" + reqContext.get("result").get("action"))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
         print ("Before going to app.py")
-        import app
+        from flask import app
         print ("app imported successfully")
         result = app.weatherhook()
         print ("Weather information updated and result assigned to RESULT variable")
