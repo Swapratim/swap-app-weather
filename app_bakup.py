@@ -29,6 +29,7 @@ def weatherhook():
     print("Second res:::")
     print (res)
     r = make_response(res)
+    print (r)
     r.headers['Content-Type'] = 'application/json'
     print ("Printing the res::::::::::::")
     print (r)
