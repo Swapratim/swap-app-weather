@@ -23,9 +23,11 @@ def weatherhook():
     print("Request:")
     print ("def weatherhook *****")
     res = processRequest(req)
-
+    print ("First res::::")
+    print (res)
     res = json.dumps(res, indent=4)
-    # print(res)
+    print("Second res:::")
+    print (res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     print ("Printing the res::::::::::::")
