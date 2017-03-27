@@ -12,11 +12,11 @@ from flask import request
 from flask import make_response
 
 
-# Flask app should start in global layout
-app = Flask(__name__)
+# Flask weather should start in global layout
+context = Flask(__name__)
 
 
-@app.route('/webhook', methods=['POST'])
+@context.route('/webhook', methods=['POST'])
 def webhook():
     reqContext = request.get_json(silent=True, force=True)
 
@@ -24,13 +24,13 @@ def webhook():
     print(json.dumps(reqContext, indent=4))
     print("*******ACTION*******" + reqContext.get("result").get("action"))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
-        print ("Before going to app.py")
-        from app import weatherhook
-        print ("app imported successfully")
-        result = app.weatherhook()
+        print ("Before going to weather.py")
+        from weather import weatherhook
+        print ("weather imported successfully")
+        result = weather.weatherhook()
         print ("Weather information updated and result assigned to RESULT variable")
         print ("!!!!!!!!!!!" + result)
-        
+        return result
 		
     elif reqContext.get("result").get("action") == "GoogleSearch":
         #return os.system('python search.py')
@@ -43,6 +43,6 @@ def webhook():
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
-    print("Starting app on port %d" % port)
+    print("Starting weather on port %d" % port)
 
-    app.run(debug=True, port=port, host='0.0.0.0')
+    context.run(debug=True, port=port, host='0.0.0.0')
