@@ -10,7 +10,7 @@ import os
 from flask import Flask
 from flask import request
 from flask import make_response
-
+from app import weatherhook
 
 # Flask app should start in global layout
 context = Flask(__name__)
@@ -25,9 +25,9 @@ def webhook():
     print("*******ACTION*******" + reqContext.get("result").get("action"))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
         print ("Before going to app.py")
-        from flask import app
+        
         print ("app imported successfully")
-        result = app.weatherhook(reqContext)
+        result = app.weatherhook()
         print ("Weather information updated and result assigned to RESULT variable")
         print ("!!!!!!!!!!!" + result)
         
