@@ -25,10 +25,11 @@ def webhook():
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
         weatherObj = Weather()
         print ("app_one_method imported successfully")
-        result = weatherObj.weatherhook()
+        #result = weatherObj.weatherhook()
         print ("Weather information updated and result assigned to RESULT variable")
         print ("!!!!!!!!!!!" + result)
-        return result
+        #return result
+        print weatherObj.weatherhook()
 		
     elif reqContext.get("result").get("action") == "GoogleSearch":
         #return os.system('python search.py')
