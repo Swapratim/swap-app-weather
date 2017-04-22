@@ -20,7 +20,6 @@ context = Flask(__name__)
 def webhook():
     reqContext = request.get_json(silent=True, force=True)
 
-    print("Request:")
     print(json.dumps(reqContext, indent=4))
     print("*******ACTION*******" + reqContext.get("result").get("action"))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
