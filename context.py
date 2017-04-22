@@ -23,7 +23,7 @@ class Main():
     print(json.dumps(reqContext, indent=4))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
        from Weather import *
-	   weatherClass = Weather()	
+       weatherClass = Weather()	
        weatherClass.weatherhook()
     elif reqContext.get("result").get("action") == "GoogleSearch":
        res = search.webhook
