@@ -34,7 +34,7 @@ def weatherhook():
     result = urllib.request.urlopen(yql_url).read()
     data = json.loads(result)
     print ("Before hitting makeWebhookResult function")
-    res = makeWebhookResult(data)
+    #res = makeWebhookResult(data)
     ############################################################
     query = data.get('query')
     print ("makeWebhookResult -- Result is loaded")
@@ -67,6 +67,7 @@ def weatherhook():
     print("Response:")
     print(speech)
     ##############################################################
+    res = speech
     print ("First res::::")
     print (res)
     res = json.dumps(res, indent=4)
