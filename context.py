@@ -37,8 +37,8 @@ def webhook():
     else:
         print ("Good Bye")
 
-class Weather:
-def weatherhook():
+class Weather():
+  def weatherhook():
     req = request.get_json(silent=True, force=True)
     #res = processRequest(req)#################################
     if req.get("result").get("action") != "yahooWeatherForecast":
