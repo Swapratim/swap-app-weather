@@ -17,10 +17,18 @@ context = Flask(__name__)
 
 
 @context.route('/webhook', methods=['POST'])
+class Main:
+  def webhook():
     reqContext = request.get_json(silent=True, force=True)
-    weatherObj = Weather()	
-    print weatherObj.weatherhook
-    
+    print(json.dumps(reqContext, indent=4))
+    if reqContext.get("result").get("action") == "yahooWeatherForecast":
+       weatherObj = Weather()	
+       print weatherObj.weatherhook
+    elif reqContext.get("result").get("action") == "GoogleSearch":
+       res = search.webhook
+       print ("Redirection to GoogleSearch")
+    else:
+       print ("Good Bye")
 
 class Weather():
   def weatherhook:
