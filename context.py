@@ -22,7 +22,6 @@ class Main():
     reqContext = request.get_json(silent=True, force=True)
     print(json.dumps(reqContext, indent=4))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
-       from Weather import *
        weatherClass = Weather()	
        weatherClass.weatherhook()
     elif reqContext.get("result").get("action") == "GoogleSearch":
