@@ -31,7 +31,7 @@ class Main:
        print ("Good Bye")
 
 class Weather():
-  def weatherhook:
+  def weatherhook(self):
     req = request.get_json(silent=True, force=True)
     #res = processRequest(req)#################################
     if req.get("result").get("action") != "yahooWeatherForecast":
