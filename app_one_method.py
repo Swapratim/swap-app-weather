@@ -17,7 +17,7 @@ app = Flask(__name__)
 print ("Redirection lands to app_bakup.py")
 
 
-@app.route('/webhook', methods=['POST'])
+@app.route('/webhook/context/', methods=['POST'])
 def weatherhook():
     req = request.get_json(silent=True, force=True)
     #res = processRequest(req)#################################

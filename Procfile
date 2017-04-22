@@ -1,1 +1,1 @@
-web: python app_one_method.py
+web: python context.py
