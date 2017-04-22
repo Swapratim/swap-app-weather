@@ -23,7 +23,7 @@ class Main:
     print(json.dumps(reqContext, indent=4))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
        weather = Weather()	
-       print weather.weatherhook
+       weather.weatherhook()
     elif reqContext.get("result").get("action") == "GoogleSearch":
        res = search.webhook
        print ("Redirection to GoogleSearch")
