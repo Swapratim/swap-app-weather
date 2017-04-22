@@ -24,10 +24,8 @@ def webhook():
     print(json.dumps(reqContext, indent=4))
     print("*******ACTION*******" + reqContext.get("result").get("action"))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
-        print ("Before going to app_one_method.py")
-        from app_one_method import *
-        print ("app_one_method imported successfully")
         weatherObj = app_one_method()
+        print ("app_one_method imported successfully")
         result = weatherObj.weatherhook()
         print ("Weather information updated and result assigned to RESULT variable")
         print ("!!!!!!!!!!!" + result)
