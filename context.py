@@ -17,7 +17,7 @@ context = Flask(__name__)
 
 
 @context.route('/webhook', methods=['POST'])
-class Main():
+
   def webhook():
     reqContext = request.get_json(silent=True, force=True)
     print(json.dumps(reqContext, indent=4))
@@ -105,7 +105,7 @@ class Weather():
 
 
 
-#if __name__ == '__main__':
+if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
     print("Starting weather on port %d" % port)
