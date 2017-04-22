@@ -20,8 +20,6 @@ print ("Redirection lands to app_bakup.py")
 @app.route('/webhook', methods=['POST'])
 def weatherhook():
     req = request.get_json(silent=True, force=True)
-    print("Request:")
-    print ("def weatherhook *****")
     #res = processRequest(req)#################################
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
@@ -37,7 +35,7 @@ def weatherhook():
     #res = makeWebhookResult(data)
     ############################################################
     query = data.get('query')
-    print ("makeWebhookResult -- Result is loaded")
+    print (query)
     if query is None:
         return {}
 
@@ -67,7 +65,11 @@ def weatherhook():
     print("Response:")
     print(speech)
     ##############################################################
-    res = speech
+    res = {"speech": speech,
+           "displayText": speech,
+           # "data": data,
+           # "contextOut": [],
+           "source": "apiai-weather-webhook-sample"}
     print ("First res::::")
     print (res)
     res = json.dumps(res, indent=4)
