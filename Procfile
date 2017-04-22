@@ -1,1 +1,1 @@
-web: python app_bakup.py
+web: python app_one_method.py
