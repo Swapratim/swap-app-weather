@@ -36,7 +36,7 @@ def weatherhook():
     print ("Before hitting makeWebhookResult function")
     res = makeWebhookResult(data)
     ############################################################
-	query = data.get('query')
+    query = data.get('query')
     print ("makeWebhookResult -- Result is loaded")
     if query is None:
         return {}
