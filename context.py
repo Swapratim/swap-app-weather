@@ -17,7 +17,7 @@ context = Flask(__name__)
 
 
 @context.route('/webhook', methods=['POST'])
-  global reqContext = request.get_json(silent=True, force=True)
+    reqContext = request.get_json(silent=True, force=True)
     weatherObj = Weather()	
     print weatherObj.weatherhook
     
