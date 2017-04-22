@@ -22,8 +22,8 @@ class Main:
     reqContext = request.get_json(silent=True, force=True)
     print(json.dumps(reqContext, indent=4))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
-       weatherObj = Weather()	
-       print weatherObj.weatherhook
+       weather = Weather()	
+       print weather.weatherhook
     elif reqContext.get("result").get("action") == "GoogleSearch":
        res = search.webhook
        print ("Redirection to GoogleSearch")
