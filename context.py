@@ -39,7 +39,15 @@ class Weather():
         return {}
     print ("def processRequest *****" + req.get("result").get("action"))
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    yql_query = makeYqlQuery(req)
+    #yql_query = makeYqlQuery(req)
+    ###########################################################
+    result = req.get("result")
+    parameters = result.get("parameters")
+    city = parameters.get("geo-city")
+    if city is None:
+        return None
+    yql_query = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "') and u='c'"
+    ###########################################################
     if yql_query is None:
         return {}
     yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
@@ -98,18 +106,7 @@ class Weather():
 
 
 
-def makeYqlQuery(req):
-    print ("Within makeYqlQuery function")
-    result = req.get("result")
-    parameters = result.get("parameters")
-    city = parameters.get("geo-city")
-    if city is None:
-        return None
-
-    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "') and u='c'"
-
-
-if __name__ == '__main__':
+#if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
     print("Starting weather on port %d" % port)
