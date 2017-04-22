@@ -24,7 +24,7 @@ class Main:
     print(json.dumps(reqContext, indent=4))
     print("*******ACTION*******" + reqContext.get("result").get("action"))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
-        weatherObj = Weather
+        weatherObj = Weather()	
         #result = weatherObj.weatherhook()
         #return result
         print weatherObj.weatherhook
@@ -36,8 +36,8 @@ class Main:
     else:
         print ("Good Bye")
 
-class Weather:
-  def weatherhook(reqContext):
+class Weather():
+  def weatherhook:
     req = request.get_json(silent=True, force=True)
     #res = processRequest(req)#################################
     if req.get("result").get("action") != "yahooWeatherForecast":
