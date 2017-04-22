@@ -6,7 +6,6 @@ standard_library.install_aliases()
 import urllib.request, urllib.parse, urllib.error
 import json
 import os
-import app_one_method
 
 from flask import Flask
 from flask import request, render_template
