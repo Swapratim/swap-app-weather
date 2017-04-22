@@ -27,8 +27,8 @@ def webhook():
         print ("Before going to app_one_method.py")
         from app_one_method import *
         print ("app_one_method imported successfully")
-        WeatherObj = app_one_method()
-        result = WeatherObj.weatherhook()
+        weatherObj = app_one_method()
+        result = weatherObj.weatherhook()
         print ("Weather information updated and result assigned to RESULT variable")
         print ("!!!!!!!!!!!" + result)
         return result
