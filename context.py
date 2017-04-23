@@ -105,7 +105,7 @@ def searchhook():
     print(search_string)
     if search_string is None:
         return None
-    google_query = "key=AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM&cx=003066316917117435589%3Avcms6hy5lxs&q='" + search_string + "'&num=1"
+    google_query = "key=AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM&cx=003066316917117435589%3Avcms6hy5lxs&q=" + search_string + "&num=1"
     ###########################################################
     if google_query is None:
         return {}
