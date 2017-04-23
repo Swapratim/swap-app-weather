@@ -92,7 +92,8 @@ def weatherhook():
 
 
 def searchhook():
-    req = request.get_json(silent=True, force=True)
+    req1 = request.get_json(silent=True, force=True)
+    req = json.dumps(req1).strip()
     print("Within Search function......!!")
     baseurl = "https://www.googleapis.com/customsearch/v1?"
     ###########################################################
