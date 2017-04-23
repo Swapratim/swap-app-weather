@@ -92,15 +92,13 @@ def weatherhook():
 
 def searchhook():
     req = request.get_json(silent=True, force=True)
-    if req.get("result").get("action") != "GoogleSearch":
-        return {}
+    print ("Within Search function......!!")
     baseurl = "https://www.googleapis.com/customsearch/v1?"
     ###########################################################
     result = req.get("result")
     parameters = result.get("parameters")
     search_string = parameters.get("any")
     print (search_string)
-    sys.stdout.flush()
     if search_string is None:
         return None
     google_query = "key=AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM&cx=003066316917117435589%3Avcms6hy5lxs&q='" + search_string + "'&num=1"
@@ -108,8 +106,10 @@ def searchhook():
     if google_query is None:
         return {}
     google_url = baseurl + urllib.parse.urlencode({google_query})
+    print ("google_url::::"+google_url)
     result = urllib.request.urlopen(google_url).read()
     data = json.loads(result)
+    print ("data::::"+data)
     ############################################################
     parsed_input = data.get('query')
     if parsed_input is None:
@@ -137,6 +137,6 @@ def searchhook():
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
-    print("Starting weather on port %d" % port)
+    print("Starting context on port %d" % port)
 
     context.run(debug=True, port=port, host='0.0.0.0')
