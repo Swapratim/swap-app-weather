@@ -99,7 +99,7 @@ def searchhook():
     result = req.get("result")
     parameters = result.get("parameters")
     search_list0 = parameters.get("any")
-    search_u_string_removed = [str(i) for i in search_array]
+    search_u_string_removed = [str(i) for i in search_list0]
     search_list1 = str(search_u_string_removed)
     search_string = ''.join(str(e) for e in search_list1)
     print(search_string)
