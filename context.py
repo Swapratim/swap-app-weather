@@ -21,10 +21,9 @@ def webhook():
     reqContext = request.get_json(silent=True, force=True)
     print(json.dumps(reqContext, indent=4))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
-       #weatherClass = Weather()	
        return weatherhook()
     elif reqContext.get("result").get("action") == "GoogleSearch":
-       res = search.webhook
+       return searchhook()
        print ("Redirection to GoogleSearch")
     else:
        print ("Good Bye")
@@ -32,12 +31,9 @@ def webhook():
 
 def weatherhook():
     req = request.get_json(silent=True, force=True)
-    #res = processRequest(req)#################################
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
-    print ("def processRequest *****" + req.get("result").get("action"))
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    #yql_query = makeYqlQuery(req)
     ###########################################################
     result = req.get("result")
     parameters = result.get("parameters")
@@ -51,8 +47,6 @@ def weatherhook():
     yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
     result = urllib.request.urlopen(yql_url).read()
     data = json.loads(result)
-    print ("Before hitting makeWebhookResult function")
-    #res = makeWebhookResult(data)
     ############################################################
     query = data.get('query')
     print (query)
@@ -90,19 +84,55 @@ def weatherhook():
            # "data": data,
            # "contextOut": [],
            "source": "apiai-weather-webhook-sample"}
-    print ("First res::::")
-    print (res)
     res = json.dumps(res, indent=4)
-    print("Second res:::")
-    print (res)
     r = make_response(res)
-    print (r)
     r.headers['Content-Type'] = 'application/json'
-    print ("Printing the res::::::::::::")
-    print (r)
     return r
 
 
+def searchhook():
+    req = request.get_json(silent=True, force=True)
+    if req.get("result").get("action") != "GoogleSearch":
+        return {}
+    baseurl = "https://www.googleapis.com/customsearch/v1?"
+    ###########################################################
+    result = req.get("result")
+    parameters = result.get("parameters")
+    search_string = parameters.get("any")
+    print (search_string)
+    sys.stdout.flush()
+    if search_string is None:
+        return None
+    google_query = "key=AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM&cx=003066316917117435589%3Avcms6hy5lxs&q='" + search_string + "'&num=1"
+    ###########################################################
+    if google_query is None:
+        return {}
+    google_url = baseurl + urllib.parse.urlencode({google_query})
+    result = urllib.request.urlopen(google_url).read()
+    data = json.loads(result)
+    ############################################################
+    parsed_input = data.get('query')
+    if parsed_input is None:
+        return {}
+
+    items = parsed_input.get['items']
+    if items is None:
+        return {}
+
+    speech = items.get('snippet')
+
+    print("Response:")
+    print(speech)
+##############################################################
+    res = {"speech": speech,
+           "displayText": speech,
+           # "data": data,
+           # "contextOut": [],
+           "source": "apiai-seach-webhook-by-swapratim"}
+    res = json.dumps(res, indent=4)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
