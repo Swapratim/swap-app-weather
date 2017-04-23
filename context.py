@@ -110,8 +110,8 @@ def searchhook():
     ###########################################################
     if google_query is None:
         return {}
-    google_url = baseurl + urllib.parse.urlencode({google_query})
-    #google_url = baseurl + google_query
+    #google_url = baseurl + urllib.parse.urlencode({google_query})
+    google_url = baseurl + google_query
     print("google_url::::"+google_url)
     result = urllib.request.urlopen(google_url).read()
     data = json.loads(result)
