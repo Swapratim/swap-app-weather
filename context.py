@@ -23,7 +23,7 @@ def webhook():
     print(reqContext.get("result").get("action"))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
        return weatherhook()
-    elif reqContext.get("result").get("action") == "GoogleSearch":
+    if reqContext.get("result").get("action") == "GoogleSearch":
        print("Within ELIF block after search string validation as of GoogleSearch")
        return searchhook()
        print("Redirection to GoogleSearch")
@@ -51,7 +51,6 @@ def weatherhook():
     data = json.loads(result)
     ############################################################
     query = data.get('query')
-    print (query)
     if query is None:
         return {}
 
