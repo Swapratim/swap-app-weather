@@ -20,13 +20,15 @@ context = Flask(__name__)
 def webhook():
     reqContext = request.get_json(silent=True, force=True)
     print(json.dumps(reqContext, indent=4))
+    print(reqContext.get("result").get("action"))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
        return weatherhook()
     elif reqContext.get("result").get("action") == "GoogleSearch":
+       print("Within ELIF block after search string validation as of GoogleSearch")
        return searchhook()
-       print ("Redirection to GoogleSearch")
+       print("Redirection to GoogleSearch")
     else:
-       print ("Good Bye")
+       print("Good Bye")
 
 
 def weatherhook():
@@ -92,13 +94,13 @@ def weatherhook():
 
 def searchhook():
     req = request.get_json(silent=True, force=True)
-    print ("Within Search function......!!")
+    print("Within Search function......!!")
     baseurl = "https://www.googleapis.com/customsearch/v1?"
     ###########################################################
     result = req.get("result")
     parameters = result.get("parameters")
     search_string = parameters.get("any")
-    print (search_string)
+    print(search_string)
     if search_string is None:
         return None
     google_query = "key=AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM&cx=003066316917117435589%3Avcms6hy5lxs&q='" + search_string + "'&num=1"
@@ -106,10 +108,10 @@ def searchhook():
     if google_query is None:
         return {}
     google_url = baseurl + urllib.parse.urlencode({google_query})
-    print ("google_url::::"+google_url)
+    print("google_url::::"+google_url)
     result = urllib.request.urlopen(google_url).read()
     data = json.loads(result)
-    print ("data::::"+data)
+    print("data::::"+data)
     ############################################################
     parsed_input = data.get('query')
     if parsed_input is None:
@@ -136,7 +138,5 @@ def searchhook():
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
-
-    print("Starting context on port %d" % port)
-
+    print("Starting APPLICATION on port %d" % port)
     context.run(debug=True, port=port, host='0.0.0.0')
