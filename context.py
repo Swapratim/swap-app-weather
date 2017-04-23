@@ -101,7 +101,7 @@ def searchhook():
     search_list0 = parameters.get("any")
     search_u_string_removed = [str(i) for i in search_list0]
     search_list1 = str(search_u_string_removed)
-    search_string = ''.join(search_list1)
+    search_string = search_list1.strip('[]')
     print(search_string)
     if search_string is None:
         return None
