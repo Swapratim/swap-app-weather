@@ -118,14 +118,14 @@ def searchhook():
     data = json.loads(result)
     print ("data = json.loads(result)")
     ############################################################
-    parsed_input = data.get('query')
+    parsed_input = json.dumps('data')
     if parsed_input is None:
         return {}
-
+    print(parsed_input)
     items = parsed_input.get['items']
     if items is None:
         return {}
-
+    print(items)
     speech = items.get('snippet')
 
     print("Response:")
