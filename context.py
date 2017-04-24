@@ -129,8 +129,8 @@ def searchhook():
     #    print items['snippet']
     #print(items)
 
-    ourResult = data['items'][0]['snippet'].encode('utf-8').strip()
-    print(ourResult)
+    speech = data['items'][0]['snippet'].encode('utf-8').strip()
+    print(speech)
     #speech = items.get('snippet')
 
     print("Response:")
