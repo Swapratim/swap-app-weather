@@ -4,7 +4,7 @@ from __future__ import print_function
 from future import standard_library
 standard_library.install_aliases()
 import urllib.request, urllib.parse, urllib.error
-import json
+import json, requests
 import os
 
 from flask import Flask
@@ -122,10 +122,12 @@ def searchhook():
     if result is None:
         return {}
     print(result)
-    items = result.get['items']
-    if items is None:
-        return {}
-    print(items)
+    #items = result.get['items']
+    #if items is None:
+    #    return {}
+    for items in result['items']:
+        print items['snippet']
+    #print(items)
     speech = items.get('snippet')
 
     print("Response:")
