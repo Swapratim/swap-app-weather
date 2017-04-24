@@ -102,7 +102,7 @@ def searchhook():
     search_u_string_removed = [str(i) for i in search_list0]
     search_list1 = str(search_u_string_removed)
     search_string = search_list1.strip('[]')
-    print(search_string)
+    #print(search_string)
     search_string_ascii = search_string.encode('ascii')
     if search_string_ascii is None:
         return None
@@ -118,21 +118,7 @@ def searchhook():
     data = json.loads(result)
     print ("data = json.loads(result)")
     ############################################################
-    #resultset = json.dumps('data')
-    #if resultset is None:
-    #    return {}
-    #print(resultset)
-    #items = result.get['items']
-    #if items is None:
-    #    return {}
-    #for items in resultset['items']:
-    #    print items['snippet']
-    #print(items)
-
     speech = data['items'][0]['snippet'].encode('utf-8').strip()
-    print(speech)
-    #speech = items.get('snippet')
-
     print("Response:")
     print(speech)
 ##############################################################
