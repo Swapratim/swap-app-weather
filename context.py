@@ -130,9 +130,8 @@ def searchhook():
     #    print items['snippet']
     #print(items)
 
-    ourResult = data['items'][0]
-    for rs in ourResult:
-        print rs['snippet']
+    ourResult = data['items'][5]['snippet']
+    print(ourResult)
     #speech = items.get('snippet')
 
     print("Response:")
