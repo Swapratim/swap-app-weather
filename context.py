@@ -115,7 +115,7 @@ def searchhook():
     print("google_url::::"+google_url)
     result = urllib.request.urlopen(google_url).read()
     print (result)
-    data = json.load(result)
+    data = json.loads(result)
     print ("data = json.loads(result)")
     ############################################################
     #resultset = json.dumps('data')
