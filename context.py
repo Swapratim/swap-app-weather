@@ -24,9 +24,7 @@ def webhook():
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
        return weatherhook()
     elif reqContext.get("result").get("action") == "GoogleSearch":
-       print("Within ELIF block after search string validation as of GoogleSearch")
        return searchhook()
-       print("Redirection to GoogleSearch")
     else:
        print("Good Bye")
 
@@ -101,8 +99,10 @@ def searchhook():
     search_list0 = parameters.get("any")
     search_u_string_removed = [str(i) for i in search_list0]
     search_list1 = str(search_u_string_removed)
-    search_string = search_list1.strip('[]')
-    #print(search_string)
+    cumulative_string = search_list1.strip('[]')
+    for i in cumulative_string:
+        search_string = '&'.join([i])
+    print(search_string)
     search_string_ascii = search_string.encode('ascii')
     if search_string_ascii is None:
         return None
