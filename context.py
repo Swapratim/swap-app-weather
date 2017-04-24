@@ -4,7 +4,7 @@ from __future__ import print_function
 from future import standard_library
 standard_library.install_aliases()
 import urllib.request, urllib.parse, urllib.error
-import json, requests
+import json
 import os
 
 from flask import Flask
