@@ -113,22 +113,27 @@ def searchhook():
     #google_url = baseurl + urllib.parse.urlencode({google_query})
     google_url = baseurl + google_query
     print("google_url::::"+google_url)
-    result = urllib.request.urlopen(google_url).read()
+    #result = urllib.request.urlopen(google_url).read()
+    result = requests.get(google_url)
     print (result)
-    data = json.loads(result)
+    data = json.load(result)
     print ("data = json.loads(result)")
     ############################################################
-    result = json.dumps('data')
-    if result is None:
-        return {}
-    print(result)
+    #resultset = json.dumps('data')
+    #if resultset is None:
+    #    return {}
+    #print(resultset)
     #items = result.get['items']
     #if items is None:
     #    return {}
-    for items in result['items']:
-        print items['snippet']
+    #for items in resultset['items']:
+    #    print items['snippet']
     #print(items)
-    speech = items.get('snippet')
+
+    ourResult = data['items'][0]
+    for rs in ourResult:
+        print rs['snippet']
+    #speech = items.get('snippet')
 
     print("Response:")
     print(speech)
