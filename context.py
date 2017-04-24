@@ -117,7 +117,7 @@ def searchhook():
     data = json.loads(result)
     print ("data = json.loads(result)")
     ############################################################
-    speech = data['items'][0]['snippet'].encode('utf-8').strip()
+    speech = data['items'][0]['htmlSnippet'].encode('utf-8').strip()
     print("Response:")
     print(speech)
 ##############################################################
