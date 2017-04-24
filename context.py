@@ -129,7 +129,7 @@ def searchhook():
     #    print items['snippet']
     #print(items)
 
-    ourResult = data['items'][5]['snippet']
+    ourResult = data['items'][0]['snippet']
     print(ourResult)
     #speech = items.get('snippet')
 
