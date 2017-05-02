@@ -37,20 +37,20 @@ def weatherhook():
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    ###########################################################
+###########################################################
     result = req.get("result")
     parameters = result.get("parameters")
     city = parameters.get("geo-city")
     if city is None:
         return None
     yql_query = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "') and u='c'"
-    ###########################################################
+###########################################################
     if yql_query is None:
         return {}
     yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
     result = urllib.request.urlopen(yql_url).read()
     data = json.loads(result)
-    ############################################################
+############################################################
     query = data.get('query')
     if query is None:
         return {}
@@ -73,18 +73,12 @@ def weatherhook():
     if condition is None:
         return {}
 
-    # print(json.dumps(item, indent=4))
-
     speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
              ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
-
-    print("Response:")
     print(speech)
-    ##############################################################
+##############################################################
     res = {"speech": speech,
            "displayText": speech,
-           # "data": data,
-           # "contextOut": [],
            "source": "apiai-weather-webhook-sample"}
     res = json.dumps(res, indent=4)
     r = make_response(res)
@@ -96,7 +90,7 @@ def searchhook():
     req = request.get_json(silent=True, force=True)
     print("Within Search function......!!")
     baseurl = "https://www.googleapis.com/customsearch/v1?"
-    ###########################################################
+###########################################################
     result = req.get("result")
     parameters = result.get("parameters")
     search_list0 = parameters.get("any")
@@ -109,7 +103,7 @@ def searchhook():
     if search_string_ascii is None:
         return None
     google_query = "key=AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM&cx=003066316917117435589%3Avcms6hy5lxs&q=" + search_string_ascii + "&num=1"
-    ###########################################################
+###########################################################
     if google_query is None:
         return {}
     #google_url = baseurl + urllib.parse.urlencode({google_query})
@@ -119,11 +113,11 @@ def searchhook():
     print (result)
     data = json.loads(result)
     print ("data = json.loads(result)")
-    ############################################################
+############################################################
     speech = data['items'][0]['snippet'].encode('utf-8').strip()
     print("Response:")
     print(speech)
-##############################################################
+############################################################
     res = {"speech": speech,
            "displayText": speech,
            # "data": data,
@@ -144,11 +138,10 @@ def dbsearchhook():
     print ('All DB credentials loaded')
     myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = myConnection.cursor()
-    cur.execute( "SELECT Customer_Name FROM public.'YouSee'" )
-    for cust_name in cur.fetchall() :
-        print cust_name
+    cur.execute( "SELECT Customer_ID FROM public.'YouSee'" )
+    for cust_id in cur.fetchall():
+        print(cust_id)
     myConnection.close()
- 
  return cust_name
  
 if __name__ == '__main__':
