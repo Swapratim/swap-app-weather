@@ -137,8 +137,9 @@ def dbsearchhook():
     port = '5432'
     print ('All DB credentials loaded')
     myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    print('connection is successful. But how to know if this condition is true')
     cur = myConnection.cursor()
-    cur.execute( "SELECT Customer_ID FROM public.'YouSee'" )
+    cur.execute( "SELECT * FROM public."YouSee";" )
     for cust_id in cur.fetchall():
         print(cust_id)
     myConnection.close()
