@@ -142,9 +142,8 @@ def dbsearchhook():
     for cust_id in cur.fetchall():
         print(cust_id)
     myConnection.close()
-    r = 'Success'
- return r
- 
+
+	
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
     print("Starting APPLICATION on port %d" % port)
