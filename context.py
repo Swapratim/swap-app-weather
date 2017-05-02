@@ -145,11 +145,11 @@ def dbsearchhook():
     myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = myConnection.cursor()
     cur.execute( "SELECT Customer_Name FROM public.'YouSee'" )
-    for Customer_Name in cur.fetchall() :
-        print Customer_Name
+    for cust_name in cur.fetchall() :
+        print cust_name
     myConnection.close()
  
- return Customer_Name
+ return cust_name
  
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
