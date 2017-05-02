@@ -6,6 +6,7 @@ standard_library.install_aliases()
 import urllib.request, urllib.parse, urllib.error
 import json
 import os
+import psycopg2
 
 from flask import Flask
 from flask import request, render_template
@@ -25,6 +26,8 @@ def webhook():
        return weatherhook()
     elif reqContext.get("result").get("action") == "GoogleSearch":
        return searchhook()
+    elif reqContext.get("result").get("action") == "DatabaseSearch":
+       return dbsearchhook()
     else:
        print("Good Bye")
 
@@ -131,6 +134,23 @@ def searchhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
+
+def dbsearchhook():
+    hostname = '10.104.208.1'
+    username = 'swap'
+    password = 'swap'
+    database = 'Servers'
+    port = '5432'
+    print ('All DB credentials loaded')
+    myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    cur = myConnection.cursor()
+    cur.execute( "SELECT Customer_Name FROM public.'YouSee'" )
+    for Customer_Name in cur.fetchall() :
+        print Customer_Name
+    myConnection.close()
+ 
+ return Customer_Name
+ 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
     print("Starting APPLICATION on port %d" % port)
