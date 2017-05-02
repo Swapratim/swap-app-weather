@@ -131,9 +131,9 @@ def searchhook():
 
 def dbsearchhook():
     hostname = '10.104.219.172'
-    username = 'swap'
+    username = 'postgres'
     password = ''
-    database = 'Servers'
+    database = 'postgres'
     port = '5432'
     print ('All DB credentials loaded')
     myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
