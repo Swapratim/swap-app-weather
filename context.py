@@ -130,9 +130,9 @@ def searchhook():
 
 
 def dbsearchhook():
-    hostname = '10.104.208.1'
+    hostname = '10.104.219.172'
     username = 'swap'
-    password = 'swap'
+    password = ''
     database = 'Servers'
     port = '5432'
     print ('All DB credentials loaded')
