@@ -6,7 +6,7 @@ standard_library.install_aliases()
 import urllib.request, urllib.parse, urllib.error
 import json
 import os
-import psycopg2
+import pgdb
 
 from flask import Flask
 from flask import request, render_template
@@ -136,7 +136,7 @@ def dbsearchhook():
     database = 'postgres'
     port = '5432'
     print ('All DB credentials loaded')
-    myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    myConnection = pgdb.connect(host=hostname, user=username, password=password, dbname=database)
     print('connection is successful. But how to know if this condition is true')
     cur = myConnection.cursor()
     cur.execute( 'SELECT * FROM public."YouSee";' )
