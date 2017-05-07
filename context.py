@@ -130,9 +130,9 @@ def searchhook():
 
 
 def dbsearchhook():
-    hostname = '10.104.219.172'
+    hostname = '192.168.0.16'
     username = 'postgres'
-    password = ''
+    password = '1234'
     database = 'postgres'
     port = '5432'
     print ('All DB credentials loaded')
