@@ -39,8 +39,12 @@ def weatherhook():
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
 ###########################################################
     result = req.get("result")
+    print (result)
+    print ('####################')
     parameters = result.get("parameters")
     city = parameters.get("geo-city")
+    if not string_name:
+       city = parameters.get("geo-city-dk")
     print (city)
     print ('********************')
     if city is None:
