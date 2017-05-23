@@ -26,8 +26,8 @@ def webhook():
        return weatherhook()
     elif reqContext.get("result").get("action") == "GoogleSearch":
        return searchhook()
-    elif reqContext.get("result").get("action") == "DatabaseSearch":
-       return dbsearchhook()
+    #elif reqContext.get("result").get("action") == "DatabaseSearch":
+    #   return dbsearchhook()
     else:
        print("Good Bye")
 
@@ -129,20 +129,20 @@ def searchhook():
     return r
 
 
-def dbsearchhook():
-    hostname = '192.168.0.16'
-    username = 'postgres'
-    password = '1234'
-    database = 'postgres'
-    port = '5432'
-    print ('All DB credentials loaded')
-    myConnection = pgdb.connect(host=hostname, user=username, password=password, dbname=database)
-    print('connection is successful. But how to know if this condition is true')
-    cur = myConnection.cursor()
-    cur.execute( 'SELECT * FROM public."YouSee";' )
-    for cust_id in cur.fetchall():
-        print(cust_id)
-    myConnection.close()
+#def dbsearchhook():
+#    hostname = '192.168.0.16'
+#    username = 'postgres'
+#    password = '1234'
+#    database = 'postgres'
+#    port = '5432'
+#    print ('All DB credentials loaded')
+#    myConnection = pgdb.connect(host=hostname, user=username, password=password, dbname=database)
+#    print('connection is successful. But how to know if this condition is true')
+#    cur = myConnection.cursor()
+#    cur.execute( 'SELECT * FROM public."YouSee";' )
+#    for cust_id in cur.fetchall():
+#        print(cust_id)
+#    myConnection.close()
 
 	
 if __name__ == '__main__':
