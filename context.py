@@ -138,31 +138,27 @@ def searchhook():
     return r
 
 
-#def dbsearchhook():
-#    hostname = '192.168.0.16'
-#    username = 'postgres'
-#    password = '1234'
-#    database = 'postgres'
-#    port = '5432'
-#    print ('All DB credentials loaded')
-#    myConnection = pgdb.connect(host=hostname, user=username, password=password, dbname=database)
-#    print('connection is successful. But how to know if this condition is true')
-#    cur = myConnection.cursor()
-#    cur.execute( 'SELECT * FROM public."YouSee";' )
-#    for cust_id in cur.fetchall():
-#        print(cust_id)
-#    myConnection.close()
-
 def dbsearchhook():
-	urlparse.uses_netloc.append("postgres")
-	url = urlparse.urlparse(os.environ["postgresql://postgres:postgres@192.168.0.15:5432/postgres"])
-conn = psycopg2.connect(
-    database=url.path[1:],
-    user=url.username,
-    password=url.password,
-    host=url.hostname,
-    port=url.port
-)
+    hostname = '192.168.0.16'
+    username = 'postgres'
+    password = '1234'
+    database = 'postgres'
+    port = '5432'
+    print ('All DB credentials loaded')
+    myConnection = psycopg2.connect(database="postgres", user="postgres", password="1234", host="192.168.0.15", port="5432")
+    print('connection is successful. But how to know if this condition is true')
+    cur = myConnection.cursor()
+    cur.execute( 'SELECT id, name, package, status FROM "YouSee";' )
+    rows = cur.fetchall()
+    for row in rows:
+    print "Customer_ID = ", row[0]
+    print "Customer_Name = ", row[1]
+    print "Customer_Package = ", row[2]
+    print "Customer_Status = ", row[3], "\n"
+    print "Operation done successfully";
+    myConnection.close()
+
+
 	
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
