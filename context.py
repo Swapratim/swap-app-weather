@@ -7,6 +7,8 @@ import urllib.request, urllib.parse, urllib.error
 import json
 import os
 #import pgdb
+import psycopg2
+import urlparse
 
 from flask import Flask
 from flask import request, render_template
@@ -26,8 +28,8 @@ def webhook():
        return weatherhook()
     elif reqContext.get("result").get("action") == "GoogleSearch":
        return searchhook()
-    #elif reqContext.get("result").get("action") == "DatabaseSearch":
-    #   return dbsearchhook()
+    elif reqContext.get("result").get("action") == "DatabaseSearch":
+       return dbsearchhook()
     else:
        print("Good Bye")
 
@@ -151,6 +153,16 @@ def searchhook():
 #        print(cust_id)
 #    myConnection.close()
 
+def dbsearchhook():
+	urlparse.uses_netloc.append("postgres")
+	url = urlparse.urlparse(os.environ["postgresql://postgres:postgres@192.168.0.15:5432/postgres"])
+conn = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
 	
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
