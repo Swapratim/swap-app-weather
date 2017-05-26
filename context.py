@@ -151,11 +151,11 @@ def dbsearchhook():
     cur.execute( 'SELECT id, name, package, status FROM "YouSee";' )
     rows = cur.fetchall()
     for row in rows:
-    print ("Customer Name = "), row[1]
-    print ("Customer_ID = "), row[0]
-    print ("Customer_Name = "), row[1]
-    print ("Customer_Package = "), row[2]
-    print ("Customer_Status = "), row[3], "\n"
+    print ('Customer Name = '), row[1]
+    #print ("Customer_ID = "), row[0]
+    #print ("Customer_Name = "), row[1]
+    #print ("Customer_Package = "), row[2]
+    #print ("Customer_Status = "), row[3], "\n"
     print ("Operation done successfully");
     myConnection.close()
 
