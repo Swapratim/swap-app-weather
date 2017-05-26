@@ -159,7 +159,6 @@ def dbsearchhook():
     myConnection.close()
 
 
-	
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
     print("Starting APPLICATION on port %d" % port)
