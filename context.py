@@ -139,25 +139,25 @@ def searchhook():
 
 
 def dbsearchhook():
-    hostname = '192.168.0.16'
-    username = 'postgres'
-    password = '1234'
-    database = 'postgres'
-    port = '5432'
-    print ('All DB credentials loaded')
-    myConnection = psycopg2.connect(database="postgres", user="postgres", password="1234", host="192.168.0.15", port="5432")
-    print('connection is successful. But how to know if this condition is true')
-     cur = myConnection.cursor()
-     cur.execute( 'SELECT id, name, package, status FROM "YouSee";' )
-     rows = cur.fetchall()
-      for row in rows:
-       print ('Customer Name = '), row[1]
+hostname = '192.168.0.16'
+username = 'postgres'
+password = '1234'
+database = 'postgres'
+port = '5432'
+print ('All DB credentials loaded')
+conn = psycopg2.connect(database="postgres", user="postgres", password="1234", host="192.168.0.15", port="5432")
+print('connection is successful. But how to know if this condition is true')
+cur = conn.cursor()
+cur.execute( 'SELECT id, name, package, status FROM "YouSee";' )
+rows = cur.fetchall()
+for row in rows:
+   print ('Customer Name = '), row[1]
      #print ("Customer_ID = "), row[0]
      #print ("Customer_Name = "), row[1]
      #print ("Customer_Package = "), row[2]
      #print ("Customer_Status = "), row[3], "\n"
      #print ("Operation done successfully");
-      myConnection.close()
+conn.close()
 
 
 if __name__ == '__main__':
