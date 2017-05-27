@@ -139,10 +139,25 @@ def searchhook():
 
 
 def dbsearchhook():
-    r = "Showing the data"
-    print (r)
-    res = {"speech": r,
-           "displayText": r,
+    #r = "Showing the data"
+    #print (r)
+    conn = psycopg2.connect(database="postgres", user="postgres", password="1234", host="192.168.0.15", port="5432")
+    print('connection is successful')
+    cur = conn.cursor()
+    cur.execute( 'SELECT * FROM "YouSee";' )
+    rows = cur.fetchall()
+     for row in rows:
+      print ('Customer Name = '), row[1]
+      name = row[1]
+     #print ("Customer_ID = "), row[0]
+     #print ("Customer_Name = "), row[1]
+     #print ("Customer_Package = "), row[2]
+     #print ("Customer_Status = "), row[3], "\n"
+     #print ("Operation done successfully");
+    conn.close()
+    speech = "Customer Name is " + name
+    res = {"speech": speech,
+           "displayText": speech,
            # "data": data,
            # "contextOut": [],
            "source": "apiai-seach-webhook-by-swapratim"}
@@ -150,19 +165,6 @@ def dbsearchhook():
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
-#conn = psycopg2.connect(database="postgres", user="postgres", password="1234", host="192.168.0.15", port="5432")
-#print('connection is successful')
-#cur = conn.cursor()
-#cur.execute( 'SELECT id, name, package, status FROM "YouSee";' )
-#rows = cur.fetchall()
-#for row in rows:
-   #print ('Customer Name = '), row[1]
-     #print ("Customer_ID = "), row[0]
-     #print ("Customer_Name = "), row[1]
-     #print ("Customer_Package = "), row[2]
-     #print ("Customer_Status = "), row[3], "\n"
-     #print ("Operation done successfully");
-#conn.close()
 
 
 if __name__ == '__main__':
