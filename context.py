@@ -140,12 +140,12 @@ def searchhook():
 
 def dbsearchhook():
 conn = psycopg2.connect(database="postgres", user="postgres", password="1234", host="192.168.0.15", port="5432")
-print('connection is successful')
-cur = conn.cursor()
-cur.execute( 'SELECT id, name, package, status FROM "YouSee";' )
-rows = cur.fetchall()
-for row in rows:
-   print ('Customer Name = '), row[1]
+#print('connection is successful')
+#cur = conn.cursor()
+#cur.execute( 'SELECT id, name, package, status FROM "YouSee";' )
+#rows = cur.fetchall()
+#for row in rows:
+   #print ('Customer Name = '), row[1]
      #print ("Customer_ID = "), row[0]
      #print ("Customer_Name = "), row[1]
      #print ("Customer_Package = "), row[2]
