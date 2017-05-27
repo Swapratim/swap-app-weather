@@ -140,6 +140,8 @@ def searchhook():
 
 def dbsearchhook():
     print ("Hi")
+    r = 'Hi'
+    return r
 #conn = psycopg2.connect(database="postgres", user="postgres", password="1234", host="192.168.0.15", port="5432")
 #print('connection is successful')
 #cur = conn.cursor()
