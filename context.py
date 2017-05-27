@@ -139,8 +139,15 @@ def searchhook():
 
 
 def dbsearchhook():
-    print ("Hi")
-    r = "Hi"
+    r = "Showing the data"
+    print (r)
+    res = {"speech": r,
+           "displayText": r,
+           # "data": data,
+           # "contextOut": [],
+           "source": "apiai-seach-webhook-by-swapratim"}
+    #res = json.dumps(res, indent=4)
+    r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
 #conn = psycopg2.connect(database="postgres", user="postgres", password="1234", host="192.168.0.15", port="5432")
