@@ -146,7 +146,7 @@ def dbsearchhook():
            # "data": data,
            # "contextOut": [],
            "source": "apiai-seach-webhook-by-swapratim"}
-    #res = json.dumps(res, indent=4)
+    res = json.dumps(res, indent=4)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
