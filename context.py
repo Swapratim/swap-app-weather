@@ -126,9 +126,22 @@ def searchhook():
 ############################################################
     speech = data['items'][0]['snippet'].encode('utf-8').strip()
     #image = data['items'][0]['pagemap'].encode('utf-8').strip()
+    items = data.get('items')
+    if items is None:
+        return {}
+
+    pagemap = items.get('pagemap')
+    if pagemap is None:
+        return {}
+
+    cse_thumbnail = result.get('cse_thumbnail')
+    if cse_thumbnail is None:
+        return {}
+
+    src = channel.get('src')
+    print (src)
     print("Response:")
     print(speech)
-    print (image)
 ############################################################
     res = {"speech": speech,
            "displayText": speech,
