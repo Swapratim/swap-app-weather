@@ -126,12 +126,12 @@ def searchhook():
 ############################################################
     speech = data['items'][0]['snippet'].encode('utf-8').strip()
     #image = data['items'][0]['pagemap'].encode('utf-8').strip()
-    items = data.get('items')
-    if items is None:
-        return {}
+    #items = data.get('items')
+    #if items is None:
+    #    return {}
 
     #pagemap = items['items'][0]['pagemap']
-    for data_item in items[]:
+    for data_item in data['items']:
         pagemap = data_item['pagemap'],
 
     cse_thumbnail = pagemap.get('cse_thumbnail')
