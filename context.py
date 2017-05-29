@@ -131,7 +131,7 @@ def searchhook():
         return {}
 
     #pagemap = items['items'][0]['pagemap']
-    for data_item in items['items']:
+    for data_item in items[]:
         pagemap = data_item['pagemap'],
 
     cse_thumbnail = pagemap.get('cse_thumbnail')
