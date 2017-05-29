@@ -124,7 +124,7 @@ def searchhook():
     print ("data = json.loads(result)")
 ############################################################
     speech = data['items'][0]['snippet'].encode('utf-8').strip()
-    image = data['items'][0]['pagemap'][0][cse_thumbnail][2][src].encode('utf-8').strip()
+    image = data['items'][0]['pagemap'].encode('utf-8').strip()
     print("Response:")
     print(speech)
     print (image)
