@@ -148,10 +148,11 @@ def searchhook():
     for key in pagemap:
         cse_thumbnail = key['cse_thumbnail']
         print (cse_thumbnail)
+    
     if cse_thumbnail is None:
         return {}
 
-    for image_data in items['cse_thumbnail']:
+    for image_data in cse_thumbnail:
         src = image_data['src'],
 
     #src = cse_thumbnail[cse_thumbnail][2][src]
