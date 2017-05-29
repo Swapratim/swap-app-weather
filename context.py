@@ -134,7 +134,10 @@ def searchhook():
     for data_item in data['items']:
         pagemap = data_item['pagemap'],
 
-    cse_thumbnail = pagemap('cse_thumbnail')
+    #cse_thumbnail = pagemap('cse_thumbnail')
+    for key in pagemap:
+        cse_thumbnail = pagemap['cse_thumbnail']
+
     if cse_thumbnail is None:
         return {}
 
