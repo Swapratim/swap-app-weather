@@ -153,11 +153,11 @@ def searchhook():
     for image_data in cse_thumbnail:
         raw_str = image_data['src'],
 
-    newstr1 = raw_str.replace("[", "")
-    newstr2 = newstr1.replace("]", "")
-    newstr3 = newstr2.replace("'", "")
-    newstr4 = newstr3.replace("'", "")
-    src_u_string_removed = [str(i) for i in newstr4]
+    #newstr1 = raw_str.replace("[", "")
+    #newstr2 = newstr1.replace("]", "")
+    #newstr3 = newstr2.replace("'", "")
+    #newstr4 = newstr3.replace("'", "")
+    src_u_string_removed = [str(i) for i in raw_str]
     src_u_removed = str(src_u_string_removed)
 
     print (src_u_removed)
