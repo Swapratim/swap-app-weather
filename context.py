@@ -106,7 +106,7 @@ def searchhook():
     search_u_string_removed = [str(i) for i in search_list0]
     search_list1 = str(search_u_string_removed)
     cumulative_string = search_list1.strip('[]')
-    search_string = cumulative_string.replace(" ", "&")
+    search_string = cumulative_string.replace(" ", "%20")
     print(search_string)
     search_string_ascii = search_string.encode('ascii')
     if search_string_ascii is None:
