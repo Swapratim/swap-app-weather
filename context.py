@@ -140,11 +140,9 @@ def searchhook():
     #for key,value in x.items(): #this gives you both
     #  print(key,value)
 
-    #pagemap = items['items'][0]['pagemap']
     for data_item in data['items']:
         pagemap = data_item['pagemap'],
 
-    #cse_thumbnail = pagemap('cse_thumbnail')
     for key in pagemap:
         cse_thumbnail = key['cse_thumbnail']
         print (cse_thumbnail)
@@ -155,8 +153,10 @@ def searchhook():
     for image_data in cse_thumbnail:
         src = image_data['src'],
 
-    #src = cse_thumbnail[cse_thumbnail][2][src]
-    print (src)
+    src_u_string_removed = [str(i) for i in src]
+    src_u_removed = str(src_u_string_removed)
+
+    print (src_u_removed)
     print("Response:")
     print(speech)
 ############################################################
