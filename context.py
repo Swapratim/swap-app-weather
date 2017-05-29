@@ -130,7 +130,7 @@ def searchhook():
     if items is None:
         return {}
 
-    pagemap = items[items][0][pagemap]
+    pagemap = items['items'][0]['pagemap']
     if pagemap is None:
         return {}
 
