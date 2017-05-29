@@ -130,15 +130,18 @@ def searchhook():
     if items is None:
         return {}
 
-    pagemap = items['items'][0]['pagemap']
-    if pagemap is None:
-        return {}
+    #pagemap = items['items'][0]['pagemap']
+    for data_item in items['items']:
+        pagemap = data_item['pagemap'],
 
     cse_thumbnail = pagemap.get('cse_thumbnail')
     if cse_thumbnail is None:
         return {}
 
-    src = cse_thumbnail[cse_thumbnail][2][src]
+    for image_data in items['cse_thumbnail']:
+        src = image_data['src'],
+
+    #src = cse_thumbnail[cse_thumbnail][2][src]
     print (src)
     print("Response:")
     print(speech)
