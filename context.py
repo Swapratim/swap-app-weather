@@ -129,6 +129,15 @@ def searchhook():
     #items = data.get('items')
     #if items is None:
     #    return {}
+    x = {"a":3,  "b":4,  "c":5}
+      for key in x:   #same thing as using x.keys()
+       print(key,x[key]) 
+
+      for value in x.values():
+       print(value)      #this is better if the keys are irrelevant     
+
+      for key,value in x.items(): #this gives you both
+       print(key,value)
 
     #pagemap = items['items'][0]['pagemap']
     for data_item in data['items']:
