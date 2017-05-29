@@ -164,11 +164,30 @@ def searchhook():
     print("Response:")
     print(speech)
 ############################################################
-    res = {"speech": speech,
-           "displayText": speech,
-           # "data": data,
-           # "contextOut": [],
-           "source": "apiai-seach-webhook-by-swapratim"}
+    #res = {"speech": speech,
+    #       "displayText": speech,
+    #       # "data": data,
+    #       # "contextOut": [],
+    #       "source": "apiai-search-webhook-by-swapratim"}
+    
+    res = {
+           "data" : {
+              "facebook" : {
+                 "attachment" : {
+                   "type" : "template",
+                     "payload" : {
+                      "template_type" : "generic",
+                       "elements" : [ 
+                                 {
+                            "title" : speech,
+                            "image_url" : src_u_removed
+                                 }
+                                ]
+                               }
+                              }
+                             }
+                           } 
+                         }
     res = json.dumps(res, indent=4)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
