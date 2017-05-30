@@ -180,7 +180,7 @@ def searchhook():
                        "elements" : [ 
                                  {
                             "title" : speech,
-                            "image_url" : "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSB5XNc6YiJ__bxJuf_jKg9qkZE7nrrdju-XYKFR6YDxFSIMDe2ZxlwPwyR"
+                            "image_url" : src_u_removed
                                  }
                                 ]
                                }
