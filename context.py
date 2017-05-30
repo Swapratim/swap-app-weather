@@ -159,7 +159,7 @@ def searchhook():
     #newstr4 = newstr3.replace("'", "")
     src_u_string_removed = [str(i) for i in raw_str]
     src_u_removed = str(src_u_string_removed)
-
+    print ("Image::::::::")
     print (src_u_removed)
     print("Response:")
     print(speech)
