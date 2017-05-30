@@ -162,8 +162,9 @@ def searchhook():
     src_u_removed = str(src_u_string_removed)
     src_brace_removed_1 = src_u_removed.strip('[')
     src_brace_removed_2 = src_brace_removed_1.strip(']')
+    src_brace_removed_final =  src_brace_removed_2.strip("'")
     print ("Image::::::::")
-    print (src_brace_removed_2)
+    print (src_brace_removed_final)
     print("Response:")
     print(speech)
 ############################################################
@@ -183,7 +184,7 @@ def searchhook():
                        "elements" : [ 
                                  {
                             "title" : speech,
-                            "image_url" : src_brace_removed_2
+                            "image_url" : src_brace_removed_final
                                  }
                                 ]
                                }
