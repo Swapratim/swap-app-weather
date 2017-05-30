@@ -146,21 +146,24 @@ def searchhook():
     for key in pagemap:
         cse_thumbnail = key['cse_thumbnail']
         
-    
     if cse_thumbnail is None:
         return {}
 
     for image_data in cse_thumbnail:
         raw_str = image_data['src'],
 
+    if raw_str is None:
+        return {}
     #newstr1 = raw_str.replace("[", "")
     #newstr2 = newstr1.replace("]", "")
     #newstr3 = newstr2.replace("'", "")
     #newstr4 = newstr3.replace("'", "")
     src_u_string_removed = [str(i) for i in raw_str]
     src_u_removed = str(src_u_string_removed)
+    src_brace_removed_1 = src_u_removed.strip('[')
+    src_brace_removed_2 = src_brace_removed_1.strip(']')
     print ("Image::::::::")
-    print (src_u_removed)
+    print (src_brace_removed_2)
     print("Response:")
     print(speech)
 ############################################################
@@ -180,7 +183,7 @@ def searchhook():
                        "elements" : [ 
                                  {
                             "title" : speech,
-                            "image_url" : src_u_removed
+                            "image_url" : src_brace_removed_2
                                  }
                                 ]
                                }
