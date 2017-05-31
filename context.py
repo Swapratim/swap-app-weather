@@ -176,25 +176,24 @@ def searchhook():
     #       # "data": data,
     #       # "contextOut": [],
     #       "source": "apiai-search-webhook-by-swapratim"}
-    
     res = {
-           "fulfillment": {
-              "speech": speech,
-              "messages": [
-                         {
-                          "type": 1,
-                          "platform": "facebook",
-                          "title": "",
-                          "subtitle": "",
-                          "imageUrl": src_brace_removed_final,
-                          },
-                         {
-                          "type": 0,
-                          "speech": speech
-                        }
-                       ]
-                      },
-                     }
+           "data" : {
+              "facebook" : {
+                 "attachment" : {
+                   "type" : "template",
+                     "payload" : {
+                      "template_type" : "generic",
+                       "elements" : [ 
+                                 {
+                                   "title" : speech,
+                                   "image_url" : src_brace_removed_final
+                                 }
+                                ]
+                               }
+                              }
+                             }
+                           } 
+                         }
     res = json.dumps(res, indent=4)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
