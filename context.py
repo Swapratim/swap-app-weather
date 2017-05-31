@@ -181,10 +181,6 @@ def searchhook():
            "data" : {
               "facebook" : {
                 "message":{
-                                   "type": 0, 
-                                   "speech": speech
-                 }
-                "message":{
                  "attachment" : {
                    "type" : "template",
                      "payload" : {
@@ -193,6 +189,10 @@ def searchhook():
                                  {
                                    "title" : "",
                                    "image_url" : src_brace_removed_final
+                                 },
+                                 {
+                                   "type": 0, 
+                                   "speech": speech
                                  }
                                 ]
                                }
