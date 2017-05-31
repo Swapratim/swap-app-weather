@@ -185,16 +185,16 @@ def searchhook():
                       "template_type" : "generic",
                        "elements" : [ 
                                  {
-                                   "title" : "",
+                                   "title" : speech,
                                    "subtitle" : speech,
                                    "image_url" : src_brace_removed_final
-                                 }
-                                ]
-                               }
-                              }
-                             }
-                           } 
-                         }
+                                }
+                            ]
+                        }
+                    }
+                }
+             } 
+         };
     res = json.dumps(res, indent=4)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
