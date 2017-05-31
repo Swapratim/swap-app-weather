@@ -188,7 +188,6 @@ def searchhook():
                                    "title" : "Donald Trump",
                                    "subtitle" : speech,
                                    "image_url" : src_brace_removed_final,
-                                   },
                                 }
                             ]
                         }
