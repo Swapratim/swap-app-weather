@@ -179,14 +179,14 @@ def searchhook():
     
     res = {
            "fulfillment": {
-              "speech": speech
+              "speech": speech,
               "messages": [
                          {
                           "type": 1,
                           "platform": "facebook",
                           "title": "",
                           "subtitle": "",
-                          "imageUrl": src_brace_removed_final
+                          "imageUrl": src_brace_removed_final,
                           },
                          {
                           "type": 0,
