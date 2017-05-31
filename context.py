@@ -185,16 +185,14 @@ def searchhook():
                    "type" : "template",
                      "payload" : {
                       "template_type" : "generic",
-                       "elements" : [ 
-                                 {
+                       "elements" : [{
                                    "title" : "",
-                                   "image_url" : src_brace_removed_final
+                                   "image_url" : src_brace_removed_final,
                                  },
                                  {
                                    "type": 0, 
-                                   "speech": speech
-                                 }
-                                ]
+                                   "speech": speech,
+                                 }]
                                }
                               }
                              }
