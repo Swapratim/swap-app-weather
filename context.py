@@ -32,7 +32,7 @@ def webhook():
     elif reqContext.get("result").get("action") == "DatabaseSearch":
        return dbsearchhook()
     elif reqContext.get("result").get("action") == "input.welcome":
-       return dbsearchhook()
+       return welcome()
     else:
        print("Good Bye")
 
