@@ -189,11 +189,8 @@ def searchhook():
                                    "subtitle" : speech,
                                    "image_url" : src_brace_removed_final,
                                    "default_action": {
-                                        "type": "web_url",
-                                        "url": "https://peterssendreceiveapp.ngrok.io/view?item=103",
                                         "webview_height_ratio": "tall",
-                                        "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                                     },
+                                        },
                                 }
                             ]
                         }
