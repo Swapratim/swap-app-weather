@@ -18,6 +18,7 @@ from flask import make_response
 # Flask weather should start in global layout
 context = Flask(__name__)
 
+ACCESS_TOKEN = "EAAXRzkKCxVQBAImZBQo8kEpHVn0YDSVxRcadEHiMlZAcqSpu5pV7wAkZBKUs0eIZBcX1RmZCEV6cxJzuZAp5NO5ZCcJgZBJu4OPrFpKiAPJ5Hxlve2vrSthfMSZC3GqLnzwwRENQSzZAMyBXFCi1LtLWm9PhYucY88zPT4KEwcZCmhLYAZDZD"
 
 @context.route('/webhook', methods=['POST'])
 def webhook():
@@ -29,6 +30,8 @@ def webhook():
     elif reqContext.get("result").get("action") == "GoogleSearch":
        return searchhook()
     elif reqContext.get("result").get("action") == "DatabaseSearch":
+       return dbsearchhook()
+    elif reqContext.get("result").get("action") == "input.welcome":
        return dbsearchhook()
     else:
        print("Good Bye")
@@ -183,8 +186,8 @@ def searchhook():
                       "template_type" : "generic",
                        "elements" : [ 
                                  {
-                            "title" : speech,
-                            "image_url" : src_brace_removed_final
+                                   "title" : speech,
+                                   "image_url" : src_brace_removed_final
                                  }
                                 ]
                                }
@@ -226,6 +229,20 @@ def dbsearchhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
+def welcome():
+    data = request.json
+    sender = data['entry'][0]['messaging'][0]['sender']['id']
+    message = data['entry'][0]['messaging'][0]['message']['text']
+    reply(sender, message[::-1])
+    print (reply)
+
+def reply(user_id, msg):
+    data = {
+        "recipient": {"id": user_id},
+        "message": {"text": msg}
+    }
+    resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
+    print(resp.content)
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
