@@ -185,7 +185,8 @@ def searchhook():
                       "template_type" : "generic",
                        "elements" : [ 
                                  {
-                                   "title" : speech,
+                                   "title" : "",
+                                   "subtitle" : speech,
                                    "image_url" : src_brace_removed_final
                                  }
                                 ]
