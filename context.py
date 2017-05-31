@@ -185,7 +185,7 @@ def searchhook():
                       "template_type" : "generic",
                        "elements" : [ 
                                  {
-                                   "title" : speech,
+                                   "title" : "Donald Trump",
                                    "subtitle" : speech,
                                    "image_url" : src_brace_removed_final
                                 }
