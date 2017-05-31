@@ -180,6 +180,7 @@ def searchhook():
     res = {
            "data" : {
               "facebook" : {
+                "message":{
                  "attachment" : {
                    "type" : "template",
                      "payload" : {
@@ -192,12 +193,13 @@ def searchhook():
                                  {
                                    "type": 0, 
                                    "speech": speech
-                                  }
+                                 }
                                 ]
                                }
                               }
                              }
-                           } 
+                            } 
+                           }
                          }
     res = json.dumps(res, indent=4)
     r = make_response(res)
