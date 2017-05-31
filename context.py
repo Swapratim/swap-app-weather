@@ -231,10 +231,11 @@ def dbsearchhook():
 
 def welcome():
     data = request.json
-    sender = data['entry'][0]['messaging'][0]['sender']['id']
-    message = data['entry'][0]['messaging'][0]['message']['text']
-    reply(sender, message[::-1])
-    print (reply)
+    #sender = data['entry'][0]['messaging'][0]['sender']['id']
+    #message = data['entry'][0]['messaging'][0]['message']['text']
+    #reply(sender, message[::-1])
+    #print (reply)
+    print (data)
 
 def reply(user_id, msg):
     data = {
