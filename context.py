@@ -25,17 +25,70 @@ def webhook():
     reqContext = request.get_json(silent=True, force=True)
     #print(json.dumps(reqContext, indent=4))
     print(reqContext.get("result").get("action"))
-    if reqContext.get("result").get("action") == "yahooWeatherForecast":
+    if reqContext.get("result").get("action") == "input.welcome":
+       return welcome()
+    elif reqContext.get("result").get("action") == "yahooWeatherForecast":
        return weatherhook()
     elif reqContext.get("result").get("action") == "GoogleSearch":
        return searchhook()
     elif reqContext.get("result").get("action") == "DatabaseSearch":
        return dbsearchhook()
-    elif reqContext.get("result").get("action") == "input.welcome":
-       return welcome()
     else:
        print("Good Bye")
 
+# This method is to get the username when the user says Hi
+def welcome():
+    print ("Within Welcome loop")
+    data = request.json
+    print (data)
+    entry = data.get('originalRequest')
+    dataall = entry.get('data')
+    sender = dataall.get('sender')
+    id = sender.get('id')
+    fb_info = "https://graph.facebook.com/v2.6/" + id + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + ACCESS_TOKEN
+    result = urllib.request.urlopen(fb_info).read()
+    #print (result)
+    data = json.loads(result)
+    first_name = data.get('first_name')
+    print (first_name)
+    #return "Hi"
+    speech = "You can ask me about myself, weather report of world's any city (like: what's the weather in Copenhagen) or search for a piece of information (like: What is Game Of Thrones? or Search for robotics)."
+    res = {
+          "speech": speech,
+          "displayText": speech,
+           "data" : {
+              "facebook" : {
+                 "attachment" : {
+                   "type" : "template",
+                     "payload" : {
+                      "template_type" : "generic",
+                       "elements" : [ 
+                                 {
+                                   "title" : "Hi" + first_name + "! I am Marvin",
+                                   "image_url" : "https://pbs.twimg.com/profile_images/717482045019136001/aYzlNG5L.jpg",
+                                   "subtitle" : speech
+                               } 
+                           ]
+                       } 
+                   }
+                }
+             } 
+         };
+    res = json.dumps(res, indent=4)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
+
+def reply(user_id, msg):
+    data = {
+        "recipient": {"id": user_id},
+        "message": {"text": msg}
+    }
+    print ("Data.........")
+    print (data)
+    resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
+    print(resp.content)
+   
 
 def weatherhook():
     req = request.get_json(silent=True, force=True)
@@ -231,38 +284,6 @@ def dbsearchhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-def welcome():
-    print ("Within Welcome loop")
-    data = request.json
-    print (data)
-    #sender = data['entry'][0]['messaging'][0]['sender']['id']
-    #message = data['entry'][0]['messaging'][0]['message']['text']
-    #reply(sender, message[::-1])
-    #print (reply)
-    entry = data.get('originalRequest')
-    dataall = entry.get('data')
-    sender = dataall.get('sender')
-    id = sender.get('id')
-                  
-    print("id.........")
-    print (id)
-    fb_info = "https://graph.facebook.com/v2.6/" + id + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + ACCESS_TOKEN
-    result = urllib.request.urlopen(fb_info).read()
-    print (result)
-    data = json.loads(result)
-    first_name = data.get('first_name')
-    print (first_name)
-    return "Hi"
-
-def reply(user_id, msg):
-    data = {
-        "recipient": {"id": user_id},
-        "message": {"text": msg}
-    }
-    print ("Data.........")
-    print (data)
-    resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
-    print(resp.content)
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
