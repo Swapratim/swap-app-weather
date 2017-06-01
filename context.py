@@ -217,18 +217,11 @@ def searchhook():
 
     if raw_str is None:
         return {}
-    #newstr1 = raw_str.replace("[", "")
-    #newstr2 = newstr1.replace("]", "")
-    #newstr3 = newstr2.replace("'", "")
-    #newstr4 = newstr3.replace("'", "")
     src_u_string_removed = [str(i) for i in raw_str]
     src_u_removed = str(src_u_string_removed)
     src_brace_removed_1 = src_u_removed.strip('[')
     src_brace_removed_2 = src_brace_removed_1.strip(']')
     src_brace_removed_final =  src_brace_removed_2.strip("'")
-    #link_braces_stripped_1 = link.strip("(")
-    #link_braces_stripped_2 = link_braces_stripped_1.strip(")")
-    #link_comma_stripped_3 = link.strip(",")
     link_u_removal =  [str(i) for i in link]
     link_u_removed = str(link_u_removal)
     link_brace_removed_1 = link_u_removed.strip('[')
@@ -241,11 +234,6 @@ def searchhook():
     print("Response:")
     print(speech)
 ############################################################
-    #res = {"speech": speech,
-    #       "displayText": speech,
-    #       # "data": data,
-    #       # "contextOut": [],
-    #       "source": "apiai-search-webhook-by-swapratim"}
     res = {
           "speech": speech,
           "displayText": speech,
@@ -258,9 +246,7 @@ def searchhook():
                       "template_type" : "generic",
                        "elements" : [ 
                                  {
-                                   "title" : "...",
                                    "image_url" : src_brace_removed_final,
-                                   "subtitle" : "...",
                                    "buttons": [{
                                         "type": "web_url",
                                         "url": link_final,
