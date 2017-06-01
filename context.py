@@ -228,6 +228,8 @@ def searchhook():
     src_brace_removed_final =  src_brace_removed_2.strip("'")
     print ("Image::::::::")
     print (src_brace_removed_final)
+    print ("link....")
+    print (link)
     print("Response:")
     print(speech)
 ############################################################
