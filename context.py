@@ -186,8 +186,26 @@ def searchhook():
                        "elements" : [ 
                                  {
                                    "title" : "...",
-                                   "subtitle" : speech,
                                    "image_url" : src_brace_removed_final,
+                                   "subtitle" : speech,
+                                   "default_action": {
+                                       "type": "web_url",
+                                       "url": "http://www.google.com",
+                                       "messenger_extensions": true,
+                                       "webview_height_ratio": "tall",
+                                       "fallback_url": "http://www.google.com"
+                                   },
+                                   "buttons": [
+                                           {
+                                        "title": "Buy",
+                                        "type": "web_url",
+                                        "url": "http://www.google.com",
+                                        "messenger_extensions": true,
+                                        "webview_height_ratio": "tall",
+                                        "fallback_url": "http://www.google.com"                        
+                        }
+                    ]                
+                },
                                 }
                             ]
                         }
