@@ -244,7 +244,8 @@ def welcome():
     sender = dataall.get('sender')
     id = sender.get('id')
                   
-    print("{} says {}".format(id))
+    print("id.........")
+    print (id)
     return "Hi"
 
 def reply(user_id, msg):
