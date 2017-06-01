@@ -59,9 +59,6 @@ def welcome():
            "data" : {
               "facebook" : [
                   {
-                 "text": speech
-                  }, 
-             {
                  "attachment" : {
                    "type" : "template",
                      "payload" : {
@@ -70,12 +67,15 @@ def welcome():
                                  {
                                    "title" : "Hi" + first_name + "! I am Marvin",
                                    "image_url" : "https://pbs.twimg.com/profile_images/717482045019136001/aYzlNG5L.jpg",
-                                   "subtitle" : speech
+                                   "subtitle" : "..."
                                } 
                            ]
                        } 
                    }
-                }
+                },
+                 {
+                 "text": speech
+                  }
                ]
              } 
          };
