@@ -203,9 +203,8 @@ def searchhook():
                                         "messenger_extensions": true,
                                         "webview_height_ratio": "tall",
                                         "fallback_url": "http://www.google.com"                        
-                        }
-                    ]                
-                },
+                                        }
+                                    ]
                                 }
                             ]
                         }
