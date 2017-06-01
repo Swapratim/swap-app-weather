@@ -185,7 +185,6 @@ def searchhook():
                    "type" : "template",
                      "payload" : {
                       "template_type" : "generic",
-                       "text": speech,     
                        "elements" : [ 
                                  {
                                    "title" : "...",
