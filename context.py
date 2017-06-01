@@ -246,7 +246,7 @@ def welcome():
                   
     print("id.........")
     print (id)
-    fb_info = requests.post("https://graph.facebook.com/v2.6/" + id + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + ACCESS_TOKEN, json=data)
+    fb_info = requests.get("https://graph.facebook.com/v2.6/" + id + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + ACCESS_TOKEN, json=data)
     print (fb_info.content)
     return "Hi"
 
