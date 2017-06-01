@@ -233,7 +233,10 @@ def dbsearchhook():
 
 def welcome():
     print ("Within Welcome loop")
-    data = request.json
+    data_u_string = request.json
+    print (data_u_string)
+    src_u_string_removed = [str(i) for i in data_u_string]
+    data = str(src_u_string_removed)
     print (data)
     #sender = data['entry'][0]['messaging'][0]['sender']['id']
     #message = data['entry'][0]['messaging'][0]['message']['text']
