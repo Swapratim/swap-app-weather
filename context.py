@@ -246,7 +246,7 @@ def searchhook():
                       "template_type" : "generic",
                        "elements" : [ 
                                  {
-                                   "title" : "",
+                                   "title" : "...",
                                    "image_url" : src_brace_removed_final,
                                    "subtitle" : "",
                                    "buttons": [{
