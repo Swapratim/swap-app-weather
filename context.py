@@ -226,10 +226,15 @@ def searchhook():
     src_brace_removed_1 = src_u_removed.strip('[')
     src_brace_removed_2 = src_brace_removed_1.strip(']')
     src_brace_removed_final =  src_brace_removed_2.strip("'")
+    link_braces_stripped_1 = link.strip('(')
+    link_braces_stripped_2 = link_braces_stripped_1.strip(')')
+    link_comma_stripped_3 = link_braces_stripped_2.strip("'")
+    link_u_removed =  [str(i) for i in link_comma_stripped_3]
+    link_final = str(link_u_removed)
     print ("Image::::::::")
     print (src_brace_removed_final)
-    print ("link....")
-    print (link)
+    print ("link_final....")
+    print (link_final)
     print("Response:")
     print(speech)
 ############################################################
@@ -251,19 +256,23 @@ def searchhook():
                                  {
                                    "title" : "...",
                                    "image_url" : src_brace_removed_final,
-                                   "subtitle" : speech,
+                                   "subtitle" : "...",
                                    "buttons": [
                                 {
                                     "title": "More info",
                                     "type": "web_url",
-                                    "url": link
+                                    "url": link_final
                                 }
                             ]
                                } 
                            ]
                        } 
                    }
-                }]
+                },
+                {
+            "text": speech
+                 }
+              ]
              } 
          };
     res = json.dumps(res, indent=4)
