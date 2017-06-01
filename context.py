@@ -52,7 +52,7 @@ def welcome():
     first_name = data.get('first_name')
     print (first_name)
     #return "Hi"
-    speech = "You can ask me about myself, weather report of world's any city (like: what's the weather in Copenhagen) or search for a piece of information (like: What is Game Of Thrones?)."
+    speech = "You can ask me about weather report of any city (like: what's the weather in Copenhagen) or search for an information (like: What is Game Of Thrones?)."
     res = {
           "speech": speech,
           "displayText": speech,
