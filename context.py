@@ -228,13 +228,13 @@ def searchhook():
     src_brace_removed_final =  src_brace_removed_2.strip("'")
     #link_braces_stripped_1 = link.strip("(")
     #link_braces_stripped_2 = link_braces_stripped_1.strip(")")
-    #link_comma_stripped_3 = link.strip("'")
-    #link_u_removed =  [str(i) for i in link_comma_stripped_3]
-    #link_final = str(link_u_removed)
+    link_comma_stripped_3 = link.strip(",")
+    link_u_removed =  [str(i) for i in link_comma_stripped_3]
+    link_final = str(link_u_removed)
     print ("Image::::::::")
     print (src_brace_removed_final)
     print ("link_final....")
-    print (link)
+    print (link_final)
     print("Response:")
     print(speech)
 ############################################################
@@ -260,7 +260,7 @@ def searchhook():
                                    "subtitle" : "...",
                                    "buttons": [{
                                         "type": "web_url",
-                                        "url": link,
+                                        "url": link_final,
                                         "title": "More info"
                                     }]
                                  } 
