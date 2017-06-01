@@ -183,8 +183,9 @@ def searchhook():
               "facebook" : {
                  "attachment" : {
                    "type" : "template",
-                     "payload" : [ {
+                     "payload" : {
                       "template_type" : "generic",
+                       "text": speech,     
                        "elements" : [ 
                                  {
                                    "title" : "...",
@@ -192,15 +193,7 @@ def searchhook():
                                    "subtitle" : speech
                                } 
                            ]
-                       "template_type":"button",
-                               "text":"What do you want to do next?",
-                                 "buttons":[
-                                       {
-                                    "type":"web_url",
-                                    "url":"https://petersapparel.parseapp.com",
-                                    "title":"Show Website"
-                                    } ] 
-                       } ]
+                       } 
                    }
                 }
              } 
