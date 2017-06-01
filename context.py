@@ -31,8 +31,8 @@ def webhook():
        return searchhook()
     elif reqContext.get("result").get("action") == "DatabaseSearch":
        return dbsearchhook()
-    elif reqContext.get("result").get("action") == "input.welcome":
-       return welcome()
+    #elif reqContext.get("result").get("action") == "input.welcome":
+    #   return welcome()
     else:
        print("Good Bye")
 
@@ -184,6 +184,7 @@ def searchhook():
                  "attachment" : {
                    "type" : "template",
                      "payload" : {
+                        "text": speech,
                       "template_type" : "generic",
                        "elements" : [ 
                                  {
