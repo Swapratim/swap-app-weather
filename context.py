@@ -250,6 +250,8 @@ def welcome():
     result = urllib.request.urlopen(fb_info).read()
     print (result)
     data = json.loads(result)
+    first_name = data.get('first_name')
+    print (first_name)
     return "Hi"
 
 def reply(user_id, msg):
