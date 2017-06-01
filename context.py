@@ -65,7 +65,7 @@ def welcome():
                       "template_type" : "generic",
                        "elements" : [ 
                                  {
-                                   "title" : "Hi" + first_name + "! I am Marvin",
+                                   "title" : "Hi " + first_name + "! I am Marvin",
                                    "image_url" : "https://pbs.twimg.com/profile_images/717482045019136001/aYzlNG5L.jpg",
                                  } 
                            ]
@@ -202,6 +202,7 @@ def searchhook():
 
     for data_item in data['items']:
         pagemap = data_item['pagemap'],
+        link = data_item['link'],
 
     for key in pagemap:
         cse_thumbnail = key['cse_thumbnail']
@@ -246,7 +247,14 @@ def searchhook():
                                  {
                                    "title" : "...",
                                    "image_url" : src_brace_removed_final,
-                                   "subtitle" : speech
+                                   "subtitle" : speech,
+                                   "buttons": [
+                                {
+                                    "title": "More info",
+                                    "type": "web_url",
+                                    "url": link
+                                }
+                            ]
                                } 
                            ]
                        } 
