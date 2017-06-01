@@ -195,8 +195,6 @@ def searchhook():
                                      "title": "View Website",
                                      "type": "web_url",
                                      "url": "http://www.google.com",
-                                     "webview_height_ratio": "tall",
-                                     "fallback_url": "http://www.google.com"                        
                                      }
                                    ]
                                 }
