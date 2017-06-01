@@ -264,6 +264,7 @@ def searchhook():
                                     "type": "web_url",
                                     "url": link
                                 }
+                            ]
                                  } 
                            ]
                        } 
