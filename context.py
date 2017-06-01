@@ -201,8 +201,10 @@ def searchhook():
     #  print(key,value)
 
     for data_item in data['items']:
-        pagemap = data_item['pagemap'],
         link = data_item['link'],
+
+    for data_item in data['items']:
+        pagemap = data_item['pagemap'],
 
     for key in pagemap:
         cse_thumbnail = key['cse_thumbnail']
@@ -238,7 +240,7 @@ def searchhook():
           "speech": speech,
           "displayText": speech,
            "data" : {
-              "facebook" : {
+              "facebook" : [{
                  "attachment" : {
                    "type" : "template",
                      "payload" : {
@@ -259,7 +261,7 @@ def searchhook():
                            ]
                        } 
                    }
-                }
+                }]
              } 
          };
     res = json.dumps(res, indent=4)
