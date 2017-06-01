@@ -241,10 +241,10 @@ def welcome():
     #print (reply)
     for entry in data:
         messagings = entry['originalRequest']
-          for data_one in messagings:
-            data_all = data_one['data']
-            for message in data_all:
-             sender = message['sender']['id']
+          for dataone in messagings:
+            dataall = dataone['data']
+            for message in dataall:
+              sender = message['sender']['id']
               #if message.get('message'):
                 #text = message['message']['text']
                 print("{} says {}".format(sender))
