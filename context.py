@@ -199,7 +199,6 @@ def searchhook():
                                         "title": "Buy",
                                         "type": "web_url",
                                         "url": "http://www.google.com",
-                                        "messenger_extensions": true,
                                         "webview_height_ratio": "tall",
                                         "fallback_url": "http://www.google.com"                        
                                         }
