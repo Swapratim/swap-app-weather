@@ -226,9 +226,9 @@ def searchhook():
     src_brace_removed_1 = src_u_removed.strip('[')
     src_brace_removed_2 = src_brace_removed_1.strip(']')
     src_brace_removed_final =  src_brace_removed_2.strip("'")
-    link_braces_stripped_1 = link.strip("(")
-    link_braces_stripped_2 = link_braces_stripped_1.strip(")")
-    link_comma_stripped_3 = link_braces_stripped_2.strip("'")
+    #link_braces_stripped_1 = link.strip("(")
+    #link_braces_stripped_2 = link_braces_stripped_1.strip(")")
+    link_comma_stripped_3 = link.strip("'")
     link_u_removed =  [str(i) for i in link_comma_stripped_3]
     link_final = str(link_u_removed)
     print ("Image::::::::")
