@@ -59,6 +59,7 @@ def welcome():
            "data" : {
               "facebook" : {
                 "messages" : [
+                              {
                  "attachment" : {
                    "type" : "template",
                      "payload" : {
@@ -83,6 +84,7 @@ def welcome():
                            ]
                         } 
                      }
+                    }
                   ]
                 }
              } 
