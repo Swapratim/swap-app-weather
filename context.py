@@ -239,16 +239,12 @@ def welcome():
     #message = data['entry'][0]['messaging'][0]['message']['text']
     #reply(sender, message[::-1])
     #print (reply)
-    for entry in data:
-        messagings = entry['originalRequest']
-    for dataone in messagings:
-        dataall = dataone['data']
-    for message in dataall:
-        sender = message['sender']['id']
-              #if message.get('message'):
-                #text = message['message']['text']
-    print("{} says {}".format(sender))
-    #print (data)
+    entry = data.get('originalRequest')
+    dataall = entry.get('data')
+    sender = dataall.get('sender')
+    id = sender.get('id')
+                  
+    print("{ID} says {}".format(id))
     return "Hi"
 
 def reply(user_id, msg):
