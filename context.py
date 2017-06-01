@@ -74,7 +74,7 @@ def welcome():
                        } 
                    },
                    "attachment" : {
-                   "type" : "text",
+                   "type" : "template",
                      "payload" : {
                       "template_type" : "generic",
                        "elements" : [ 
