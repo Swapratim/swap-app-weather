@@ -23,7 +23,7 @@ ACCESS_TOKEN = "EAAXRzkKCxVQBAImZBQo8kEpHVn0YDSVxRcadEHiMlZAcqSpu5pV7wAkZBKUs0eI
 @context.route('/webhook', methods=['POST'])
 def webhook():
     reqContext = request.get_json(silent=True, force=True)
-    print(json.dumps(reqContext, indent=4))
+    #print(json.dumps(reqContext, indent=4))
     print(reqContext.get("result").get("action"))
     if reqContext.get("result").get("action") == "yahooWeatherForecast":
        return weatherhook()
@@ -31,8 +31,8 @@ def webhook():
        return searchhook()
     elif reqContext.get("result").get("action") == "DatabaseSearch":
        return dbsearchhook()
-    #elif reqContext.get("result").get("action") == "input.welcome":
-    #   return welcome()
+    elif reqContext.get("result").get("action") == "input.welcome":
+       return welcome()
     else:
        print("Good Bye")
 
@@ -238,7 +238,15 @@ def welcome():
     #message = data['entry'][0]['messaging'][0]['message']['text']
     #reply(sender, message[::-1])
     #print (reply)
+    for entry in data:
+        messagings = entry['messaging']
+        for message in messagings:
+            sender = message['sender']['id']
+            if message.get('message'):
+                text = message['message']['text']
+                print("{} says {}".format(sender, text))
     print (data)
+    return "Hi"
 
 def reply(user_id, msg):
     data = {
