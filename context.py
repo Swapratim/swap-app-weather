@@ -235,20 +235,19 @@ def welcome():
     print ("Within Welcome loop")
     data = request.json
     print (data)
-    data_u_string_removed = [str(i) for i in data]
-    data_final = str(data_u_string_removed)
-    print (data_final)
     #sender = data['entry'][0]['messaging'][0]['sender']['id']
     #message = data['entry'][0]['messaging'][0]['message']['text']
     #reply(sender, message[::-1])
     #print (reply)
-    #for entry in data:
-    #    messagings = entry['messaging']
-    #    for message in messagings:
-    #        sender = message['sender']['id']
-    #        if message.get('message'):
-    #            text = message['message']['text']
-    #            print("{} says {}".format(sender, text))
+    for entry in data:
+        messagings = entry['originalRequest']
+          for data_one in messagings:
+            data_all = data_one['data']
+            for message in data_all:
+             sender = message['sender']['id']
+              #if message.get('message'):
+                #text = message['message']['text']
+                print("{} says {}".format(sender))
     print (data)
     return "Hi"
 
