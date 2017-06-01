@@ -260,7 +260,7 @@ def searchhook():
                                    "subtitle" : "...",
                                    "buttons": [{
                                         "type": "web_url",
-                                        "url": "https://www.google.com",
+                                        "url": link,
                                         "title": "More info"
                                     }]
                                  } 
