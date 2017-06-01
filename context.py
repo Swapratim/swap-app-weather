@@ -184,13 +184,21 @@ def searchhook():
                  "attachment" : {
                    "type" : "template",
                      "payload" : {
-                        "text": speech,
                       "template_type" : "generic",
                        "elements" : [ 
                                  {
                                    "title" : "...",
                                    "image_url" : src_brace_removed_final,
                                    "subtitle" : speech
+                                   "buttons": [
+                                            {
+                                     "title": "View Website",
+                                     "type": "web_url",
+                                     "url": "http://www.google.com",
+                                     "webview_height_ratio": "tall",
+                                     "fallback_url": "http://www.google.com"                        
+                                     }
+                                   ]
                                 }
                             ]
                         }
