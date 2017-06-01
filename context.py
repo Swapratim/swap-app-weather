@@ -190,16 +190,13 @@ def searchhook():
                                    "title" : "...",
                                    "image_url" : src_brace_removed_final,
                                    "subtitle" : speech
-                                   }
-                            ]
-                        }
-                       "template_type" : "generic",
-                        "elements" : [ 
+                                   },
                                  {
                                  "text" : speech
-                          }
-                       ]
-                    }
+                                 }
+                              ]
+                            }
+                   }
                 }
              } 
          };
