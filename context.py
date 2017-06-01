@@ -213,7 +213,6 @@ def searchhook():
 
     for data_item in data['items']:
         pagemap = data_item['pagemap'],
-        link = data_item['link'],
 
     for key in pagemap:
         cse_thumbnail = key['cse_thumbnail']
@@ -258,19 +257,7 @@ def searchhook():
                                  {
                                    "title" : "...",
                                    "image_url" : src_brace_removed_final,
-                                   "subtitle" : speech,
-                                    "buttons":[
-                                          {
-                                           "type":"web_url",
-                                           "url": link,
-                                           "title":"Show Website"
-                                          },
-                                          {
-                                           "type":"postback",
-                                           "title":"Start Chatting",
-                                           "payload":"USER_DEFINED_PAYLOAD"
-                                          }
-                                      ]
+                                   "subtitle" : speech
                                } 
                            ]
                        } 
