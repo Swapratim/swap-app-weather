@@ -247,7 +247,7 @@ def welcome():
     print("id.........")
     print (id)
     fb_info = requests.post("https://graph.facebook.com/v2.6/" + id + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + ACCESS_TOKEN, json=data)
-    print (fb_info)
+    print (fb_info.content)
     return "Hi"
 
 def reply(user_id, msg):
@@ -255,7 +255,7 @@ def reply(user_id, msg):
         "recipient": {"id": user_id},
         "message": {"text": msg}
     }
-    print ("Data::::::::::::::::")
+    print ("Data.........")
     print (data)
     resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
     print(resp.content)
