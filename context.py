@@ -190,12 +190,9 @@ def searchhook():
                                    "title" : "...",
                                    "image_url" : src_brace_removed_final,
                                    "subtitle" : speech
-                                   },
-                                 {
-                                 "text" : speech
-                                 }
-                              ]
-                            }
+                               } 
+                           ]
+                       }
                    }
                 }
              } 
