@@ -234,6 +234,7 @@ def dbsearchhook():
 def welcome():
     print ("Within Welcome loop")
     data = request.json
+    print (data)
     #sender = data['entry'][0]['messaging'][0]['sender']['id']
     #message = data['entry'][0]['messaging'][0]['message']['text']
     #reply(sender, message[::-1])
