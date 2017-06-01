@@ -258,13 +258,11 @@ def searchhook():
                                    "title" : "...",
                                    "image_url" : src_brace_removed_final,
                                    "subtitle" : "...",
-                                   "buttons": [
-                                {
-                                    "title": "More info",
-                                    "type": "web_url",
-                                    "url": link
-                                }
-                            ]
+                                   "buttons": [{
+                                        "type": "web_url",
+                                        "url": "https://www.google.com",
+                                        "title": "More info"
+                                    }]
                                  } 
                            ]
                        } 
