@@ -189,7 +189,7 @@ def searchhook():
                                  {
                                    "title" : "...",
                                    "image_url" : src_brace_removed_final,
-                                   "subtitle" : speech
+                                   "subtitle" : speech,
                                    "buttons": [
                                             {
                                      "title": "View Website",
