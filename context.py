@@ -59,11 +59,11 @@ def welcome():
            "data" : {
               "facebook" : {
                 "messages" : [
-                              {
+                         {
                  "attachment" : {
                    "type" : "template",
                      "payload" : {
-                      "template_type" : "list",
+                      "template_type" : "generic",
                        "elements" : [ 
                                  {
                                    "title" : "Hi" + first_name + "! I am Marvin",
@@ -74,9 +74,9 @@ def welcome():
                        } 
                    },
                    "attachment" : {
-                   "type" : "template",
+                   "type" : "text",
                      "payload" : {
-                      "template_type" : "list",
+                      "template_type" : "generic",
                        "elements" : [ 
                                  {
                                    "text" : speech,
