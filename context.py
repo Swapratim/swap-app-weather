@@ -230,7 +230,7 @@ def searchhook():
     link_brace_removed_2 = link_brace_removed_1.strip(']')
     link_final =  link_brace_removed_2.strip("'")
     # Remove junk character from search item
-    search_string_final = search_string_ascii.strip("'")
+    search_string_final = cumulative_string.strip("'")
     print ("Image::::::::")
     print (src_brace_removed_final)
     print ("link_final....")
