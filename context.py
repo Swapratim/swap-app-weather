@@ -15,12 +15,13 @@ from flask import request, render_template
 from flask import make_response
 
 
-# Flask weather should start in global layout
+# Flask should start in global layout
 context = Flask(__name__)
-
+# Facbook Access Token
 ACCESS_TOKEN = "EAAXRzkKCxVQBAImZBQo8kEpHVn0YDSVxRcadEHiMlZAcqSpu5pV7wAkZBKUs0eIZBcX1RmZCEV6cxJzuZAp5NO5ZCcJgZBJu4OPrFpKiAPJ5Hxlve2vrSthfMSZC3GqLnzwwRENQSzZAMyBXFCi1LtLWm9PhYucY88zPT4KEwcZCmhLYAZDZD"
 
 @context.route('/webhook', methods=['POST'])
+# Webhook requests are coming to this method
 def webhook():
     reqContext = request.get_json(silent=True, force=True)
     #print(json.dumps(reqContext, indent=4))
@@ -93,7 +94,7 @@ def reply(user_id, msg):
     resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
     print(resp.content)
    
-
+# This method is to invoke Yahoo API and process the GET response
 def weatherhook():
     req = request.get_json(silent=True, force=True)
     if req.get("result").get("action") != "yahooWeatherForecast":
@@ -246,7 +247,7 @@ def searchhook():
                       "template_type" : "generic",
                        "elements" : [ 
                                  {
-                                   "title" : "...",
+                                   "title" : search_string_ascii,
                                    "image_url" : src_brace_removed_final,
                                    "subtitle" : "",
                                    "buttons": [{
