@@ -223,11 +223,14 @@ def searchhook():
     src_brace_removed_1 = src_u_removed.strip('[')
     src_brace_removed_2 = src_brace_removed_1.strip(']')
     src_brace_removed_final =  src_brace_removed_2.strip("'")
+    # Remove junk charaters from URL
     link_u_removal =  [str(i) for i in link]
     link_u_removed = str(link_u_removal)
     link_brace_removed_1 = link_u_removed.strip('[')
     link_brace_removed_2 = link_brace_removed_1.strip(']')
     link_final =  link_brace_removed_2.strip("'")
+    # Remove junk character from search item
+    search_string_final = search_string_ascii.strip("'")
     print ("Image::::::::")
     print (src_brace_removed_final)
     print ("link_final....")
@@ -247,7 +250,7 @@ def searchhook():
                       "template_type" : "generic",
                        "elements" : [ 
                                  {
-                                   "title" : search_string_ascii,
+                                   "title" : search_string_final,
                                    "image_url" : src_brace_removed_final,
                                    "subtitle" : "",
                                    "buttons": [{
