@@ -148,7 +148,10 @@ def weatherhook():
     icon_url = current_observation.get('icon_url')
     print (icon_url)
 
-    speech = "Today in " #+ display_location.get('city') + ": " + current_observation.get('icon') + \
+
+    speech = "Hi"
+
+    #speech = "Today in " #+ display_location.get('city') + ": " + current_observation.get('icon') + \
             # ", current temperature is " + current_observation.get('temp_c') + " °C" + \
             # ", it feels like " + current_observation.get('feelslike_c') + " °C" + \
             # ", chances of rain " + current_observation.get('precip_today_metric') + "  mm" + \
