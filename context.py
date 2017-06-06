@@ -188,7 +188,7 @@ def weatherhook():
                    }
                 },
                  {
-                 "text": speech
+                 "image_url": image_url
                   }
                ]
              } 
