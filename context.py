@@ -19,6 +19,12 @@ from flask import make_response
 context = Flask(__name__)
 # Facbook Access Token
 ACCESS_TOKEN = "EAAXRzkKCxVQBAImZBQo8kEpHVn0YDSVxRcadEHiMlZAcqSpu5pV7wAkZBKUs0eIZBcX1RmZCEV6cxJzuZAp5NO5ZCcJgZBJu4OPrFpKiAPJ5Hxlve2vrSthfMSZC3GqLnzwwRENQSzZAMyBXFCi1LtLWm9PhYucY88zPT4KEwcZCmhLYAZDZD"
+# Google Access Token
+Google_Acces_Toekn = "key=AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM&cx=003066316917117435589%3Avcms6hy5lxs&q="
+# NewsAPI Access Token
+newspai_access_token = "505c1506aeb94ba69b72a4dbdce31996"
+# Weather Update API KeyError
+weather_update_key = "747d84ccfe063ba9"
 
 @context.route('/webhook', methods=['POST'])
 # Webhook requests are coming to this method
@@ -99,8 +105,6 @@ def weatherhook():
     req = request.get_json(silent=True, force=True)
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
-    baseurl = "https://query.yahooapis.com/v1/public/yql?"
-###########################################################
     result = req.get("result")
     print (result)
     print ('####################')
@@ -112,37 +116,21 @@ def weatherhook():
     print ('********************')
     if city is None:
         return None
-    yql_query = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "') and u='c'"
+    weather_query = "http://api.wunderground.com/api/747d84ccfe063ba9/conditions/q/CA/" + city + ".json"
 ###########################################################
-    if yql_query is None:
-        return {}
-    yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
-    print (yql_url)
-    result = urllib.request.urlopen(yql_url).read()
+    result = urllib.request.urlopen(weather_query).read()
     data = json.loads(result)
     print (data)
 ############################################################
-    query = data.get('query')
+    current_observation = data.get('current_observation')
     if query is None:
         return {}
-
-    result = query.get('results')
-    if result is None:
+    print (current_observation)
+    display_location = current_observation.get('display_location')
+    if query is None:
         return {}
-
-    channel = result.get('channel')
-    if channel is None:
-        return {}
-
-    item = channel.get('item')
-    location = channel.get('location')
-    units = channel.get('units')
-    if (location is None) or (item is None) or (units is None):
-        return {}
-
-    condition = item.get('condition')
-    if condition is None:
-        return {}
+ 
+    
 
     speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
              ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
