@@ -150,6 +150,12 @@ def weatherhook():
     if condition is None:
         return {}
 
+    description = item.get('description')
+    if description is None:
+        return {}
+
+    print (description)
+
     speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
              ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
     print(speech)
