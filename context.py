@@ -156,7 +156,8 @@ def weatherhook():
 
     mytext = "<br />".join(description.split("\n"))
     print (mytext)
-    mytext_split = mytext.split('<br />')
+    mytext_split_1 = mytext.split('<br />')
+    mytext_split_2 = mytext_split_1.split('<BR />')
     print ("@@@@@@@")
     print (mytext_split)
 
