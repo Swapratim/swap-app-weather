@@ -155,13 +155,13 @@ def weatherhook():
         return {}
 
     mytext = "<br />".join(description.split("\n"))
-    print (mytext)
+    #print (mytext)
     mytext_split_1 = mytext.split('\n<BR />')
     #mytext_split_2 = mytext_split_1.split('<BR />')
     print ("@@@@@@@")
     print (mytext_split_1)
     for data_item in mytext_split_1:
-        print (data_item),
+        print (data_item[0]),
 
     speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
              ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
