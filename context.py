@@ -154,23 +154,45 @@ def weatherhook():
     if description is None:
         return {}
 
-    mytext = "<br />".join(description.split("\n"))
-    #print (mytext)
-    mytext_split_1 = mytext.split('\n<BR />')
-    #mytext_split_2 = mytext_split_1.split('<BR />')
-    print ("@@@@@@@")
-    print (mytext_split_1)
-    for data_item in mytext_split_1:
-        print (data_item[0]),
-    mytext_split_2 = data_item[0].split('<')
-    print (mytext_split_2)
+    image_url = "http://l.yimg.com/a/i/us/we/52/" + condition.get('code') + ".gif"
     speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
              ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
     print(speech)
 ##############################################################
-    res = {"speech": speech,
-           "displayText": speech,
-           "source": "apiai-weather-webhook-sample"}
+    #res = {"speech": speech,
+    #       "displayText": speech,
+    #       "source": "apiai-weather-webhook-sample"}
+    res = {
+          "speech": speech,
+          "displayText": speech,
+           "data" : {
+              "facebook" : [
+                  {
+                 "attachment" : {
+                   "type" : "template",
+                     "payload" : {
+                      "template_type" : "generic",
+                       "elements" : [ 
+                                 {
+                                   "title" : location.get('city'),
+                                   "image_url" : image_url,
+                                   "subtitle" : "",
+                                   "buttons": [{
+                                        "type": "web_url",
+                                        "url": "www.google.com",
+                                        "title": "Forecast"
+                                    }]
+                                 } 
+                           ]
+                       } 
+                   }
+                },
+                 {
+                 "text": speech
+                  }
+               ]
+             } 
+         };
     res = json.dumps(res, indent=4)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
