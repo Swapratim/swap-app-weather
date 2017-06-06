@@ -171,12 +171,13 @@ def weatherhook():
                  "attachment" : {
                    "type" : "template",
                      "payload" : {
-                      "template_type" : "image",
+                      "template_type" : "generic",
                        "elements" : [ 
                                  {
+                                   "title" : location.get('city'),
                                    "image_url" : image_url,
-                                   
-                                 } 
+                                   "subtitle" : "",
+                                  } 
                            ]
                        } 
                    }
