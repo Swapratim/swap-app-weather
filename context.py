@@ -151,13 +151,7 @@ def weatherhook():
 
     speech = "Hi"
 
-    #speech = "Today in " #+ display_location.get('city') + ": " + current_observation.get('icon') + \
-            # ", current temperature is " + current_observation.get('temp_c') + " °C" + \
-            # ", it feels like " + current_observation.get('feelslike_c') + " °C" + \
-            # ", chances of rain " + current_observation.get('precip_today_metric') + "  mm" + \
-            # ", relative humidity " + current_observation.get('relative_humidity') + \
-            # ", wind speed " + current_observation.get('wind_kph') + "  km/h" + \
-            # ", visbility up to " + current_observation.get('visibility_km') + " km"
+    
     print(speech)
 ##############################################################
     res = {"speech": speech,
