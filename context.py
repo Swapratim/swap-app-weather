@@ -171,17 +171,11 @@ def weatherhook():
                  "attachment" : {
                    "type" : "template",
                      "payload" : {
-                      "template_type" : "generic",
+                      "template_type" : "image",
                        "elements" : [ 
                                  {
-                                   "title" : location.get('city'),
                                    "image_url" : image_url,
-                                   "subtitle" : "",
-                                   "buttons": [{
-                                        "type": "web_url",
-                                        "url": "www.google.com",
-                                        "title": "Forecast"
-                                    }]
+                                   
                                  } 
                            ]
                        } 
