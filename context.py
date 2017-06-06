@@ -105,6 +105,8 @@ def weatherhook():
     req = request.get_json(silent=True, force=True)
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
+    baseurl = "https://query.yahooapis.com/v1/public/yql?"
+###########################################################
     result = req.get("result")
     print (result)
     print ('####################')
@@ -116,42 +118,40 @@ def weatherhook():
     print ('********************')
     if city is None:
         return None
-    weather_query = "http://api.wunderground.com/api/747d84ccfe063ba9/conditions/q/CA/" + city + ".json"
-    #weather_forecast = "http://api.wunderground.com/api/747d84ccfe063ba9/geolookup/conditions/forecast/q/India/Kolkata.json"
+    yql_query = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "') and u='c'"
 ###########################################################
-    result = urllib.request.urlopen(weather_query).read()
+    if yql_query is None:
+        return {}
+    yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
+    print (yql_url)
+    result = urllib.request.urlopen(yql_url).read()
     data = json.loads(result)
     print (data)
 ############################################################
-    current_observation = data.get('current_observation')
-    if current_observation is None:
+    query = data.get('query')
+    if query is None:
         return {}
-    print (current_observation)
-    display_location = current_observation.get('display_location')
-    print (display_location)
-    city = display_location.get('city')
-    print (city)
-    temp_c = current_observation.get('temp_c')
-    print (temp_c)
-    relative_humidity = current_observation.get('relative_humidity')
-    print (relative_humidity)
-    wind_kph = current_observation.get('wind_kph')
-    print (wind_kph)
-    feelslike_c = current_observation.get('feelslike_c')
-    print (feelslike_c)
-    visibility_km = current_observation.get('visibility_km')
-    print (visibility_km)
-    precip_today_metric = current_observation.get('precip_today_metric')
-    print (precip_today_metric)
-    icon = current_observation.get('icon')
-    print (icon)
-    icon_url = current_observation.get('icon_url')
-    print (icon_url)
 
+    result = query.get('results')
+    if result is None:
+        return {}
 
-    speech = "Hi"
+    channel = result.get('channel')
+    if channel is None:
+        return {}
 
-    
+    item = channel.get('item')
+    location = channel.get('location')
+    units = channel.get('units')
+    if (location is None) or (item is None) or (units is None):
+        return {}
+
+    condition = item.get('condition')
+    if condition is None:
+        return {}
+
+    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
+             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
     print(speech)
 ##############################################################
     res = {"speech": speech,
