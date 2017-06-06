@@ -128,17 +128,33 @@ def weatherhook():
         return {}
     print (current_observation)
     display_location = current_observation.get('display_location')
-         #city = display_location.get('city')
-    #temp_c = current_observation.get('temp_c')
-    #relative_humidity = current_observation.get('relative_humidity')
-    #wind_kph = current_observation.get('wind_kph')
-    #feelslike_c = current_observation.get('feelslike_c')
+    print (display_location)
+         city = display_location.get('city')
+          print (city)
+    temp_c = current_observation.get('temp_c')
+    print (temp_c)
+    relative_humidity = current_observation.get('relative_humidity')
+    print (relative_humidity)
+    wind_kph = current_observation.get('wind_kph')
+    print (wind_kph)
+    feelslike_c = current_observation.get('feelslike_c')
+    print (feelslike_c)
     visibility_km = current_observation.get('visibility_km')
-    #precip_today_metric = current_observation.get('precip_today_metric')
-    #icon = current_observation.get('icon')
+    print (visibility_km)
+    precip_today_metric = current_observation.get('precip_today_metric')
+    print (precip_today_metric)
+    icon = current_observation.get('icon')
+    print (icon)
     icon_url = current_observation.get('icon_url')
+    print (icon_url)
 
-    speech = "Today in " + display_location.get('city') + ": " + current_observation.get('icon') #+ "\n , current temperature is " + current_observation.get('temp_c') + " C" + "\n, it feels like " + current_observation.get('feelslike_c') + " °C" + "\n, chances of rain " + current_observation.get('precip_today_metric') + " mm" + "\n, relative humidity " + current_observation.get('relative_humidity') + "\n, wind speed " + current_observation.get('wind_kph') + "  km/h" + "\n, visbility up to " + current_observation.get('visibility_km') + " km" 
+    speech = "Today in " #+ display_location.get('city') + ": " + current_observation.get('icon') + \
+            # ", current temperature is " + current_observation.get('temp_c') + " °C" + \
+            # ", it feels like " + current_observation.get('feelslike_c') + " °C" + \
+            # ", chances of rain " + current_observation.get('precip_today_metric') + "  mm" + \
+            # ", relative humidity " + current_observation.get('relative_humidity') + \
+            # ", wind speed " + current_observation.get('wind_kph') + "  km/h" + \
+            # ", visbility up to " + current_observation.get('visibility_km') + " km"
     print(speech)
 ##############################################################
     res = {"speech": speech,
