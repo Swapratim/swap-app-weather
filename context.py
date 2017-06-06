@@ -117,6 +117,7 @@ def weatherhook():
     if city is None:
         return None
     weather_query = "http://api.wunderground.com/api/747d84ccfe063ba9/conditions/q/CA/" + city + ".json"
+    #weather_forecast = "http://api.wunderground.com/api/747d84ccfe063ba9/geolookup/conditions/forecast/q/India/Kolkata.json"
 ###########################################################
     result = urllib.request.urlopen(weather_query).read()
     data = json.loads(result)
@@ -127,13 +128,23 @@ def weatherhook():
         return {}
     print (current_observation)
     display_location = current_observation.get('display_location')
-    if display_location is None:
-        return {}
- 
-    
+         #city = display_location.get('city')
+    #temp_c = current_observation.get('temp_c')
+    #relative_humidity = current_observation.get('relative_humidity')
+    #wind_kph = current_observation.get('wind_kph')
+    #feelslike_c = current_observation.get('feelslike_c')
+    visibility_km = current_observation.get('visibility_km')
+    #precip_today_metric = current_observation.get('precip_today_metric')
+    #icon = current_observation.get('icon')
+    icon_url = current_observation.get('icon_url')
 
-    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
-             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
+    speech = "Today in " + display_location.get('city') + ": " + current_observation.get('icon') + \
+             ", current temperature is " + current_observation.get('temp_c') + "  °C" + \
+             ", it feels like " + current_observation.get('feelslike_c') + "  °C" + \
+             ", chances of rain " + current_observation.get('precip_today_metric') + "  mm" + \
+             ", relative humidity " + current_observation.get('relative_humidity') + \
+             ", wind speed " + current_observation.get('wind_kph') + "  km/h" + \
+             ", visbility up to " + current_observation.get('visibility_km') + " km" 
     print(speech)
 ##############################################################
     res = {"speech": speech,
