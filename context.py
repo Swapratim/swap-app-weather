@@ -123,11 +123,11 @@ def weatherhook():
     print (data)
 ############################################################
     current_observation = data.get('current_observation')
-    if query is None:
+    if current_observation is None:
         return {}
     print (current_observation)
     display_location = current_observation.get('display_location')
-    if query is None:
+    if display_location is None:
         return {}
  
     
