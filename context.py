@@ -154,6 +154,11 @@ def weatherhook():
     if description is None:
         return {}
 
+    link = item.get('link')
+    link_split = link.split('*')
+    for link_data in link_split:
+        print (link_data[1])
+
     image_url = "http://l.yimg.com/a/i/us/we/52/" + condition.get('code') + ".gif"
     speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
              ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
@@ -174,7 +179,7 @@ def weatherhook():
                       "template_type" : "generic",
                        "elements" : [ 
                                  {
-                                   "title" : location.get('city'),
+                                   "title" : location.get('city') + "-" + location.get('country'),
                                    "image_url" : image_url,
                                    "subtitle" : "",
                                   } 
