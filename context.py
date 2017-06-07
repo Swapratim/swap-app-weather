@@ -153,10 +153,8 @@ def weatherhook():
     description = item.get('description')
     if description is None:
         return {}
-    print ("$$$$$$$$")
+    
     link = item.get('link')
-    print (link)
-    print ("&&&&&&&")
     link_forecast = link.split("*",1)[1]
     print (link_forecast)
 
@@ -174,6 +172,9 @@ def weatherhook():
            "data" : {
               "facebook" : [
                   {
+                 "text": speech
+                  },
+                  {
                  "attachment" : {
                    "type" : "template",
                      "payload" : {
@@ -183,14 +184,16 @@ def weatherhook():
                                    "title" : location.get('city') + "-" + location.get('country'),
                                    "image_url" : image_url,
                                    "subtitle" : "",
+                                   "buttons": [{
+                                        "type": "web_url",
+                                        "url": link_forecast,
+                                        "title": "Weather Forecast"
+                                    }]
                                   } 
                            ]
                        } 
                    }
-                },
-                 {
-                 "text": speech
-                  }
+                 }
                ]
              } 
          };
