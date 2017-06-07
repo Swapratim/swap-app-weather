@@ -155,9 +155,7 @@ def weatherhook():
         return {}
 
     link = item.get('link')
-    link_split = link.split('*')
-    for link_data in link_split:
-        print (link_data[1])
+    print link.split("*",1)[1] 
 
     image_url = "http://l.yimg.com/a/i/us/we/52/" + condition.get('code') + ".gif"
     speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
