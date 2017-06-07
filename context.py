@@ -153,9 +153,12 @@ def weatherhook():
     description = item.get('description')
     if description is None:
         return {}
-
+    print ("$$$$$$$$")
     link = item.get('link')
-    print link.split("*",1)[1] 
+    print (link)
+    print ("&&&&&&&")
+    link_forecast = link.split("*",1)[1]
+    print (link_forecast)
 
     image_url = "http://l.yimg.com/a/i/us/we/52/" + condition.get('code') + ".gif"
     speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
