@@ -159,7 +159,104 @@ def weatherhook():
     link_forecast = link.split("*",1)[1]
     print (link_forecast)
 
-    image_url = "http://l.yimg.com/a/i/us/we/52/" + condition.get('code') + ".gif"
+    if condition.get('code') == "0":
+       condition_code = "EmPG"
+    elif condition.get('code') == "1":
+       condition_code = "mh7N"
+    elif condition.get('code') == "2":
+       condition_code = "jENO"
+    elif condition.get('code') == "3":
+       condition_code = "BTT7"
+    elif condition.get('code') == "4":
+       condition_code = "kTWn"
+    elif condition.get('code') == "5":
+       condition_code = "vBIX"
+    elif condition.get('code') == "6":
+       condition_code = "zuxw"
+    elif condition.get('code') == "7":
+       condition_code = "Vy9A"
+    elif condition.get('code') == "8":
+       condition_code = "cT-0"
+    elif condition.get('code') == "9":
+       condition_code = "M4nr"
+    elif condition.get('code') == "10":
+       condition_code = "8-OZ"
+    elif condition.get('code') == "11":
+       condition_code = "4sN0"
+    elif condition.get('code') == "12":
+       condition_code = "SrHt"
+    elif condition.get('code') == "13":
+       condition_code = "i925"
+    elif condition.get('code') == "14":
+       condition_code = "9WKu"
+    elif condition.get('code') == "15":
+       condition_code = "YjI9B"
+    elif condition.get('code') == "16":
+       condition_code = "Lqmw"
+    elif condition.get('code') == "17":
+       condition_code = "8wXj"
+    elif condition.get('code') == "18":
+       condition_code = "AHL1"
+    elif condition.get('code') == "19":
+       condition_code = "pSfX"
+    elif condition.get('code') == "20":
+       condition_code = "ugKj"
+    elif condition.get('code') == "21":
+       condition_code = "eFL0"
+    elif condition.get('code') == "22":
+       condition_code = "Co_g" 
+    elif condition.get('code') == "23":
+       condition_code = "h8uM"
+    elif condition.get('code') == "24":
+       condition_code = "HBlw"
+    elif condition.get('code') == "25":
+       condition_code = "QHzi"
+    elif condition.get('code') == "26":
+       condition_code = "3IaA"
+    elif condition.get('code') == "27":
+       condition_code = "i-dK"
+    elif condition.get('code') == "28":
+       condition_code = "aIAw"
+    elif condition.get('code') == "29":
+       condition_code = "6z8CS"
+    elif condition.get('code') == "30":
+       condition_code = "xt2C"
+    elif condition.get('code') == "31":
+       condition_code = "3Utr"
+    elif condition.get('code') == "32":
+       condition_code = "YHpS"
+    elif condition.get('code') == "33":
+       condition_code = "Hr4W"
+    elif condition.get('code') == "34":
+       condition_code = "84WQ"
+    elif condition.get('code') == "35":
+       condition_code = "3BH6"
+    elif condition.get('code') == "36":
+       condition_code = "vjLN"
+    elif condition.get('code') == "37":
+       condition_code = "41rl"
+    elif condition.get('code') == "38":
+       condition_code = "8Ibx" 
+    elif condition.get('code') == "39":
+       condition_code = "lIee"
+    elif condition.get('code') == "40":
+       condition_code = "9GNz"
+    elif condition.get('code') == "41":
+       condition_code = "uy77"
+    elif condition.get('code') == "42":
+       condition_code = "15Ou"
+    elif condition.get('code') == "43":
+       condition_code = "P_Jg"
+    elif condition.get('code') == "45":
+       condition_code = "wF0D"
+    elif condition.get('code') == "46":
+       condition_code = "1huQ"
+    elif condition.get('code') == "47":
+       condition_code = "MlO5"
+    elif condition.get('code') == "3200":
+       condition_code = "mgzs"
+   
+    image_url = "http://gdurl.com/" + condition_code
     speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
              ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
     print(speech)
