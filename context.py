@@ -258,7 +258,7 @@ def weatherhook():
        condition_code = "MlO5"
     elif condition.get('code') == "3200":
        condition_code = "mgzs"
-    else 
+    else: 
        print ("Condition code did not match the sequence")
    
     image_url = "http://gdurl.com/" + condition_code
