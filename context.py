@@ -263,8 +263,8 @@ def weatherhook():
    
     image_url = "http://gdurl.com/" + condition_code
 
-    if condition.get('code') != condition_code:
-       image_url = "http://l.yimg.com/a/i/us/we/" + condition.get('code') + "/14.gif"
+    #if condition.get('code') != condition_code:
+    #   image_url = "http://l.yimg.com/a/i/us/we/" + condition.get('code') + "/14.gif"
     print (image_url) 
      
     speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
