@@ -124,10 +124,10 @@ def weatherhook():
     if yql_query is None:
         return {}
     yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
-    print (yql_url)
+    #print (yql_url)
     result = urllib.request.urlopen(yql_url).read()
     data = json.loads(result)
-    print (data)
+    #print (data)
 ############################################################
     query = data.get('query')
     if query is None:
@@ -155,10 +155,13 @@ def weatherhook():
     if description is None:
         return {}
     
+    print ("URL Link and COndition code should be printed afterwards")
     link = item.get('link')
     link_forecast = link.split("*",1)[1]
     print (link_forecast)
-
+    print ("<<<<<>>>>")
+    print (condition.get('code')) 
+# Below block of code is to check for weather condition code and map corresponding http://gdurl.com/#### permalink context
     if condition.get('code') == "0":
        condition_code = "EmPG"
     elif condition.get('code') == "1":
@@ -255,8 +258,15 @@ def weatherhook():
        condition_code = "MlO5"
     elif condition.get('code') == "3200":
        condition_code = "mgzs"
+    else 
+       print ("Condition code did not match the sequence")
    
     image_url = "http://gdurl.com/" + condition_code
+
+    if condition.get('code') != condition_code:
+       image_url = "http://l.yimg.com/a/i/us/we/" + condition.get('code') + "/14.gif"
+    print (image_url) 
+     
     speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
              ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
     print(speech)
