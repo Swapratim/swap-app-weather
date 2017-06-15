@@ -151,9 +151,9 @@ def weatherhook():
     if condition is None:
         return {}
 
-    description = item.get('description')
-    if description is None:
-        return {}
+    #description = item.get('description')
+    #if description is None:
+    #    return {}
     
     print ("URL Link and Condition code should be printed afterwards")
     link = item.get('link')
