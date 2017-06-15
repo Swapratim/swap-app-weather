@@ -109,7 +109,7 @@ def weatherhook():
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
 ###########################################################
     result = req.get("result")
-    print (result)
+    #print (result)
     print ('####################')
     parameters = result.get("parameters")
     city = parameters.get("geo-city")
@@ -158,9 +158,9 @@ def weatherhook():
     print ("URL Link and Condition code should be printed afterwards")
     link = item.get('link')
     link_forecast = link.split("*",1)[1]
-    print (link_forecast)
-    print ("<<<<<>>>>")
-    print (condition.get('code')) 
+    #print (link_forecast)
+    #print ("<<<<<>>>>")
+    #print (condition.get('code')) 
 # Below block of code is to check for weather condition code and map corresponding http://gdurl.com/#### permalink context
     if condition.get('code') == "0":
        condition_code = "EmPG"
