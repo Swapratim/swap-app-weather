@@ -38,8 +38,6 @@ def webhook():
        return weatherhook()
     elif reqContext.get("result").get("action") == "GoogleSearch":
        return searchhook()
-    elif reqContext.get("result").get("action") == "DatabaseSearch":
-       return dbsearchhook()
     else:
        print("Good Bye")
 
@@ -100,16 +98,20 @@ def reply(user_id, msg):
     print (data)
     resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
     print(resp.content)
-   
+ 
+
+ 
 # This method is to invoke Yahoo API and process the GET response
 def weatherhook():
     req = request.get_json(silent=True, force=True)
+    print ("SSSSSSSSSSSSSSSSSSSSSSS")
+    print (req.get("result").get("action"))
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
 ###########################################################
     result = req.get("result")
-    #print (result)
+    print (result)
     print ('####################')
     parameters = result.get("parameters")
     city = parameters.get("geo-city")
@@ -161,106 +163,8 @@ def weatherhook():
     #print (link_forecast)
     #print ("<<<<<>>>>")
     #print (condition.get('code')) 
-# Below block of code is to check for weather condition code and map corresponding http://gdurl.com/#### permalink context
-    if condition.get('code') == "0":
-       condition_code = "EmPG"
-    elif condition.get('code') == "1":
-       condition_code = "mh7N"
-    elif condition.get('code') == "2":
-       condition_code = "jENO"
-    elif condition.get('code') == "3":
-       condition_code = "BTT7"
-    elif condition.get('code') == "4":
-       condition_code = "kTWn"
-    elif condition.get('code') == "5":
-       condition_code = "vBIX"
-    elif condition.get('code') == "6":
-       condition_code = "zuxw"
-    elif condition.get('code') == "7":
-       condition_code = "Vy9A"
-    elif condition.get('code') == "8":
-       condition_code = "cT-0"
-    elif condition.get('code') == "9":
-       condition_code = "M4nr"
-    elif condition.get('code') == "10":
-       condition_code = "8-OZ"
-    elif condition.get('code') == "11":
-       condition_code = "4sN0"
-    elif condition.get('code') == "12":
-       condition_code = "SrHt"
-    elif condition.get('code') == "13":
-       condition_code = "i925"
-    elif condition.get('code') == "14":
-       condition_code = "9WKu"
-    elif condition.get('code') == "15":
-       condition_code = "YjI9B"
-    elif condition.get('code') == "16":
-       condition_code = "Lqmw"
-    elif condition.get('code') == "17":
-       condition_code = "8wXj"
-    elif condition.get('code') == "18":
-       condition_code = "AHL1"
-    elif condition.get('code') == "19":
-       condition_code = "pSfX"
-    elif condition.get('code') == "20":
-       condition_code = "ugKj"
-    elif condition.get('code') == "21":
-       condition_code = "eFL0"
-    elif condition.get('code') == "22":
-       condition_code = "Co_g" 
-    elif condition.get('code') == "23":
-       condition_code = "h8uM"
-    elif condition.get('code') == "24":
-       condition_code = "HBlw"
-    elif condition.get('code') == "25":
-       condition_code = "QHzi"
-    elif condition.get('code') == "26":
-       condition_code = "3IaA"
-    elif condition.get('code') == "27":
-       condition_code = "i-dK"
-    elif condition.get('code') == "28":
-       condition_code = "aIAw"
-    elif condition.get('code') == "29":
-       condition_code = "6z8CS"
-    elif condition.get('code') == "30":
-       condition_code = "xt2C"
-    elif condition.get('code') == "31":
-       condition_code = "3Utr"
-    elif condition.get('code') == "32":
-       condition_code = "YHpS"
-    elif condition.get('code') == "33":
-       condition_code = "Hr4W"
-    elif condition.get('code') == "34":
-       condition_code = "84WQ"
-    elif condition.get('code') == "35":
-       condition_code = "3BH6"
-    elif condition.get('code') == "36":
-       condition_code = "vjLN"
-    elif condition.get('code') == "37":
-       condition_code = "41rl"
-    elif condition.get('code') == "38":
-       condition_code = "8Ibx" 
-    elif condition.get('code') == "39":
-       condition_code = "lIee"
-    elif condition.get('code') == "40":
-       condition_code = "9GNz"
-    elif condition.get('code') == "41":
-       condition_code = "uy77"
-    elif condition.get('code') == "42":
-       condition_code = "15Ou"
-    elif condition.get('code') == "43":
-       condition_code = "P_Jg"
-    elif condition.get('code') == "45":
-       condition_code = "wF0D"
-    elif condition.get('code') == "46":
-       condition_code = "1huQ"
-    elif condition.get('code') == "47":
-       condition_code = "MlO5"
-    elif condition.get('code') == "3200":
-       condition_code = "mgzs"
-    else: 
-       print ("Condition code did not match the sequence")
-   
+    condition_get_code = condition.get('code')
+    condition_code = weather_code(condition_get_code)
     image_url = "http://gdurl.com/" + condition_code
 
     #if condition.get('code') != condition_code:
@@ -313,7 +217,112 @@ def weatherhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
+def weather_code(condition_get_code):
+# Below block of code is to check for weather condition code and map corresponding http://gdurl.com/#### permalink context
 
+    if condition_get_code == "0":
+       condition_code = "EmPG"
+    elif condition_get_code == "1":
+       condition_code = "mh7N"
+    elif condition_get_code == "2":
+       condition_code = "jENO"
+    elif condition_get_code == "3":
+       condition_code = "BTT7"
+    elif condition_get_code == "4":
+       condition_code = "kTWn"
+    elif condition_get_code == "5":
+       condition_code = "vBIX"
+    elif condition_get_code == "6":
+       condition_code = "zuxw"
+    elif condition_get_code == "7":
+       condition_code = "Vy9A"
+    elif condition_get_code == "8":
+       condition_code = "cT-0"
+    elif condition_get_code == "9":
+       condition_code = "M4nr"
+    elif condition_get_code == "10":
+       condition_code = "8-OZ"
+    elif condition_get_code == "11":
+       condition_code = "4sN0"
+    elif condition_get_code == "12":
+       condition_code = "SrHt"
+    elif condition_get_code == "13":
+       condition_code = "i925"
+    elif condition_get_code == "14":
+       condition_code = "9WKu"
+    elif condition_get_code == "15":
+       condition_code = "YjI9B"
+    elif condition_get_code == "16":
+       condition_code = "Lqmw"
+    elif condition_get_code == "17":
+       condition_code = "8wXj"
+    elif condition_get_code == "18":
+       condition_code = "AHL1"
+    elif condition_get_code == "19":
+       condition_code = "pSfX"
+    elif condition_get_code == "20":
+       condition_code = "ugKj"
+    elif condition_get_code == "21":
+       condition_code = "eFL0"
+    elif condition_get_code == "22":
+       condition_code = "Co_g" 
+    elif condition_get_code == "23":
+       condition_code = "h8uM"
+    elif condition_get_code == "24":
+       condition_code = "HBlw"
+    elif condition_get_code == "25":
+       condition_code = "QHzi"
+    elif condition_get_code == "26":
+       condition_code = "3IaA"
+    elif condition_get_code == "27":
+       condition_code = "i-dK"
+    elif condition_get_code == "28":
+       condition_code = "aIAw"
+    elif condition_get_code == "29":
+       condition_code = "6z8CS"
+    elif condition_get_code == "30":
+       condition_code = "xt2C"
+    elif condition_get_code == "31":
+       condition_code = "3Utr"
+    elif condition_get_code == "32":
+       condition_code = "YHpS"
+    elif condition_get_code == "33":
+       condition_code = "Hr4W"
+    elif condition_get_code == "34":
+       condition_code = "84WQ"
+    elif condition_get_code == "35":
+       condition_code = "3BH6"
+    elif condition_get_code == "36":
+       condition_code = "vjLN"
+    elif condition_get_code == "37":
+       condition_code = "41rl"
+    elif condition_get_code == "38":
+       condition_code = "8Ibx" 
+    elif condition_get_code == "39":
+       condition_code = "lIee"
+    elif condition_get_code == "40":
+       condition_code = "9GNz"
+    elif condition_get_code == "41":
+       condition_code = "uy77"
+    elif condition_get_code == "42":
+       condition_code = "15Ou"
+    elif condition_get_code == "43":
+       condition_code = "P_Jg"
+    elif condition_get_code == "45":
+       condition_code = "wF0D"
+    elif condition_get_code == "46":
+       condition_code = "1huQ"
+    elif condition_get_code == "47":
+       condition_code = "MlO5"
+    elif condition_get_code == "3200":
+       condition_code = "mgzs"
+    else: 
+       print ("Condition code did not match the sequence")
+
+    return condition_code
+
+
+# Searchhook is for searching for Wkipedia information via Google API
 def searchhook():
     req = request.get_json(silent=True, force=True)
     print("Within Search function......!!")
@@ -431,34 +440,6 @@ def searchhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-
-def dbsearchhook():
-    #r = "Showing the data"
-    #print (r)
-    conn = psycopg2.connect(database="yousee", user="postgres", password="1234", host="69.195.126.73", port="5432")
-    print('connection is successful')
-    cur = conn.cursor()
-    cur.execute( 'SELECT * FROM yousee;' )
-    rows = cur.fetchall()
-    for row in rows:
-     print ('Customer Name = '), row[1]
-     name = row[1]
-     #print ("Customer_ID = "), row[0]
-     #print ("Customer_Name = "), row[1]
-     #print ("Customer_Package = "), row[2]
-     #print ("Customer_Status = "), row[3], "\n"
-     #print ("Operation done successfully");
-    conn.close()
-    speech = "Customer Name is " + name
-    res = {"speech": speech,
-           "displayText": speech,
-           # "data": data,
-           # "contextOut": [],
-           "source": "apiai-seach-webhook-by-swapratim"}
-    res = json.dumps(res, indent=4)
-    r = make_response(res)
-    r.headers['Content-Type'] = 'application/json'
-    return r
 
 
 if __name__ == '__main__':
