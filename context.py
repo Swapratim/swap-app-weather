@@ -155,7 +155,7 @@ def weatherhook():
     if description is None:
         return {}
     
-    print ("URL Link and COndition code should be printed afterwards")
+    print ("URL Link and Condition code should be printed afterwards")
     link = item.get('link')
     link_forecast = link.split("*",1)[1]
     print (link_forecast)
@@ -265,10 +265,13 @@ def weatherhook():
 
     #if condition.get('code') != condition_code:
     #   image_url = "http://l.yimg.com/a/i/us/we/" + condition.get('code') + "/14.gif"
-    print (image_url) 
+    #print (image_url) 
      
     speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
              ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
+    print ("City - Country: " +location.get('city') + "-" + location.get('country'))
+    print (image_url)
+    print (link_forecast)
     print(speech)
 ##############################################################
     #res = {"speech": speech,
