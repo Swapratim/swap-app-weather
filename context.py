@@ -26,8 +26,8 @@ newspai_access_token = "505c1506aeb94ba69b72a4dbdce31996"
 # Weather Update API KeyError
 weather_update_key = "747d84ccfe063ba9"
 
-@context.route('/webhook', methods=['POST'])
 # Webhook requests are coming to this method
+@context.route('/webhook', methods=['POST'])
 def webhook():
     reqContext = request.get_json(silent=True, force=True)
     #print(json.dumps(reqContext, indent=4))
@@ -107,11 +107,11 @@ def reply(user_id, msg):
 def weatherhook():
     req = request.get_json(silent=True, force=True)
     print ("SSSSSSSSSSSSSSSSSSSSSSS")
-    print ("Within weatherhook method" + req.get("result").get("action"))
+    #print ("Within weatherhook method " + req.get("result").get("action"))
     #if req.get("result").get("action") != "yahooWeatherForecast":
     #    return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
-###########################################################
+    ###########################################################
     result = req.get("result")
     print (result)
     print ('####################')
@@ -124,7 +124,7 @@ def weatherhook():
     if city is None:
         return None
     yql_query = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "') and u='c'"
-###########################################################
+    ###########################################################
     if yql_query is None:
         return {}
     yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
@@ -132,7 +132,7 @@ def weatherhook():
     result = urllib.request.urlopen(yql_url).read()
     data = json.loads(result)
     #print (data)
-############################################################
+    ############################################################
     query = data.get('query')
     if query is None:
         return {}
@@ -176,10 +176,10 @@ def weatherhook():
     speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
              ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
     print ("City - Country: " +location.get('city') + "-" + location.get('country'))
-    print (image_url)
-    print (link_forecast)
-    print(speech)
-##############################################################
+    print ("image url: " + image_url)
+    print ("forecast link: " + link_forecast)
+    print("speech: " + speech)
+    ##############################################################
     #res = {"speech": speech,
     #       "displayText": speech,
     #       "source": "apiai-weather-webhook-sample"}
