@@ -107,9 +107,9 @@ def reply(user_id, msg):
 def weatherhook():
     req = request.get_json(silent=True, force=True)
     print ("SSSSSSSSSSSSSSSSSSSSSSS")
-    print (req.get("result").get("action"))
-    if req.get("result").get("action") != "yahooWeatherForecast":
-        return {}
+    print ("Within weatherhook method" + req.get("result").get("action"))
+    #if req.get("result").get("action") != "yahooWeatherForecast":
+    #    return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
 ###########################################################
     result = req.get("result")
