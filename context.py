@@ -112,19 +112,19 @@ def weatherhook():
    #if req.get("result").get("action") != "yahooWeatherForecast":
    #    return {}
    ###########################################################
-   print (result)
-   print ('####################')
+   #print (result)
+   #print ('####################')
    parameters = result.get("parameters")
    city = parameters.get("geo-city")
    if not parameters.get("geo-city"):
       city = parameters.get("geo-city-dk")
-      #return yahoo_weatherapi(city)
+      #return 
 
    #if not parameters.get("geo-city-dk"):
    #   city = parameters.get("geo-city")
       #return city
-   print (city)
-   print ('********************')
+   #print (city)
+   #print ('********************')
    #if city is None:
    #    return None
    ###########################################################
@@ -157,7 +157,7 @@ def weatherhook():
    #if description is None:
    #    return {}
     
-   print ("URL Link and Condition code should be printed afterwards")
+   #print ("URL Link and Condition code should be printed afterwards")
    link = item.get('link')
    link_forecast = link.split("*",1)[1]
    #print (link_forecast)
@@ -173,10 +173,10 @@ def weatherhook():
     
    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
-   print ("City - Country: " +location.get('city') + "-" + location.get('country'))
-   print ("image url: " + image_url)
-   print ("forecast link: " + link_forecast)
-   print("speech: " + speech)
+   #print ("City - Country: " +location.get('city') + "-" + location.get('country'))
+   #print ("image url: " + image_url)
+   #print ("forecast link: " + link_forecast)
+   #print("speech: " + speech)
    ##############################################################
    #res = {"speech": speech,
    #       "displayText": speech,
@@ -215,6 +215,7 @@ def weatherhook():
    res = json.dumps(res, indent=4)
    r = make_response(res)
    r.headers['Content-Type'] = 'application/json'
+   print ("City - Country: " +location.get('city') + "-" + location.get('country'))
    return r
 
 def yahoo_weatherapi(city):
