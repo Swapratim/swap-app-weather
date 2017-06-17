@@ -113,7 +113,7 @@ def weatherhook():
     #    return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
     ###########################################################
-    print ("RESULT" + result)
+    print (result)
     print ('####################')
     parameters = result.get("parameters")
 
