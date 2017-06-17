@@ -118,7 +118,7 @@ def weatherhook():
     city = parameters.get("geo-city")
     if not parameters.get("geo-city"):
        city = parameters.get("geo-city-dk")
-       return yahoo_weatherapi(city)
+       #return yahoo_weatherapi(city)
 
     #if not parameters.get("geo-city-dk"):
     #   city = parameters.get("geo-city")
