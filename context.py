@@ -115,13 +115,13 @@ def weatherhook():
     print (result)
     print ('####################')
     parameters = result.get("parameters")
-
+    city = parameters.get("geo-city")
     if not parameters.get("geo-city"):
        city = parameters.get("geo-city-dk")
-       #return city
+       return city
 
-    if not parameters.get("geo-city-dk"):
-       city = parameters.get("geo-city")
+    #if not parameters.get("geo-city-dk"):
+    #   city = parameters.get("geo-city")
        #return city
     print (city)
     print ('********************')
