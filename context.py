@@ -106,19 +106,22 @@ def reply(user_id, msg):
 # This method is to invoke Yahoo API and process the GET response
 def weatherhook():
     req = request.get_json(silent=True, force=True)
+    result = req.get("result")
     print ("SSSSSSSSSSSSSSSSSSSSSSS")
     #print ("Within weatherhook method " + req.get("result").get("action"))
     #if req.get("result").get("action") != "yahooWeatherForecast":
     #    return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
     ###########################################################
-    result = req.get("result")
-    print (result)
+    print ("RESULT" + result)
     print ('####################')
     parameters = result.get("parameters")
-    city = parameters.get("geo-city")
-    if not city:
+
+    if not parameters.get("geo-city"):
        city = parameters.get("geo-city-dk")
+
+    if not parameters.get("geo-city-dk"):
+       city = parameters.get("geo-city")
     print (city)
     print ('********************')
     if city is None:
