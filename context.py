@@ -111,7 +111,6 @@ def weatherhook():
     #print ("Within weatherhook method " + req.get("result").get("action"))
     #if req.get("result").get("action") != "yahooWeatherForecast":
     #    return {}
-    baseurl = "https://query.yahooapis.com/v1/public/yql?"
     ###########################################################
     print (result)
     print ('####################')
@@ -124,16 +123,10 @@ def weatherhook():
        city = parameters.get("geo-city")
     print (city)
     print ('********************')
-    if city is None:
-        return None
-    yql_query = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "') and u='c'"
+    #if city is None:
+    #    return None
     ###########################################################
-    if yql_query is None:
-        return {}
-    yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
-    #print (yql_url)
-    result = urllib.request.urlopen(yql_url).read()
-    data = json.loads(result)
+    data = yahoo_weatherapi(city)
     #print (data)
     ############################################################
     query = data.get('query')
@@ -221,6 +214,18 @@ def weatherhook():
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
+
+def yahoo_weatherapi(city):
+
+    yql_query = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "') and u='c'"
+    if yql_query is None:
+        return {}
+    baseurl = "https://query.yahooapis.com/v1/public/yql?"
+    yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
+    #print (yql_url)
+    result = urllib.request.urlopen(yql_url).read()
+    data = json.loads(result)
+    return data
 
 def weather_code(condition_get_code):
 # Below block of code is to check for weather condition code and map corresponding http://gdurl.com/#### permalink context
