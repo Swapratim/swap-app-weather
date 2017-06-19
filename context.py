@@ -36,7 +36,7 @@ def webhook():
     if reqContext.get("result").get("action") == "input.welcome":
        return welcome()
     elif reqContext.get("result").get("action") == "yahooWeatherForecast":
-       print ("Within ")
+       #print ("Within ")
        return weatherhook()
     elif reqContext.get("result").get("action") == "GoogleSearch":
        return searchhook()
@@ -60,7 +60,8 @@ def welcome():
     first_name = data.get('first_name')
     print (first_name)
     #return "Hi"
-    speech = "You can ask about me or weather of any city (like: what's the weather in Copenhagen) or search for an information in Wikipedia (like: What is Game Of Thrones?)"
+    speech = "You can ask about weather of any city (like: what's the weather in Copenhagen) or search for an information in Wikipedia (like: What is Game Of Thrones?)"
+    speech2 = "Ask proper questions to get better answers."
     res = {
           "speech": speech,
           "displayText": speech,
@@ -82,6 +83,9 @@ def welcome():
                 },
                  {
                  "text": speech
+                  },
+                 {
+                 "text": speech2
                   }
                ]
              } 
