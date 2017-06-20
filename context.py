@@ -108,11 +108,10 @@ def reply(user_id, msg):
 
  
 # This method is to invoke Yahoo API and process the GET response
-#@weatherdataprocessing
+#@run_once
 def weatherhook(reqContext):
    #req = request.get_json(silent=True, force=True)
-   req = reqContext
-   result = req.get("result")
+   result = reqContext.get("result")
    print ("SSSSSSSSSSSSSSSSSSSSSSS")
    #print ("Within weatherhook method " + req.get("result").get("action"))
    #if req.get("result").get("action") != "yahooWeatherForecast":
@@ -120,7 +119,104 @@ def weatherhook(reqContext):
    ###########################################################
    #print (result)
    #print ('####################')
-   res = weatherdataprocessing(result)
+   parameters = result.get("parameters")
+   city = parameters.get("geo-city")
+   if not parameters.get("geo-city"):
+      city = parameters.get("geo-city-dk")
+      #return 
+
+   #if not parameters.get("geo-city-dk"):
+   #   city = parameters.get("geo-city")
+      #return city
+   #print (city)
+   #print ('********************')
+   #if city is None:
+   #    return None
+   ###########################################################
+   data = yahoo_weatherapi(city)
+   #print (data)
+   ############################################################
+   query = data.get('query')
+   if query is None:
+       return {}
+
+   result = query.get('results')
+   if result is None:
+       return {}
+
+   channel = result.get('channel')
+   if channel is None:
+       return {}
+
+   item = channel.get('item')
+   location = channel.get('location')
+   units = channel.get('units')
+   if (location is None) or (item is None) or (units is None):
+       return {}
+
+   condition = item.get('condition')
+   if condition is None:
+       return {}
+
+   #description = item.get('description')
+   #if description is None:
+   #    return {}
+    
+   #print ("URL Link and Condition code should be printed afterwards")
+   link = item.get('link')
+   link_forecast = link.split("*",1)[1]
+   #print (link_forecast)
+   #print ("<<<<<>>>>")
+   #print (condition.get('code')) 
+   condition_get_code = condition.get('code')
+   condition_code = weather_code(condition_get_code)
+   image_url = "http://gdurl.com/" + condition_code
+
+   #if condition.get('code') != condition_code:
+   #   image_url = "http://l.yimg.com/a/i/us/we/" + condition.get('code') + "/14.gif"
+   #print (image_url) 
+    
+   speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
+            ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
+   #print ("City - Country: " +location.get('city') + "-" + location.get('country'))
+   #print ("image url: " + image_url)
+   #print ("forecast link: " + link_forecast)
+   #print("speech: " + speech)
+   ##############################################################
+   #res = {"speech": speech,
+   #       "displayText": speech,
+   #       "source": "apiai-weather-webhook-sample"}
+   res = {
+         "speech": speech,
+         "displayText": speech,
+          "data" : {
+             "facebook" : [
+                 {
+                "text": speech
+                 },
+                 {
+                "attachment" : {
+                  "type" : "template",
+                    "payload" : {
+                     "template_type" : "generic",
+                      "elements" : [ 
+                                {
+                                  "title" : location.get('city') + "-" + location.get('country'),
+                                  "image_url" : image_url,
+                                  "subtitle" : "",
+                                  "buttons": [{
+                                       "type": "web_url",
+                                       "url": link_forecast,
+                                       "title": "Weather Forecast"
+                                   }]
+                                 } 
+                          ]
+                      } 
+                  }
+                }
+              ]
+            } 
+        };
    res = json.dumps(res, indent=4)
    r = make_response(res)
    r.headers['Content-Type'] = 'application/json'
@@ -243,107 +339,6 @@ def weather_code(condition_get_code):
 
     return condition_code
 
-
-def weatherdataprocessing(result):
-   parameters = result.get("parameters")
-   city = parameters.get("geo-city")
-   if not parameters.get("geo-city"):
-      city = parameters.get("geo-city-dk")
-      #return 
-
-   #if not parameters.get("geo-city-dk"):
-   #   city = parameters.get("geo-city")
-      #return city
-   #print (city)
-   #print ('********************')
-   #if city is None:
-   #    return None
-   ###########################################################
-   data = yahoo_weatherapi(city)
-   #print (data)
-   ############################################################
-   query = data.get('query')
-   if query is None:
-       return {}
-
-   result = query.get('results')
-   if result is None:
-       return {}
-
-   channel = result.get('channel')
-   if channel is None:
-       return {}
-
-   item = channel.get('item')
-   location = channel.get('location')
-   units = channel.get('units')
-   if (location is None) or (item is None) or (units is None):
-       return {}
-
-   condition = item.get('condition')
-   if condition is None:
-       return {}
-
-   #description = item.get('description')
-   #if description is None:
-   #    return {}
-    
-   #print ("URL Link and Condition code should be printed afterwards")
-   link = item.get('link')
-   link_forecast = link.split("*",1)[1]
-   #print (link_forecast)
-   #print ("<<<<<>>>>")
-   #print (condition.get('code')) 
-   condition_get_code = condition.get('code')
-   condition_code = weather_code(condition_get_code)
-   image_url = "http://gdurl.com/" + condition_code
-
-   #if condition.get('code') != condition_code:
-   #   image_url = "http://l.yimg.com/a/i/us/we/" + condition.get('code') + "/14.gif"
-   #print (image_url) 
-    
-   speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
-            ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
-   #print ("City - Country: " +location.get('city') + "-" + location.get('country'))
-   #print ("image url: " + image_url)
-   #print ("forecast link: " + link_forecast)
-   #print("speech: " + speech)
-   ##############################################################
-   #res = {"speech": speech,
-   #       "displayText": speech,
-   #       "source": "apiai-weather-webhook-sample"}
-   res = {
-         "speech": speech,
-         "displayText": speech,
-          "data" : {
-             "facebook" : [
-                 {
-                "text": speech
-                 },
-                 {
-                "attachment" : {
-                  "type" : "template",
-                    "payload" : {
-                     "template_type" : "generic",
-                      "elements" : [ 
-                                {
-                                  "title" : location.get('city') + "-" + location.get('country'),
-                                  "image_url" : image_url,
-                                  "subtitle" : "",
-                                  "buttons": [{
-                                       "type": "web_url",
-                                       "url": link_forecast,
-                                       "title": "Weather Forecast"
-                                   }]
-                                 } 
-                          ]
-                      } 
-                  }
-                }
-              ]
-            } 
-        };
-   return res
 
 # Searchhook is for searching for Wkipedia information via Google API
 def searchhook():
