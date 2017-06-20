@@ -108,7 +108,7 @@ def reply(user_id, msg):
 
  
 # This method is to invoke Yahoo API and process the GET response
-@run_once
+#@run_once
 def weatherhook():
    req = request.get_json(silent=True, force=True)
    result = req.get("result")
