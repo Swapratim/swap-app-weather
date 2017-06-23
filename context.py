@@ -8,7 +8,7 @@ import json
 import os
 #import pgdb
 import psycopg2
-import urllib.parse
+import urlparse
 
 from flask import Flask
 from flask import request, render_template
@@ -100,10 +100,10 @@ def reply(user_id, msg):
         "recipient": {"id": user_id},
         "message": {"text": msg}
     }
-    print ("Data.........")
-    print (data)
+    #print ("Data.........")
+    #print (data)
     resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
-    print(resp.content)
+    #print(resp.content)
  
 
  
