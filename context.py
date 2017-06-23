@@ -355,10 +355,10 @@ def searchhook():
     cumulative_string = search_list1.strip('[]')
     search_string = cumulative_string.replace(" ", "%20")
     print(search_string)
-    search_string_ascii = search_string.encode('ascii')
-    if search_string_ascii is None:
-        return None
-    search_string_ascii =  search_string.decode(encoding)
+    # search_string_ascii = search_string.encode('ascii')
+    # if search_string_ascii is None:
+        # return None
+    search_string_ascii =  open('search_string','rb')
     google_query = "key=AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM&cx=003066316917117435589%3Avcms6hy5lxs&q=" + search_string_ascii + "&num=1"
 ###########################################################
     if google_query is None:
