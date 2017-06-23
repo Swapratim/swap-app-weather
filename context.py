@@ -8,7 +8,7 @@ import json
 import os
 #import pgdb
 import psycopg2
-import urlparse
+import urllib.parse
 
 from flask import Flask
 from flask import request, render_template
