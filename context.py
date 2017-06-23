@@ -8,7 +8,7 @@ import json
 import os
 #import pgdb
 import psycopg2
-#import urlparse
+import urlparse
 
 from flask import Flask
 from flask import request, render_template
@@ -100,10 +100,10 @@ def reply(user_id, msg):
         "recipient": {"id": user_id},
         "message": {"text": msg}
     }
-    #print ("Data.........")
-    #print (data)
+    print ("Data.........")
+    print (data)
     resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
-    #print(resp.content)
+    print(resp.content)
  
 
  
@@ -344,7 +344,6 @@ def weather_code(condition_get_code):
 def searchhook():
     req = request.get_json(silent=True, force=True)
     print("Within Search function......!!")
-    true_false = True
     baseurl = "https://www.googleapis.com/customsearch/v1?"
 ###########################################################
     result = req.get("result")
@@ -355,10 +354,9 @@ def searchhook():
     cumulative_string = search_list1.strip('[]')
     search_string = cumulative_string.replace(" ", "%20")
     print(search_string)
-    # search_string_ascii = search_string.encode('ascii')
-    # if search_string_ascii is None:
-        # return None
-    search_string_ascii =  open('search_string','rb')
+    search_string_ascii = search_string.encode('ascii')
+    if search_string_ascii is None:
+        return None
     google_query = "key=AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM&cx=003066316917117435589%3Avcms6hy5lxs&q=" + search_string_ascii + "&num=1"
 ###########################################################
     if google_query is None:
@@ -393,62 +391,22 @@ def searchhook():
     for data_item in data['items']:
         pagemap = data_item['pagemap'],
 
-    #for key in pagemap:
-    # print (pagemap)
-    
-    cse_thumbnail_u_string_removed = [str(i) for i in pagemap]
-    cse_thumbnail_u_removed = str(cse_thumbnail_u_string_removed)
-    cse_thumbnail_brace_removed_1 = cse_thumbnail_u_removed.strip('[')
-    cse_thumbnail_brace_removed_2 = cse_thumbnail_brace_removed_1.strip(']')
-    cse_thumbnail_brace_removed_final =  cse_thumbnail_brace_removed_2.strip("'")
-    print (cse_thumbnail_brace_removed_final)
-    keys = ('cse_thumbnail', 'metatags', 'cse_image')
-    for key in keys:
-        # print(key in cse_thumbnail_brace_removed_final)
-        print ('cse_thumbnail' in cse_thumbnail_brace_removed_final)
-        true_false = 'cse_thumbnail' in cse_thumbnail_brace_removed_final
-        if true_false == True:
-            print ('Condition matched -- Within IF block')
-            for key in pagemap:
-                cse_thumbnail = key['cse_thumbnail']
-                print ('Within the For loop -- cse_thumbnail is been assigned')
-                for image_data in cse_thumbnail:
-                    raw_str = image_data['src']
-                    print ('raw_str::: ' + raw_str)
-                    print ('***TRUE***')
-                    break
-        else:
-            raw_str = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwdc3ra_4N2X5G06Rr5-L0QY8Gi6SuhUb3DiSN_M-C_nalZnVA"
-            print ('***FALSE***') 
-    
-    # if 'cse_thumbnail' not in pagemap:
-        # raw_str = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwdc3ra_4N2X5G06Rr5-L0QY8Gi6SuhUb3DiSN_M-C_nalZnVA",         
-    # else:
-        # for key in pagemap:
-            # cse_thumbnail = key['cse_thumbnail'],
-            # for image_data in cse_thumbnail:
-                # raw_str = image_data['src'],
+    for key in pagemap:
+        cse_thumbnail = key['cse_thumbnail']
         
-    # if cse_thumbnail is None:
-        # return {}
-    
-    #for image_data in cse_thumbnail:
-    #    raw_str = image_data['src'],
+    if cse_thumbnail is None:
+        return {}
 
-    # if raw_str is None:
-        # return {}
+    for image_data in cse_thumbnail:
+        raw_str = image_data['src'],
 
-    #if not cse_thumbnail:
-    #    raw_str = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwdc3ra_4N2X5G06Rr5-L0QY8Gi6SuhUb3DiSN_M-C_nalZnVA",
-    #       if raw_str is None:
-    #          return {}
-
-    # src_u_string_removed = [str(i) for i in raw_str]
-    # src_u_removed = str(src_u_string_removed)
-    # src_brace_removed_1 = src_u_removed.strip('[')
-    # src_brace_removed_2 = src_brace_removed_1.strip(']')
-    # src_brace_removed_final =  src_brace_removed_2.strip("'")
-    src_brace_removed_final = raw_str
+    if raw_str is None:
+        return {}
+    src_u_string_removed = [str(i) for i in raw_str]
+    src_u_removed = str(src_u_string_removed)
+    src_brace_removed_1 = src_u_removed.strip('[')
+    src_brace_removed_2 = src_brace_removed_1.strip(']')
+    src_brace_removed_final =  src_brace_removed_2.strip("'")
     # Remove junk charaters from URL
     link_u_removal =  [str(i) for i in link]
     link_u_removed = str(link_u_removal)
