@@ -358,7 +358,7 @@ def searchhook():
     search_string_ascii = search_string.encode('ascii')
     if search_string_ascii is None:
         return None
-    google_query = "key=AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM&cx=003066316917117435589%3Avcms6hy5lxs&q=" + search_string_ascii + "&num=1"
+    google_query = "key=AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM&cx=003066316917117435589%3Avcms6hy5lxs&q=" + search_string + "&num=1"
 ###########################################################
     if google_query is None:
         return {}
