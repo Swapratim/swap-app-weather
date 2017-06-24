@@ -104,10 +104,10 @@ def reply(user_id, msg):
         "recipient": {"id": user_id},
         "message": {"text": msg}
     }
-    #print ("Data.........")
-    #print (data)
+    print ("Data.........")
+    print (data)
     resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
-    #print(resp.content)
+    print(resp.content)
  
 
  
