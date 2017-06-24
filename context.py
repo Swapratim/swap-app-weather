@@ -45,8 +45,9 @@ def webhook():
 
 # This method is to get the username when the user says Hi
 def welcome():
+    print ("within welcome method")
     data = request.json
-    #print (data)
+    print (data)
     if data is None:
         return {}
     entry = data.get('originalRequest')
