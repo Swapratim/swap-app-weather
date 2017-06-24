@@ -63,7 +63,10 @@ def welcome():
     data = json.loads(result)
     first_name = data.get('first_name')
     print (first_name)
-    speech = "You can ask about weather of any city (like: what's the weather in Copenhagen) or search for an information in Wikipedia (like: What is Game Of Thrones?)"
+    #speech = "You can ask about weather of any city (like: what's the weather in Copenhagen) or search for an information in Wikipedia (like: What is Game Of Thrones?)"
+    speech = "Ask me about" + \
+            "Weather of any city or" + \
+            "Any information from Wikipedia"
     speech2 = "Ask proper questions to get better answers."
     res = {
           "speech": speech,
