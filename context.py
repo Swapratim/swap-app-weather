@@ -9,6 +9,7 @@ import os
 #import pgdb
 import psycopg2
 import urlparse
+import urllib2
 
 from flask import Flask
 from flask import request, render_template
@@ -54,8 +55,10 @@ def welcome():
     dataall = entry.get('data')
     sender = dataall.get('sender')
     id = sender.get('id')
+    print ("id :" + id)
     fb_info = "https://graph.facebook.com/v2.6/" + id + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + ACCESS_TOKEN
-    result = urllib.request.urlopen(fb_info).read()
+    print (fb_info)
+    result = urllib2.request.urlopen(fb_info).read()
     print (result)
     data = json.loads(result)
     first_name = data.get('first_name')
