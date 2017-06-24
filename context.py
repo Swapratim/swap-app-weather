@@ -9,7 +9,6 @@ import os
 #import pgdb
 import psycopg2
 import urlparse
-import urllib2
 
 from flask import Flask
 from flask import request, render_template
@@ -19,7 +18,8 @@ from flask import make_response
 # Flask should start in global layout
 context = Flask(__name__)
 # Facbook Access Token
-ACCESS_TOKEN = "EAAXRzkKCxVQBAImZBQo8kEpHVn0YDSVxRcadEHiMlZAcqSpu5pV7wAkZBKUs0eIZBcX1RmZCEV6cxJzuZAp5NO5ZCcJgZBJu4OPrFpKiAPJ5Hxlve2vrSthfMSZC3GqLnzwwRENQSzZAMyBXFCi1LtLWm9PhYucY88zPT4KEwcZCmhLYAZDZD"
+#ACCESS_TOKEN = "EAAXRzkKCxVQBAImZBQo8kEpHVn0YDSVxRcadEHiMlZAcqSpu5pV7wAkZBKUs0eIZBcX1RmZCEV6cxJzuZAp5NO5ZCcJgZBJu4OPrFpKiAPJ5Hxlve2vrSthfMSZC3GqLnzwwRENQSzZAMyBXFCi1LtLWm9PhYucY88zPT4KEwcZCmhLYAZDZD"
+ACCESS_TOKEN = "EAADCpnCTbUoBAMlgDxoEVTifvyD80zCxvfakHu6m3VjYVdS5VnbIdDnZCxxonXJTK2LBMFemzYo2a4DGrz0SxNJIFkMAsU8WBfRS7IRrZAaHRrXEMBEL5wmdUvzawASQWtZAMNBr90Gattw3IGzeJ7pZBBUthMewXDvnmBELCgZDZD"
 # Google Access Token
 Google_Acces_Toekn = "key=AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM&cx=003066316917117435589%3Avcms6hy5lxs&q="
 # NewsAPI Access Token
@@ -58,10 +58,9 @@ def welcome():
     print ("id :" + id)
     fb_info = "https://graph.facebook.com/v2.6/" + id + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + ACCESS_TOKEN
     print (fb_info)
-    result = urllib2.urlopen(fb_info)
-    result_read = result.read()
-    print (result_read)
-    data = json.loads(result_read)
+    result = urllib.request.urlopen(fb_info).read()
+    print (result)
+    data = json.loads(result)
     first_name = data.get('first_name')
     print (first_name)
     return "Hi"
