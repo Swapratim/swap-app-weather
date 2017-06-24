@@ -58,9 +58,10 @@ def welcome():
     print ("id :" + id)
     fb_info = "https://graph.facebook.com/v2.6/" + id + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + ACCESS_TOKEN
     print (fb_info)
-    result = urllib2.urlopen(fb_info).read()
-    print (result)
-    data = json.loads(result)
+    result = urllib2.urlopen(fb_info)
+    result_read = result.read()
+    print (result_read)
+    data = json.loads(result_read)
     first_name = data.get('first_name')
     print (first_name)
     return "Hi"
