@@ -6,7 +6,6 @@ standard_library.install_aliases()
 import urllib.request, urllib.parse, urllib.error
 import json
 import os
-#import pgdb
 import psycopg2
 import urlparse
 
@@ -17,8 +16,9 @@ from flask import make_response
 
 # Flask should start in global layout
 context = Flask(__name__)
-# Facbook Access Token
+# Facbook Access Token (For Marvin Facebook Page)
 ACCESS_TOKEN = "EAAXRzkKCxVQBAImZBQo8kEpHVn0YDSVxRcadEHiMlZAcqSpu5pV7wAkZBKUs0eIZBcX1RmZCEV6cxJzuZAp5NO5ZCcJgZBJu4OPrFpKiAPJ5Hxlve2vrSthfMSZC3GqLnzwwRENQSzZAMyBXFCi1LtLWm9PhYucY88zPT4KEwcZCmhLYAZDZD"
+# Facbook Access Token (For SID Facebook Page)
 #ACCESS_TOKEN = "EAADCpnCTbUoBAMlgDxoEVTifvyD80zCxvfakHu6m3VjYVdS5VnbIdDnZCxxonXJTK2LBMFemzYo2a4DGrz0SxNJIFkMAsU8WBfRS7IRrZAaHRrXEMBEL5wmdUvzawASQWtZAMNBr90Gattw3IGzeJ7pZBBUthMewXDvnmBELCgZDZD"
 # Google Access Token
 Google_Acces_Toekn = "key=AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM&cx=003066316917117435589%3Avcms6hy5lxs&q="
@@ -31,13 +31,9 @@ weather_update_key = "747d84ccfe063ba9"
 @context.route('/webhook', methods=['POST'])
 def webhook():
     reqContext = request.get_json(silent=True, force=True)
-    #print(json.dumps(reqContext, indent=4))
-    print(reqContext.get("result").get("action"))
-    print ("webhook is been hit ONCE ONLY")
     if reqContext.get("result").get("action") == "input.welcome":
        return welcome()
     elif reqContext.get("result").get("action") == "yahooWeatherForecast":
-       #print ("Within ")
        return weatherhook(reqContext)
     elif reqContext.get("result").get("action") == "GoogleSearch":
        return searchhook()
@@ -46,23 +42,18 @@ def webhook():
 
 # This method is to get the username when the user says Hi
 def welcome():
-    print ("within welcome method")
     data = request.json
-    print (data)
     if data is None:
         return {}
     entry = data.get('originalRequest')
     dataall = entry.get('data')
     sender = dataall.get('sender')
     id = sender.get('id')
-    print ("id :" + id)
+    #print ("id :" + id)
     fb_info = "https://graph.facebook.com/v2.6/" + id + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + ACCESS_TOKEN
-    print (fb_info)
     result = urllib.request.urlopen(fb_info).read()
-    print (result)
     data = json.loads(result)
     first_name = data.get('first_name')
-    print (first_name)
     speech = "Ask me about: \nWeather of any city (like: how's the weather in Copenhagen) or \nAny topic from Wikipedia (like: What is Game of Throne?)"
     speech2 = "Ask proper questions to get better answers."
     res = {
@@ -93,11 +84,9 @@ def welcome():
                ]
              } 
          };
-    print (res)
     res = json.dumps(res, indent=4)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
-    print (r)
     return r
 
 def reply(user_id, msg):
@@ -105,41 +94,19 @@ def reply(user_id, msg):
         "recipient": {"id": user_id},
         "message": {"text": msg}
     }
-    print ("Data.........")
-    print (data)
     resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
-    print(resp.content)
- 
-
+    
  
 # This method is to invoke Yahoo API and process the GET response
 #@run_once
 def weatherhook(reqContext):
-   #req = request.get_json(silent=True, force=True)
    result = reqContext.get("result")
-   print ("SSSSSSSSSSSSSSSSSSSSSSS")
-   #print ("Within weatherhook method " + req.get("result").get("action"))
-   #if req.get("result").get("action") != "yahooWeatherForecast":
-   #    return {}
-   ###########################################################
-   #print (result)
-   #print ('####################')
    parameters = result.get("parameters")
    city = parameters.get("geo-city")
    if not parameters.get("geo-city"):
       city = parameters.get("geo-city-dk")
-      #return 
-
-   #if not parameters.get("geo-city-dk"):
-   #   city = parameters.get("geo-city")
-      #return city
-   #print (city)
-   #print ('********************')
-   #if city is None:
-   #    return None
    ###########################################################
    data = yahoo_weatherapi(city)
-   #print (data)
    ############################################################
    query = data.get('query')
    if query is None:
@@ -163,34 +130,14 @@ def weatherhook(reqContext):
    if condition is None:
        return {}
 
-   #description = item.get('description')
-   #if description is None:
-   #    return {}
-    
-   #print ("URL Link and Condition code should be printed afterwards")
    link = item.get('link')
    link_forecast = link.split("*",1)[1]
-   #print (link_forecast)
-   #print ("<<<<<>>>>")
-   #print (condition.get('code')) 
    condition_get_code = condition.get('code')
    condition_code = weather_code(condition_get_code)
    image_url = "http://gdurl.com/" + condition_code
-
-   #if condition.get('code') != condition_code:
-   #   image_url = "http://l.yimg.com/a/i/us/we/" + condition.get('code') + "/14.gif"
-   #print (image_url) 
-    
+ 
    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
-   #print ("City - Country: " +location.get('city') + "-" + location.get('country'))
-   #print ("image url: " + image_url)
-   #print ("forecast link: " + link_forecast)
-   #print("speech: " + speech)
-   ##############################################################
-   #res = {"speech": speech,
-   #       "displayText": speech,
-   #       "source": "apiai-weather-webhook-sample"}
    res = {
          "speech": speech,
          "displayText": speech,
@@ -225,7 +172,6 @@ def weatherhook(reqContext):
    res = json.dumps(res, indent=4)
    r = make_response(res)
    r.headers['Content-Type'] = 'application/json'
-   print ("City - Country: " +location.get('city') + "-" + location.get('country'))
    return r
 
 def yahoo_weatherapi(city):
@@ -235,7 +181,6 @@ def yahoo_weatherapi(city):
         return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
     yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
-    #print (yql_url)
     result = urllib.request.urlopen(yql_url).read()
     data = json.loads(result)
     return data
@@ -348,7 +293,6 @@ def weather_code(condition_get_code):
 # Searchhook is for searching for Wkipedia information via Google API
 def searchhook():
     req = request.get_json(silent=True, force=True)
-    print("Within Search function......!!")
     true_false = True
     baseurl = "https://www.googleapis.com/customsearch/v1?"
 ###########################################################
@@ -359,7 +303,6 @@ def searchhook():
     search_list1 = str(search_u_string_removed)
     cumulative_string = search_list1.strip('[]')
     search_string = cumulative_string.replace(" ", "%20")
-    print(search_string)
     search_string_ascii = search_string.encode('ascii')
     if search_string_ascii is None:
         return None
@@ -367,91 +310,36 @@ def searchhook():
 ###########################################################
     if google_query is None:
         return {}
-    #google_url = baseurl + urllib.parse.urlencode({google_query})
     google_url = baseurl + google_query
-    print("google_url::::"+google_url)
     result = urllib.request.urlopen(google_url).read()
-    print (result)
     data = json.loads(result)
-    print ("data = json.loads(result)")
 ############################################################
     speech = data['items'][0]['snippet'].encode('utf-8').strip()
-    #image = data['items'][0]['pagemap'].encode('utf-8').strip()
-    #items = data.get('items')
-    #if items is None:
-    #    return {}
-    #x = {"a":3,  "b":4,  "c":5}
-      
-    #for key in x:   #same thing as using x.keys()
-    #  print(key,x[key]) 
-
-    #for value in x.values():
-    #  print(value)      #this is better if the keys are irrelevant     
-
-    #for key,value in x.items(): #this gives you both
-    #  print(key,value)
-
+    
     for data_item in data['items']:
         link = data_item['link'],
 
     for data_item in data['items']:
         pagemap = data_item['pagemap'],
 
-    #for key in pagemap:
-    # print (pagemap)
     
     cse_thumbnail_u_string_removed = [str(i) for i in pagemap]
     cse_thumbnail_u_removed = str(cse_thumbnail_u_string_removed)
     cse_thumbnail_brace_removed_1 = cse_thumbnail_u_removed.strip('[')
     cse_thumbnail_brace_removed_2 = cse_thumbnail_brace_removed_1.strip(']')
     cse_thumbnail_brace_removed_final =  cse_thumbnail_brace_removed_2.strip("'")
-    print (cse_thumbnail_brace_removed_final)
     keys = ('cse_thumbnail', 'metatags', 'cse_image')
     for key in keys:
-        # print(key in cse_thumbnail_brace_removed_final)
-        print ('cse_thumbnail' in cse_thumbnail_brace_removed_final)
         true_false = 'cse_thumbnail' in cse_thumbnail_brace_removed_final
         if true_false == True:
-            print ('Condition matched -- Within IF block')
             for key in pagemap:
                 cse_thumbnail = key['cse_thumbnail']
-                print ('Within the For loop -- cse_thumbnail is been assigned')
                 for image_data in cse_thumbnail:
                     raw_str = image_data['src']
-                    print ('raw_str::: ' + raw_str)
-                    print ('***TRUE***')
                     break
         else:
             raw_str = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwdc3ra_4N2X5G06Rr5-L0QY8Gi6SuhUb3DiSN_M-C_nalZnVA"
-            print ('***FALSE***') 
-    
-    # if 'cse_thumbnail' not in pagemap:
-        # raw_str = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwdc3ra_4N2X5G06Rr5-L0QY8Gi6SuhUb3DiSN_M-C_nalZnVA",         
-    # else:
-        # for key in pagemap:
-            # cse_thumbnail = key['cse_thumbnail'],
-            # for image_data in cse_thumbnail:
-                # raw_str = image_data['src'],
-        
-    # if cse_thumbnail is None:
-        # return {}
-    
-    #for image_data in cse_thumbnail:
-    #    raw_str = image_data['src'],
-
-    # if raw_str is None:
-        # return {}
-
-    #if not cse_thumbnail:
-    #    raw_str = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwdc3ra_4N2X5G06Rr5-L0QY8Gi6SuhUb3DiSN_M-C_nalZnVA",
-    #       if raw_str is None:
-    #          return {}
-
-    # src_u_string_removed = [str(i) for i in raw_str]
-    # src_u_removed = str(src_u_string_removed)
-    # src_brace_removed_1 = src_u_removed.strip('[')
-    # src_brace_removed_2 = src_brace_removed_1.strip(']')
-    # src_brace_removed_final =  src_brace_removed_2.strip("'")
+            
     src_brace_removed_final = raw_str
     # Remove junk charaters from URL
     link_u_removal =  [str(i) for i in link]
@@ -461,13 +349,7 @@ def searchhook():
     link_final =  link_brace_removed_2.strip("'")
     # Remove junk character from search item
     search_string_final = cumulative_string.strip("'")
-    print ("Image::::::::")
-    print (src_brace_removed_final)
-    print ("link_final....")
-    print (link_final)
-    print("Response:")
-    print(speech)
-############################################################
+    ############################################################
     res = {
           "speech": speech,
           "displayText": speech,
