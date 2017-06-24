@@ -56,11 +56,11 @@ def welcome():
     id = sender.get('id')
     fb_info = "https://graph.facebook.com/v2.6/" + id + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + ACCESS_TOKEN
     result = urllib.request.urlopen(fb_info).read()
-    #print (result)
+    print (result)
     data = json.loads(result)
     first_name = data.get('first_name')
     print (first_name)
-    #return "Hi"
+    return "Hi"
     speech = "You can ask about weather of any city (like: what's the weather in Copenhagen) or search for an information in Wikipedia (like: What is Game Of Thrones?)"
     speech2 = "Ask proper questions to get better answers."
     res = {
