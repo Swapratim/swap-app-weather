@@ -94,9 +94,11 @@ def welcome():
                ]
              } 
          };
+    print (res)
     res = json.dumps(res, indent=4)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
+    print (r)
     return r
 
 def reply(user_id, msg):
