@@ -18,7 +18,7 @@ from flask import make_response
 # Flask should start in global layout
 context = Flask(__name__)
 # Facbook Access Token (For Marvin Facebook Page)
-ACCESS_TOKEN = "EAAXRzkKCxVQBAImZBQo8kEpHVn0YDSVxRcadEHiMlZAcqSpu5pV7wAkZBKUs0eIZBcX1RmZCEV6cxJzuZAp5NO5ZCcJgZBJu4OPrFpKiAPJ5Hxlve2vrSthfMSZC3GqLnzwwRENQSzZAMyBXFCi1LtLWm9PhYucY88zPT4KEwcZCmhLYAZDZD"
+ACCESS_TOKEN = "EAAXRzkKCxVQBABZCplGeFoMd8uINY0zwqUSKo6y0LMXCpN4dZC8LzaVsrI2BTdhZCYSZBvteNqxx0vUhFY8V22JjNQ6NMUDMS63pYLUo7T5NmqsiZC5UpJclPrMawkdFQfzdxaTiZCaB0DcQ62DzgZBP1cegKbxgK9rdYhaPhwMSQZDZD"
 # Facbook Access Token (For SID Facebook Page)
 #ACCESS_TOKEN = "EAADCpnCTbUoBAMlgDxoEVTifvyD80zCxvfakHu6m3VjYVdS5VnbIdDnZCxxonXJTK2LBMFemzYo2a4DGrz0SxNJIFkMAsU8WBfRS7IRrZAaHRrXEMBEL5wmdUvzawASQWtZAMNBr90Gattw3IGzeJ7pZBBUthMewXDvnmBELCgZDZD"
 # Google Access Token
