@@ -69,17 +69,23 @@ def webhook():
 #                                                                                    #
 #************************************************************************************#
 def welcome():
+    print ("within welcome method")
     data = request.json
+    print (data)
     if data is None:
         return {}
     entry = data.get('originalRequest')
     dataall = entry.get('data')
     sender = dataall.get('sender')
     id = sender.get('id')
+    print ("id :" + id)
     fb_info = "https://graph.facebook.com/v2.6/" + id + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + ACCESS_TOKEN
+    print (fb_info)
     result = urllib.request.urlopen(fb_info).read()
+    print (result)
     data = json.loads(result)
     first_name = data.get('first_name')
+    print (first_name)
     speech = "I'm your Personal Chatbot. I'll provide you News & Weather foercast with Wikipedia & YouTube search facilities"
     res = {
           "speech": speech,
@@ -132,12 +138,14 @@ def welcome():
                    }
                   ]
                  }
-               ]
-             } 
-         };
+                ]
+              }
+            };
+    print (res)
     res = json.dumps(res, indent=4)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
+    print (r)
     return r
 
 def reply(user_id, msg):
@@ -145,7 +153,10 @@ def reply(user_id, msg):
         "recipient": {"id": user_id},
         "message": {"text": msg}
     }
+    print ("Data.........")
+    print (data)
     resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
+    print(resp.content)
     
 #************************************************************************************#
 #                                                                                    #
