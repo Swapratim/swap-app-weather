@@ -728,7 +728,7 @@ def youtubeTopic(reqContext):
 def youtubeVideoSearch(reqContext):
     resolvedQuery = reqContext.get("result").get("resolvedQuery")
     true_false = True
-    baseurl = "https://www.googleapis.com/youtube/v3/search?part=snippet&q="
+    baseurl = "https://www.googleapis.com/youtube/v3/search?part=id&q="
     resolvedQueryFinal = resolvedQuery.replace(" ", "%20")
     search_string_ascii = resolvedQueryFinal.encode('ascii')
     if search_string_ascii is None:
@@ -1020,17 +1020,11 @@ def news_category_topnews(reqContext):
                   "payload": "espn",
                   "image_url": "https://www.brandsoftheworld.com/sites/default/files/styles/logo-thumbnail/public/052016/untitled-1_242.png?itok=vy3l2HxD"
                   },
-                 {
-                  "content_type": "text",
-                  "title": "ESPN Cric Info",
-                  "payload": "espn-cric-info",
-                  "image_url": "http://topnews.ae/images/ESPNcricinfo.jpg"
-                  },
                   {
                   "content_type": "text",
-                   "title": "Four Four Two",
-                  "payload": "four-four-two",
-                  "image_url": "http://www.free-icons-download.net/images/football-icon-53581.png"
+                  "title": "Fox Sports",
+                  "payload": "fox-sports",
+                  "image_url": "http://i48.tinypic.com/rwroy1.gif"
                   },
                   {
                   "content_type": "text",
@@ -1040,9 +1034,15 @@ def news_category_topnews(reqContext):
                   },
                   {
                   "content_type": "text",
-                  "title": "Fox Sports",
-                  "payload": "fox-sports",
-                  "image_url": "http://i48.tinypic.com/rwroy1.gif"
+                  "title": "Four Four Two",
+                  "payload": "four-four-two",
+                  "image_url": "http://www.free-icons-download.net/images/football-icon-53581.png"
+                  },
+                  {
+                  "content_type": "text",
+                  "title": "NFL",
+                  "payload": "nfl-news",
+                  "image_url": "http://orig09.deviantart.net/4d3f/f/2013/087/7/e/nfl_icon_by_slamiticon-d5zbovo.png"
                   },
                   {
                   "content_type": "text",
@@ -1447,6 +1447,12 @@ def newsWebsiteIdentification(resolvedQuery):
        newspaper_url = "http://www.nationalgeographic.com"
     elif resolvedQuery == "new-scientist":
        newspaper_url = "https://www.newscientist.com"
+    elif resolvedQuery == "nfl-news":
+       newspaper_url = "https://www.nfl.com"
+    elif resolvedQuery == "recode":
+       newspaper_url = "https://www.recode.net"
+    elif resolvedQuery == "reddit":
+       newspaper_url = "https://www.reddit.com"
     else: 
        print ("Newspaper name did not match the input")
 
