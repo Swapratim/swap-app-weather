@@ -9,7 +9,7 @@ import os
 import sys
 import psycopg2
 import urlparse
-import pymongo
+import pymongo import MongoClient
 
 from flask import Flask
 from flask import request, render_template
@@ -97,7 +97,8 @@ def welcome():
         'gender': data.get('gender')
     }]
     uri = 'mongodb://marvinai:marvinai@ds163232.mlab.com:63232/heroku_stgdzdbp'
-    client = pymongo.MongoClient(uri)
+    #client = pymongo.MongoClient(uri)
+    client = client = MongoClient("mongodb://marvinai:marvinai@ds163232.mlab.com:63232/heroku_stgdzdbp")
     db = client.get_default_database()
     name_table = db['name_table']
     name_table.insert_many(USER_DATA)
