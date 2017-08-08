@@ -9,12 +9,12 @@ import os
 import sys
 import psycopg2
 import urlparse
-import pymongo import MongoClient
+import pymongo
 
 from flask import Flask
 from flask import request, render_template
 from flask import make_response
-
+from pymongo import MongoClient
 
 
 # Flask should start in global layout
