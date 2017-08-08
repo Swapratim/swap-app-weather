@@ -13,7 +13,7 @@ import urlparse
 from flask import Flask
 from flask import request, render_template
 from flask import make_response
-from pywu import pywu
+
 
 
 # Flask should start in global layout
