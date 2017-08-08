@@ -85,9 +85,28 @@ def welcome():
     result = urllib.request.urlopen(fb_info).read()
     print (result)
     data = json.loads(result)
+
+    # Insert Data into MongoDB table:
+    USER_DATA = [
+    {
+        'first_name': data.get('first_name'),
+        'last_name': data.get('last_name'),
+        'locale': data.get('locale'),
+        'timezone': data.get('timezone'),
+        'gender': data.get('gender')
+    }]
+    uri = 'mongodb://marvinai:marvinai@ds163232.mlab.com:63232/heroku_stgdzdbp'
+    client = pymongo.MongoClient(uri)
+    db = client.get_default_database()
+    name_table = db['name_table']
+    name_table.insert_many(USER_DATA)
+
+    #db.name_table.find()
+    ###################################
+    
     first_name = data.get('first_name')
     print (first_name)
-    speech = "I'm your Personal Chatbot. I'll provide you News & Weather foercast with Wikipedia & YouTube search facilities"
+    speech = "I'm your Personal Chatbot - I can provide you News & Weather foercast along with Wikipedia & YouTube search facilities"
     res = {
           "speech": speech,
           "displayText": speech,
