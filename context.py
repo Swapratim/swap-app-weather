@@ -60,6 +60,8 @@ def webhook():
        return youtubeTopic(reqContext)
     elif reqContext.get("result").get("action") == "youtubeVideoSearch":
        return youtubeVideoSearch(reqContext)
+    elif reqContext.get("result").get("action") == "contact":
+       return contact(reqContext)
     elif reqContext.get("result").get("action") == "Help":
        return help(reqContext)
     else:
@@ -108,7 +110,7 @@ def welcome():
     
     first_name = data.get('first_name')
     print (first_name)
-    speech = "I'm your Personal Chatbot - I can provide you News & Weather foercast along with Wikipedia & YouTube search facilities"
+    speech = "Marvin.ai- a startup that delivers AI driven custom chatbots for business. \nThis demo-bot will assist you to get familiar with chatbot. \nYou can search necessary information here without using apps."
     res = {
           "speech": speech,
           "displayText": speech,
@@ -157,7 +159,13 @@ def welcome():
                   "title": "YouTube",
                   "payload": "YouTube",
                   "image_url": "https://cdn1.iconfinder.com/data/icons/logotypes/32/youtube-512.png"
-                   }
+                   },
+                  {
+                  "content_type": "text",
+                  "title": "Contact Us",
+                  "payload": "Contact Us",
+                  "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
+                  }
                   ]
                  }
                 ]
@@ -307,7 +315,13 @@ def weatherhook(reqContext):
                   "title": "YouTube",
                   "payload": "youtube",
                   "image_url": "https://cdn1.iconfinder.com/data/icons/logotypes/32/youtube-512.png"
-                   }
+                   },
+                  {
+                  "content_type": "text",
+                  "title": "Contact Us",
+                  "payload": "contact",
+                  "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
+                  }
                   ]
                  }
               ]
@@ -579,7 +593,13 @@ def searchhook(reqContext):
                   "title": "YouTube",
                   "payload": "YouTube",
                   "image_url": "https://cdn1.iconfinder.com/data/icons/logotypes/32/youtube-512.png"
-                   }
+                   },
+                  {
+                  "content_type": "text",
+                  "title": "Contact Us",
+                  "payload": "contact",
+                  "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
+                  }
                   ]
                  }
                ]
@@ -704,7 +724,13 @@ def wikipediaInformationSearch(reqContext):
                   "title": "YouTube",
                   "payload": "YouTube",
                   "image_url": "https://cdn1.iconfinder.com/data/icons/logotypes/32/youtube-512.png"
-                   }
+                   },
+                  {
+                  "content_type": "text",
+                  "title": "Contact Us",
+                  "payload": "contact",
+                  "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
+                  }
                   ]
                  }
                ]
@@ -868,7 +894,13 @@ def youtubeVideoSearch(reqContext):
                   "title": "YouTube",
                   "payload": "YouTube",
                   "image_url": "https://cdn1.iconfinder.com/data/icons/logotypes/32/youtube-512.png"
-                   }
+                   },
+                  {
+                  "content_type": "text",
+                  "title": "Contact Us",
+                  "payload": "contact",
+                  "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
+                  }
                   ]
                  }
                ]
@@ -1383,7 +1415,13 @@ def topFourNewsArticle(reqContext):
                   "title": "YouTube",
                   "payload": "YouTube",
                   "image_url": "https://cdn1.iconfinder.com/data/icons/logotypes/32/youtube-512.png"
-                   }
+                   },
+                  {
+                  "content_type": "text",
+                  "title": "Contact Us",
+                  "payload": "contact",
+                  "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
+                  }
                   ]
                  }
                ]
@@ -1493,9 +1531,72 @@ def help(resolvedQuery):
         "facebook" : [
                {
                 "text": speech
-               },
-               {
-                  "text": "Click on the below options to start over again",
+               }
+             ]
+           } 
+         };
+    res = json.dumps(res, indent=4)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
+#************************************************************************************#
+#                                                                                    #
+#   Contact Information                                                              #
+#                                                                                    #
+#************************************************************************************#
+def contact(resolvedQuery):
+    print ("Within CONTACT US method")
+    speech = "Our company is now present in Denmark & Australia. \nGrow your business with AI Chatbot. \nRequest for a free Demo now."
+    res = {
+        "speech": speech,
+        "displayText": speech,
+        "data" : {
+        "facebook" : [
+                {
+                 "text": speech
+                },
+                {
+                 "attachment" : {
+                   "type" : "template",
+                     "payload" : {
+                      "template_type" : "generic",
+                       "elements" : [ 
+                                 {
+                                   "title" : "Swapratim Roy",
+                                   "image_url" : "https://marvinchatbot.files.wordpress.com/2017/06/swapratim-roy-founder-owner-of-marvin-ai.jpg?w=700&h=&crop=1",
+                                   "subtitle" : "Founder & Owner of Marvin.ai \nAarhus, Denmark \nCall: +45-7182-5584",
+                                   "buttons": [{
+                                        "type": "web_url",
+                                        "url": "https://www.messenger.com/t/swapratim.roy",
+                                        "title": "Connect on Messenger"
+                                    },
+                                    {
+                                        "type": "web_url",
+                                        "url": "https://marvinai.live/about",
+                                        "title": "View Website"
+                                    }]
+                                 },
+                                 {
+                                   "title" : "Arnab Dasgupta",
+                                   "image_url" : "https://marvinchatbot.files.wordpress.com/2017/06/arnab-dasgupta-ceo-of-marvin-ai.jpg?w=700&h=&crop=1",
+                                   "subtitle" : "CEO of Marvin.ai \nMelbourne, Australia \nCall: +61-469-029-387",
+                                   "buttons": [{
+                                        "type": "web_url",
+                                        "url": "https://www.messenger.com/t/arnabdasgupta.uk",
+                                        "title": "Connect on Messenger"
+                                    },
+                                    {
+                                        "type": "web_url",
+                                        "url": "https://marvinai.live/about",
+                                        "title": "View Website"
+                                    }]
+                                 } 
+                           ]
+                       } 
+                   }
+                },
+                {
+                  "text": "Start over again",
                   "quick_replies": [
                  {
                   "content_type": "text",
@@ -1520,7 +1621,13 @@ def help(resolvedQuery):
                   "title": "YouTube",
                   "payload": "YouTube",
                   "image_url": "https://cdn1.iconfinder.com/data/icons/logotypes/32/youtube-512.png"
-                   }
+                   },
+                  {
+                  "content_type": "text",
+                  "title": "Contact Us",
+                  "payload": "contact",
+                  "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
+                  }
                   ]
                  }
              ]
