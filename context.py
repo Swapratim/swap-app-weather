@@ -92,6 +92,7 @@ def welcome():
     # Insert Data into MongoDB table:
     USER_DATA = [
     {
+        'id': data.get('access_token'),
         'first_name': data.get('first_name'),
         'last_name': data.get('last_name'),
         'locale': data.get('locale'),
@@ -110,12 +111,18 @@ def welcome():
     
     first_name = data.get('first_name')
     print (first_name)
-    speech = "Marvin.ai- a startup that delivers AI driven custom chatbots for business. \nThis demo-bot will assist you to get familiar with chatbot. \nYou can search necessary information here without using apps."
+    speech1 = "Marvin.ai is a chatbot startup company that delivers Artificial Intelligence driven custom chatbots for customer support."
+    speech2 = "I'm the personal bot designed to assist you to get familiar with chatbot... :) "
+    speech3 = "I provide unique combination to search News (30 Newspapers), Weather, Wikipedia or YouTube within this chat window which is unique is nature. :D"
+    speech4 = "Hope you'll enjoy my services. More more details, you can click on 'Contact Us' !!!"
     res = {
           "speech": speech,
           "displayText": speech,
            "data" : {
               "facebook" : [
+                   {
+                    "sender_action": "typing_on"
+                  },
                   {
                  "attachment" : {
                    "type" : "template",
@@ -131,7 +138,31 @@ def welcome():
                    }
                 },
                  {
-                 "text": speech
+                    "sender_action": "typing_on"
+                  },
+                 {
+                 "text": speech1
+                  },
+                 {
+                    "sender_action": "typing_on"
+                  },
+                 {
+                 "text": speech2
+                  },
+                 {
+                    "sender_action": "typing_on"
+                  },
+                 {
+                 "text": speech3
+                  },
+                 {
+                    "sender_action": "typing_on"
+                  },
+                 {
+                 "text": speech4
+                  },
+                 {
+                    "sender_action": "typing_on"
                   },
                  {
                   "text": "Please select your choice:",
@@ -1071,7 +1102,7 @@ def news_category_topnews(reqContext):
                   "content_type": "text",
                   "title": "ESPN",
                   "payload": "espn",
-                  "image_url": "https://www.brandsoftheworld.com/sites/default/files/styles/logo-thumbnail/public/052016/untitled-1_242.png?itok=vy3l2HxD"
+                  "image_url": "http://1000logos.net/wp-content/uploads/2017/01/ESPN-Logo.png"
                   },
                   {
                   "content_type": "text",
@@ -1202,12 +1233,6 @@ def news_category_topnews(reqContext):
                   "title": "Recode",
                   "payload": "recode",
                   "image_url": "https://cdn.vox-cdn.com/uploads/hub/sbnu_logo/633/large_mark.64395.png"
-                  },
-                  {
-                  "content_type": "text",
-                  "title": "Reddit",
-                  "payload": "reddit",
-                  "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCOC1gOn12VNBdquLlqxTCt9XGF_vWiF3Y3gjfnCxCBIN_FXdZ"
                   }
                   ]
                  }
@@ -1223,12 +1248,6 @@ def news_category_topnews(reqContext):
                  {
                   "text": "Please select the Newspaper of your choice:",
                   "quick_replies": [
-                 {
-                  "content_type": "text",
-                  "title": "Entertainment Weekly",
-                  "payload": "entertainment-weekly",
-                  "image_url": "https://i.redd.it/ndughnbltu2z.png"
-                  },
                  {
                   "content_type": "text",
                   "title": "MTV News",
