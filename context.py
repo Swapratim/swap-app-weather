@@ -41,6 +41,10 @@ def webhook():
     reqContext = request.get_json(silent=True, force=True)
     if reqContext.get("result").get("action") == "input.welcome":
        return welcome()
+    elif reqContext.get("result").get("action") == "firstIntroductionSureOptionStatement":
+       return firstIntroductionSureOptionStatement(reqContext)
+    elif reqContext.get("result").get("action") == "firstIntroductionNoOptionStatement":
+       return firstIntroductionNoOptionStatement(reqContext)
     elif reqContext.get("result").get("action") == "weather":
        return weather(reqContext)
     elif reqContext.get("result").get("action") == "yahooWeatherForecast":
@@ -150,7 +154,7 @@ def welcome():
                  "attachment":{
                         "type":"image", 
                         "payload":{
-                        "url":"https://media.giphy.com/media/1qO2XGCGx7Rte/giphy.gif"
+                        "url":"https://giphy.com/gifs/1qO2XGCGx7Rte/html5"
                        }
                       }
                   },
@@ -159,7 +163,7 @@ def welcome():
                   "quick_replies": [
                  {
                   "content_type": "text",
-                  "title": "um, yeah sure" + emoji.emojize(':smiley:', use_aliases=True),
+                  "title": "Ummm, yeah sure" + emoji.emojize(':smiley:', use_aliases=True),
                   "payload": "firstIntroductionSureOption",
                   "image_url": "http://www.iconarchive.com/download/i47563/hopstarter/keriyo-emoticons/Smiley-sad.ico"
                  },
@@ -190,7 +194,139 @@ def reply(user_id, msg):
     print (data)
     resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
     print(resp.content)
-    
+ 
+def firstIntroductionSureOptionStatement(reqContext):
+    option = reqContext.get("result").get("action")
+    res = {
+        "speech": "...",
+        "displayText": "...",
+        "data" : {
+        "facebook" : [
+                {
+                    "sender_action": "typing_on"
+                },
+               {
+                "text": "Marvin.ai is a chatbot development company."
+               },
+               {
+                    "sender_action": "typing_on"
+                },
+               {
+                "text": "We build best Customer Support chatbots for any kind of businesses."
+               },
+               {
+                    "sender_action": "typing_on"
+                },
+               {
+                "text": "For example: Restaurant, Hotel, Retail, Healthcare, Real Estate, Banking, Insurance etc"
+               },
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                 "attachment":{
+                        "type":"image", 
+                        "payload":{
+                        "url":"https://giphy.com/gifs/3ov9kapGIiW3DQHAM8/html5"
+                     }
+                 }
+               },
+               {
+                  "text": "Do you wanna know some secrets?",
+                  "quick_replies": [
+                 {
+                  "content_type": "text",
+                  "title": "Okkk, tell me" + emoji.emojize(':smiley:', use_aliases=True),
+                  "payload": "firstIntroductionSureOption",
+                  "image_url": "http://www.iconarchive.com/download/i47563/hopstarter/keriyo-emoticons/Smiley-sad.ico"
+                 },
+                 {
+                  "content_type": "text",
+                  "title": "No, thanks" + emoji.emojize(':wink:', use_aliases=True),
+                  "payload": "firstIntroductionNoOption",
+                  "image_url": "http://www.iconarchive.com/download/i47563/hopstarter/keriyo-emoticons/Smiley-sad.ico"
+                   }
+                  ]
+                 }
+             ]
+           } 
+         };
+    res = json.dumps(res, indent=4)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
+
+#####################################################################
+def firstIntroductionNoOptionStatement(reqContext):
+    option = reqContext.get("result").get("action")
+    res = {
+        "speech": "...",
+        "displayText": "...",
+        "data" : {
+        "facebook" : [
+                {
+                    "sender_action": "typing_on"
+                },
+               {
+                "text": "Don't worry, still you can enjoy tons of features that I offer."
+               },
+               {
+                    "sender_action": "typing_on"
+                },
+               {
+                "text": "I provide special features to search News (30 Newspapers), Weather, Wikipedia or YouTube within this chat window which is unique is nature." + emoji.emojize(':fire:', use_aliases=True),
+               },
+               {
+                    "sender_action": "typing_on"
+                },
+               {
+                "text": "Give it a try and enjoy my personal assistance."
+               },
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                  "text": "Also click on 'Menu' option to explore more!!!",
+                  "quick_replies": [
+                 {
+                  "content_type": "text",
+                  "title": "News",
+                  "payload": "News",
+                  "image_url": "http://www.freeiconspng.com/uploads/newspaper-icon-20.jpg"
+                 },
+                 {
+                  "content_type": "text",
+                  "title": "Weather",
+                  "payload": "Weather",
+                  "image_url": "https://www.mikeafford.com/store/store-images/ww01_example_light_rain_showers.png"
+                   },
+                  {
+                  "content_type": "text",
+                  "title": "Wikipedia",
+                  "payload": "Wikipedia",
+                  "image_url": "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/1122px-Wikipedia-logo-v2.svg.png"
+                   },
+                  {
+                  "content_type": "text",
+                  "title": "YouTube",
+                  "payload": "YouTube",
+                  "image_url": "https://cdn1.iconfinder.com/data/icons/logotypes/32/youtube-512.png"
+                   },
+                  {
+                  "content_type": "text",
+                  "title": "Contact Us",
+                  "payload": "Contact Us",
+                  "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
+                  }
+                  ]
+                 }
+             ]
+           } 
+         };
+    res = json.dumps(res, indent=4)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
 #************************************************************************************#
 #                                                                                    #
 #   Below method is to get the Facebook Quick Reply Webhook Handling - Weather       #
