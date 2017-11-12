@@ -130,7 +130,7 @@ def welcome():
                       "template_type" : "generic",
                        "elements" : [ 
                                  {
-                                   "title" : "Welcome " + first_name + "! Thanks for stopping by..." + emoji.emojize('Python is :wave:'),
+                                   "title" : "Welcome " + first_name + "! Thanks for stopping by..." + emoji.emojize('Python is :wave:', use_aliases=True),
                                    "image_url" : "http://gdurl.com/vc1o",
                                  } 
                            ]
