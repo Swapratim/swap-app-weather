@@ -10,6 +10,7 @@ import sys
 import psycopg2
 import urlparse
 import pymongo
+import emoji
 
 from flask import Flask
 from flask import request, render_template
@@ -72,6 +73,7 @@ def webhook():
 #   This method is to get the Facebook User Deatails via graph.facebook.com/v2.6     #
 #                                                                                    #
 #************************************************************************************#
+user_name = ""
 def welcome():
     print ("within welcome method")
     data = request.json
@@ -111,13 +113,11 @@ def welcome():
     
     first_name = data.get('first_name')
     print (first_name)
-    speech1 = "Marvin.ai is a chatbot startup company that delivers Artificial Intelligence driven custom chatbots for customer support."
-    speech2 = "I'm the personal bot designed to assist you to get familiar with chatbot... :) "
-    speech3 = "I provide unique combination to search News (30 Newspapers), Weather, Wikipedia or YouTube within this chat window which is unique is nature. :D"
-    speech4 = "Hope you'll enjoy my services. More more details, you can click on 'Contact Us' !!!"
+    user_name = data.get('first_name')
+    speech1 = "I'm the official chatbot of Marvin.ai but you can call me 'Marvin'"
     res = {
-          "speech": speech,
-          "displayText": speech,
+          "speech": speech1,
+          "displayText": speech1,
            "data" : {
               "facebook" : [
                    {
@@ -130,7 +130,7 @@ def welcome():
                       "template_type" : "generic",
                        "elements" : [ 
                                  {
-                                   "title" : "Hi " + first_name + "! I am Marvin",
+                                   "title" : "Welcome " + first_name + "! Thanks for stopping by..." + emoji.emojize('Python is :wave:'),
                                    "image_url" : "http://gdurl.com/vc1o",
                                  } 
                            ]
@@ -147,56 +147,29 @@ def welcome():
                     "sender_action": "typing_on"
                   },
                  {
-                 "text": speech2
+                 "attachment":{
+                        "type":"image", 
+                        "payload":{
+                        "url":"https://media.giphy.com/media/1qO2XGCGx7Rte/giphy.gif", 
+                        "is_reusable":true
+                         }
+                      }
                   },
                  {
-                    "sender_action": "typing_on"
-                  },
-                 {
-                 "text": speech3
-                  },
-                 {
-                    "sender_action": "typing_on"
-                  },
-                 {
-                 "text": speech4
-                  },
-                 {
-                    "sender_action": "typing_on"
-                  },
-                 {
-                  "text": "Please select your choice:",
+                  "text": "Do you want to know more about Marvin.ai?",
                   "quick_replies": [
                  {
                   "content_type": "text",
-                  "title": "News",
-                  "payload": "News",
-                  "image_url": "http://www.freeiconspng.com/uploads/newspaper-icon-20.jpg"
+                  "title": "um, yeah sure :)",
+                  "payload": "firstIntroductionSureOption",
+                  "image_url": "https://cdn-images-1.medium.com/max/1600/1*VJtf6UeIU8MmplxXFHm70g.jpeg"
                  },
                  {
                   "content_type": "text",
-                  "title": "Weather",
-                  "payload": "Weather",
-                  "image_url": "https://www.mikeafford.com/store/store-images/ww01_example_light_rain_showers.png"
-                   },
-                  {
-                  "content_type": "text",
-                  "title": "Wikipedia",
-                  "payload": "Wikipedia",
-                  "image_url": "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/1122px-Wikipedia-logo-v2.svg.png"
-                   },
-                  {
-                  "content_type": "text",
-                  "title": "YouTube",
-                  "payload": "YouTube",
-                  "image_url": "https://cdn1.iconfinder.com/data/icons/logotypes/32/youtube-512.png"
-                   },
-                  {
-                  "content_type": "text",
-                  "title": "Contact Us",
-                  "payload": "Contact Us",
-                  "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
-                  }
+                  "title": "No, thank you",
+                  "payload": "firstIntroductionNoOption",
+                  "image_url": "http://www.iconarchive.com/download/i47563/hopstarter/keriyo-emoticons/Smiley-sad.ico"
+                   }
                   ]
                  }
                 ]
