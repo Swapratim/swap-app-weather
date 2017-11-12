@@ -159,9 +159,9 @@ def welcome():
                   "quick_replies": [
                  {
                   "content_type": "text",
-                  "title": "um, yeah sure" + emoji.emojize(':simple_smile:', use_aliases=True),
+                  "title": "um, yeah sure" + emoji.emojize(':smiley:', use_aliases=True),
                   "payload": "firstIntroductionSureOption",
-                  "image_url": "https://cdn-images-1.medium.com/max/1600/1*VJtf6UeIU8MmplxXFHm70g.jpeg"
+                  "image_url": "http://www.iconarchive.com/download/i47563/hopstarter/keriyo-emoticons/Smiley-sad.ico"
                  },
                  {
                   "content_type": "text",
