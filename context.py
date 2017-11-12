@@ -163,15 +163,15 @@ def welcome():
                   "quick_replies": [
                  {
                   "content_type": "text",
-                  "title": "Ummm, yeah sure" + emoji.emojize(':smiley:', use_aliases=True),
+                  "title": "Ummm, yeah sure",
                   "payload": "firstIntroductionSureOption",
-                  "image_url": "http://www.iconarchive.com/download/i47563/hopstarter/keriyo-emoticons/Smiley-sad.ico"
+                  "image_url": "http://www.thehindubusinessline.com/multimedia/dynamic/02337/bl12_smiley_jpg_2337780e.jpg"
                  },
                  {
                   "content_type": "text",
-                  "title": "No, thank you" + emoji.emojize(':wink:', use_aliases=True),
+                  "title": "No, thank you",
                   "payload": "firstIntroductionNoOption",
-                  "image_url": "http://www.iconarchive.com/download/i47563/hopstarter/keriyo-emoticons/Smiley-sad.ico"
+                  "image_url": "https://www.colourbox.com/preview/7036940-exited-emoticon.jpg"
                    }
                   ]
                  }
@@ -236,15 +236,15 @@ def firstIntroductionSureOptionStatement(reqContext):
                   "quick_replies": [
                  {
                   "content_type": "text",
-                  "title": "Okkk, tell me" + emoji.emojize(':smiley:', use_aliases=True),
+                  "title": "okk, tell me",
                   "payload": "firstIntroductionSureOption",
-                  "image_url": "http://www.iconarchive.com/download/i47563/hopstarter/keriyo-emoticons/Smiley-sad.ico"
+                  "image_url": "http://www.thehindubusinessline.com/multimedia/dynamic/02337/bl12_smiley_jpg_2337780e.jpg"
                  },
                  {
                   "content_type": "text",
-                  "title": "No, thanks" + emoji.emojize(':wink:', use_aliases=True),
+                  "title": "No, thanks",
                   "payload": "firstIntroductionNoOption",
-                  "image_url": "http://www.iconarchive.com/download/i47563/hopstarter/keriyo-emoticons/Smiley-sad.ico"
+                  "image_url": "https://www.colourbox.com/preview/7036940-exited-emoticon.jpg"
                    }
                   ]
                  }
