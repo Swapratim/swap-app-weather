@@ -150,9 +150,8 @@ def welcome():
                  "attachment":{
                         "type":"image", 
                         "payload":{
-                        "url":"https://media.giphy.com/media/1qO2XGCGx7Rte/giphy.gif", 
-                        "is_reusable":true
-                         }
+                        "url":"https://media.giphy.com/media/1qO2XGCGx7Rte/giphy.gif"
+                       }
                       }
                   },
                  {
