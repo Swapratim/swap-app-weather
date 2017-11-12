@@ -154,7 +154,7 @@ def welcome():
                  "attachment":{
                         "type":"image", 
                         "payload":{
-                        "url":"https://giphy.com/gifs/1qO2XGCGx7Rte/html5"
+                        "url":"https://media.giphy.com/media/1qO2XGCGx7Rte/giphy.gif"
                        }
                       }
                   },
@@ -227,7 +227,7 @@ def firstIntroductionSureOptionStatement(reqContext):
                  "attachment":{
                         "type":"image", 
                         "payload":{
-                        "url":"https://giphy.com/gifs/3ov9kapGIiW3DQHAM8/html5"
+                        "url":"https://media.giphy.com/media/3ov9kapGIiW3DQHAM8/giphy.gif"
                      }
                  }
                },
