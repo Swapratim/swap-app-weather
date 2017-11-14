@@ -45,6 +45,12 @@ def webhook():
        return firstIntroductionSureOptionStatement(reqContext)
     elif reqContext.get("result").get("action") == "firstIntroductionNoOptionStatement":
        return firstIntroductionNoOptionStatement(reqContext)
+    elif reqContext.get("result").get("action") == "secondExplanationOKStatement":
+       return secondExplanationOKStatement(reqContext)
+    elif reqContext.get("result").get("action") == "thirdExplanationOKStatement":
+       return thirdExplanationOKStatement(reqContext)
+    elif reqContext.get("result").get("action") == "fourthExplanationOKStatement":
+       return fourthExplanationOKStatement(reqContext)
     elif reqContext.get("result").get("action") == "weather":
        return weather(reqContext)
     elif reqContext.get("result").get("action") == "yahooWeatherForecast":
@@ -195,6 +201,8 @@ def reply(user_id, msg):
     resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
     print(resp.content)
  
+###################################THIS IS THE START OF FIRST BLOCK OF CUSTOMER ENGAGEMENT#########################################
+
 def firstIntroductionSureOptionStatement(reqContext):
     option = reqContext.get("result").get("action")
     res = {
@@ -237,14 +245,20 @@ def firstIntroductionSureOptionStatement(reqContext):
                  {
                   "content_type": "text",
                   "title": "okk, tell me",
-                  "payload": "firstIntroductionSureOption",
+                  "payload": "secondIntroductionOKOption",
                   "image_url": "http://www.thehindubusinessline.com/multimedia/dynamic/02337/bl12_smiley_jpg_2337780e.jpg"
                  },
                  {
                   "content_type": "text",
                   "title": "No, thanks",
-                  "payload": "firstIntroductionNoOption",
+                  "payload": "secondIntroductionNoOption",
                   "image_url": "https://www.colourbox.com/preview/7036940-exited-emoticon.jpg"
+                  },
+                  {
+                  "content_type": "text",
+                  "title": "Contact us",
+                  "payload": "contact",
+                  "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT82m3I34RXj5OqXvJUqczmgCWoqS9U2EZmdJKXMjZx24Jpp-Z6lQ"
                    }
                   ]
                  }
@@ -327,6 +341,226 @@ def firstIntroductionNoOptionStatement(reqContext):
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
+
+################################################THIS IS THE START OF SECOND BLOCK OF CUSTOMER ENGAGEMENT#########################################
+
+def secondExplanationOKStatement(reqContext):
+    option = reqContext.get("result").get("action")
+    res = {
+        "speech": "...",
+        "displayText": "...",
+        "data" : {
+        "facebook" : [
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                "text": "Global trend shows that People prefer messaging" + emoji.emojize(':iphone:', use_aliases=True) + "over calling." + emoji.emojize(':telephone_receiver:', use_aliases=True)
+               },
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                "text": "Like you are doing the same right now instead of calling me" + emoji.emojize(':innocent:', use_aliases=True)
+               },
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                "text": "Customers search in FB pages for your business brand before landing to your website."
+               },
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                 "text": "Instant reply to customer FAQ helps you to grow customer interaction & satisfaction level" + emoji.emojize(':white_check_mark:', use_aliases=True)
+               },
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                 "text": "This helps to grow your business with rapid and steady growth" + emoji.emojize(':moneybag:', use_aliases=True) + emoji.emojize(':moneybag:', use_aliases=True)
+               },
+               {
+                  "text": "Want to know how chatbot can help you?",
+                  "quick_replies": [
+                 {
+                  "content_type": "text",
+                  "title": "Yessss, tell me right now",
+                  "payload": "thirdIntroductionOKOption",
+                  "image_url": "https://previews.123rf.com/images/krisdog/krisdog1509/krisdog150900014/44577557-A-cartoon-emoji-emoticon-icon-character-looking-very-happy-with-his-thumbs-up-he-likes-it-Stock-Vector.jpg"
+                 },
+                 {
+                  "content_type": "text",
+                  "title": "Maybe later on",
+                  "payload": "firstIntroductionNoOption",
+                  "image_url": "https://www.colourbox.com/preview/7036940-exited-emoticon.jpg"
+                 },
+                 {
+                  "content_type": "text",
+                  "title": "Contact us",
+                  "payload": "contact",
+                  "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT82m3I34RXj5OqXvJUqczmgCWoqS9U2EZmdJKXMjZx24Jpp-Z6lQ"
+                   }
+                  ]
+                }
+             ]
+           } 
+         };
+    res = json.dumps(res, indent=4)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
+
+#####################################################################
+
+def thirdExplanationOKStatement(reqContext):
+    option = reqContext.get("result").get("action")
+    res = {
+        "speech": "...",
+        "displayText": "...",
+        "data" : {
+        "facebook" : [
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                "text": "Ok, Ok, I know you're getting impatient" + emoji.emojize(':sunglasses:', use_aliases=True)
+               },
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                "text": "Chatbots are virtual assistants capable of talking to unlimited number of users simultaneously 24/7/365"
+               },
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                "text": "So people don't have to wait too long to get simple information like: 'When your restaurant will open today?'"
+               },
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                 "attachment":{
+                        "type":"image", 
+                        "payload":{
+                        "url":"https://media.giphy.com/media/11sBLVxNs7v6WA/giphy.gif"
+                     }
+                 }
+               },
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                 "text": "Chatbots also help in Sales promotion and marketing"
+               },
+               {
+                  "text": "Ok, let's discuss more beneficial sides of chatbots",
+                  "quick_replies": [
+                 {
+                  "content_type": "text",
+                  "title": "Show It To Me, Bot",
+                  "payload": "fourthIntroductionOKOption",
+                  "image_url": "https://previews.123rf.com/images/krisdog/krisdog1509/krisdog150900014/44577557-A-cartoon-emoji-emoticon-icon-character-looking-very-happy-with-his-thumbs-up-he-likes-it-Stock-Vector.jpg"
+                 },
+                 {
+                  "content_type": "text",
+                  "title": "No, Later Sometime",
+                  "payload": "firstIntroductionNoOption",
+                  "image_url": "https://www.colourbox.com/preview/7036940-exited-emoticon.jpg"
+                 },
+                 {
+                  "content_type": "text",
+                  "title": "Contact us",
+                  "payload": "contact",
+                  "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT82m3I34RXj5OqXvJUqczmgCWoqS9U2EZmdJKXMjZx24Jpp-Z6lQ"
+                   }
+                  ]
+                }
+             ]
+           } 
+         };
+    res = json.dumps(res, indent=4)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
+##################################################
+
+def fourthExplanationOKStatement(reqContext):
+    option = reqContext.get("result").get("action")
+    res = {
+        "speech": "...",
+        "displayText": "...",
+        "data" : {
+        "facebook" : [
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                "text": "Reaching out to all your customers with effective promotion is difficult" + emoji.emojize(':loudspeaker:', use_aliases=True)
+               },
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                "text": "Traditional marketing channels like ad, promotions, email marketing have very low sales conversion rate."
+               },
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                "text": "Chatbot can promote sales offer to all your digital customers with highest opening rate. This helps in creating personal bonding."
+               },
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                 "attachment":{
+                        "type":"image", 
+                        "payload":{
+                        "url":"https://media.giphy.com/media/p2qX0hzOihmp2/giphy.gif"
+                     }
+                 }
+               },
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                 "text": "Marvin AI has the best market expertise to guide and grow your business."
+               },
+               {
+                  "text": "Do you want a chatbot for your business? Ask for a Limited FREE Trial Offer now",
+                  "quick_replies": [
+                 {
+                  "content_type": "text",
+                  "title": "Contact Us Now",
+                  "payload": "contact",
+                  "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT82m3I34RXj5OqXvJUqczmgCWoqS9U2EZmdJKXMjZx24Jpp-Z6lQ"
+                 },
+                 {
+                  "content_type": "text",
+                  "title": "No, Later Sometime",
+                  "payload": "firstIntroductionNoOption",
+                  "image_url": "https://www.colourbox.com/preview/7036940-exited-emoticon.jpg"
+                 },
+                 {
+                  "content_type": "text",
+                  "title": "I want to see how smart you are",
+                  "payload": "firstIntroductionNoOption",
+                  "image_url": "https://previews.123rf.com/images/krisdog/krisdog1509/krisdog150900014/44577557-A-cartoon-emoji-emoticon-icon-character-looking-very-happy-with-his-thumbs-up-he-likes-it-Stock-Vector.jpg"
+                 }
+                  ]
+                }
+             ]
+           } 
+         };
+    res = json.dumps(res, indent=4)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
+##################################################
 #************************************************************************************#
 #                                                                                    #
 #   Below method is to get the Facebook Quick Reply Webhook Handling - Weather       #
