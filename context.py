@@ -494,7 +494,6 @@ def thirdExplanationOKStatement(reqContext):
 ##################################################
 
 def fourthExplanationOKStatement(reqContext):
-print ("Show it to Me ---- Now it's within method")
     option = reqContext.get("result").get("action")
     res = {
         "speech": "...",
