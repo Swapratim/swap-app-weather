@@ -361,12 +361,6 @@ def secondExplanationOKStatement(reqContext):
                     "sender_action": "typing_on"
                },
                {
-                "text": "Like you are doing the same right now instead of calling me" + emoji.emojize(':innocent:', use_aliases=True)
-               },
-               {
-                    "sender_action": "typing_on"
-               },
-               {
                 "text": "Customers search in FB pages for your business brand before landing to your website."
                },
                {
@@ -380,6 +374,17 @@ def secondExplanationOKStatement(reqContext):
                },
                {
                  "text": "This helps to grow your business with rapid and steady growth" + emoji.emojize(':moneybag:', use_aliases=True) + emoji.emojize(':moneybag:', use_aliases=True)
+               },
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                 "attachment":{
+                        "type":"image", 
+                        "payload":{
+                        "url":"https://media.giphy.com/media/g4AgRBcatHKve/giphy.gif"
+                     }
+                 }
                },
                {
                   "text": "Want to know how chatbot can help you?",
@@ -457,12 +462,12 @@ def thirdExplanationOKStatement(reqContext):
                  "text": "Chatbots also help in Sales promotion and marketing"
                },
                {
-                  "text": "Ok, let's discuss more beneficial sides of chatbots",
+                  "text": "Ready to know more about the deal?",
                   "quick_replies": [
                  {
                   "content_type": "text",
-                  "title": "Show It To Me",
-                  "payload": "Show It To Me",
+                  "title": "Show it to Me",
+                  "payload": "Show it to Me",
                   "image_url": "https://previews.123rf.com/images/krisdog/krisdog1509/krisdog150900014/44577557-A-cartoon-emoji-emoticon-icon-character-looking-very-happy-with-his-thumbs-up-he-likes-it-Stock-Vector.jpg"
                  },
                  {
@@ -489,6 +494,7 @@ def thirdExplanationOKStatement(reqContext):
 ##################################################
 
 def fourthExplanationOKStatement(reqContext):
+print ("Show it to Me ---- Now it's within method")
     option = reqContext.get("result").get("action")
     res = {
         "speech": "...",
