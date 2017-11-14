@@ -170,13 +170,13 @@ def welcome():
                  {
                   "content_type": "text",
                   "title": "Ummm, yeah sure",
-                  "payload": "firstIntroductionSureOption",
+                  "payload": "Ummm, yeah sure",
                   "image_url": "http://www.thehindubusinessline.com/multimedia/dynamic/02337/bl12_smiley_jpg_2337780e.jpg"
                  },
                  {
                   "content_type": "text",
                   "title": "No, thank you",
-                  "payload": "firstIntroductionNoOption",
+                  "payload": "No, thank you",
                   "image_url": "https://www.colourbox.com/preview/7036940-exited-emoticon.jpg"
                    }
                   ]
@@ -244,14 +244,14 @@ def firstIntroductionSureOptionStatement(reqContext):
                   "quick_replies": [
                  {
                   "content_type": "text",
-                  "title": "okk, tell me",
-                  "payload": "secondIntroductionOKOption",
+                  "title": "Okkk, Tell Me",
+                  "payload": "Okkk, Tell Me",
                   "image_url": "http://www.thehindubusinessline.com/multimedia/dynamic/02337/bl12_smiley_jpg_2337780e.jpg"
                  },
                  {
                   "content_type": "text",
                   "title": "No, thanks",
-                  "payload": "secondIntroductionNoOption",
+                  "payload": "No, thanks",
                   "image_url": "https://www.colourbox.com/preview/7036940-exited-emoticon.jpg"
                   },
                   {
@@ -386,14 +386,14 @@ def secondExplanationOKStatement(reqContext):
                   "quick_replies": [
                  {
                   "content_type": "text",
-                  "title": "Yessss, tell me right now",
-                  "payload": "thirdIntroductionOKOption",
+                  "title": "Tell me right now",
+                  "payload": "Tell me right now",
                   "image_url": "https://previews.123rf.com/images/krisdog/krisdog1509/krisdog150900014/44577557-A-cartoon-emoji-emoticon-icon-character-looking-very-happy-with-his-thumbs-up-he-likes-it-Stock-Vector.jpg"
                  },
                  {
                   "content_type": "text",
                   "title": "Maybe later on",
-                  "payload": "firstIntroductionNoOption",
+                  "payload": "Maybe later on",
                   "image_url": "https://www.colourbox.com/preview/7036940-exited-emoticon.jpg"
                  },
                  {
@@ -461,14 +461,14 @@ def thirdExplanationOKStatement(reqContext):
                   "quick_replies": [
                  {
                   "content_type": "text",
-                  "title": "Show It To Me, Bot",
-                  "payload": "fourthIntroductionOKOption",
+                  "title": "Show It To Me",
+                  "payload": "Show It To Me",
                   "image_url": "https://previews.123rf.com/images/krisdog/krisdog1509/krisdog150900014/44577557-A-cartoon-emoji-emoticon-icon-character-looking-very-happy-with-his-thumbs-up-he-likes-it-Stock-Vector.jpg"
                  },
                  {
                   "content_type": "text",
                   "title": "No, Later Sometime",
-                  "payload": "firstIntroductionNoOption",
+                  "payload": "No, Later Sometime",
                   "image_url": "https://www.colourbox.com/preview/7036940-exited-emoticon.jpg"
                  },
                  {
@@ -542,14 +542,8 @@ def fourthExplanationOKStatement(reqContext):
                  {
                   "content_type": "text",
                   "title": "No, Later Sometime",
-                  "payload": "firstIntroductionNoOption",
+                  "payload": "No, Later Sometime",
                   "image_url": "https://www.colourbox.com/preview/7036940-exited-emoticon.jpg"
-                 },
-                 {
-                  "content_type": "text",
-                  "title": "I want to see how smart you are",
-                  "payload": "firstIntroductionNoOption",
-                  "image_url": "https://previews.123rf.com/images/krisdog/krisdog1509/krisdog150900014/44577557-A-cartoon-emoji-emoticon-icon-character-looking-very-happy-with-his-thumbs-up-he-likes-it-Stock-Vector.jpg"
                  }
                   ]
                 }
