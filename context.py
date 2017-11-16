@@ -178,7 +178,10 @@ def welcome():
                   "title": "No, thank you",
                   "payload": "No, thank you",
                   "image_url": "https://www.colourbox.com/preview/7036940-exited-emoticon.jpg"
-                   }
+                   },
+                  {
+                    "content_type":"location"
+                  }
                   ]
                  }
                 ]
@@ -329,7 +332,7 @@ def firstIntroductionNoOptionStatement(reqContext):
                   {
                   "content_type": "text",
                   "title": "Contact Us",
-                  "payload": "Contact Us",
+                  "payload": "contact",
                   "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
                   }
                   ]
@@ -1443,7 +1446,7 @@ def news_category_topnews(reqContext):
                   "content_type": "text",
                   "title": "ESPN",
                   "payload": "espn",
-                  "image_url": "http://1000logos.net/wp-content/uploads/2017/01/ESPN-Logo.png"
+                  "image_url": "https://www.brandsoftheworld.com/sites/default/files/styles/logo-thumbnail/public/052016/untitled-1_242.png?itok=vy3l2HxD"
                   },
                   {
                   "content_type": "text",
@@ -1868,10 +1871,7 @@ def newsWebsiteIdentification(resolvedQuery):
        newspaper_url = "https://www.newscientist.com"
     elif resolvedQuery == "nfl-news":
        newspaper_url = "https://www.nfl.com"
-    elif resolvedQuery == "recode":
-       newspaper_url = "https://www.recode.net"
-    elif resolvedQuery == "reddit":
-       newspaper_url = "https://www.reddit.com"
+
     else: 
        print ("Newspaper name did not match the input")
 
@@ -1932,7 +1932,7 @@ def contact(resolvedQuery):
                                     },
                                     {
                                         "type": "web_url",
-                                        "url": "https://marvinai.live/about",
+                                        "url": "https://marvinai.live",
                                         "title": "View Website"
                                     }]
                                  },
@@ -1947,7 +1947,7 @@ def contact(resolvedQuery):
                                     },
                                     {
                                         "type": "web_url",
-                                        "url": "https://marvinai.live/about",
+                                        "url": "https://marvinai.live",
                                         "title": "View Website"
                                     }]
                                  } 
