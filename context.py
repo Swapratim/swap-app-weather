@@ -91,8 +91,14 @@ def welcome():
     if data is None:
         return {}
     entry = data.get('originalRequest')
+    print ("entry:::::::::::::")
+    print (entry)
     dataall = entry.get('data')
+    print ("dataall:::::::::::")
+    print (dataall)
     sender = dataall.get('sender')
+    sender ("sender::::::::::")
+    print (sender)
     id = sender.get('id')
     print ("id :" + id)
     fb_info = "https://graph.facebook.com/v2.6/" + id + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + ACCESS_TOKEN
