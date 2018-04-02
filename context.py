@@ -9,21 +9,18 @@ import os
 import sys
 import psycopg2
 import urlparse
-import pymongo
 import emoji
 
 from flask import Flask
 from flask import request, render_template
 from flask import make_response
-from pymongo import MongoClient
 
 
 # Flask should start in global layout
 context = Flask(__name__)
-# Facbook Access Token (For Marvin Facebook Page)
-#ACCESS_TOKEN = "EAAXRzkKCxVQBABZCplGeFoMd8uINY0zwqUSKo6y0LMXCpN4dZC8LzaVsrI2BTdhZCYSZBvteNqxx0vUhFY8V22JjNQ6NMUDMS63pYLUo7T5NmqsiZC5UpJclPrMawkdFQfzdxaTiZCaB0DcQ62DzgZBP1cegKbxgK9rdYhaPhwMSQZDZD"
-# Facbook Access Token (For SID Facebook Page)
-ACCESS_TOKEN = "EAADCpnCTbUoBAMlgDxoEVTifvyD80zCxvfakHu6m3VjYVdS5VnbIdDnZCxxonXJTK2LBMFemzYo2a4DGrz0SxNJIFkMAsU8WBfRS7IRrZAaHRrXEMBEL5wmdUvzawASQWtZAMNBr90Gattw3IGzeJ7pZBBUthMewXDvnmBELCgZDZD"
+# Facbook Access Token
+ACCESS_TOKEN = "EAAXRzkKCxVQBAImZBQo8kEpHVn0YDSVxRcadEHiMlZAcqSpu5pV7wAkZBKUs0eIZBcX1RmZCEV6cxJzuZAp5NO5ZCcJgZBJu4OPrFpKiAPJ5Hxlve2vrSthfMSZC3GqLnzwwRENQSzZAMyBXFCi1LtLWm9PhYucY88zPT4KEwcZCmhLYAZDZD"
+#ACCESS_TOKEN = "EAADCpnCTbUoBAMlgDxoEVTifvyD80zCxvfakHu6m3VjYVdS5VnbIdDnZCxxonXJTK2LBMFemzYo2a4DGrz0SxNJIFkMAsU8WBfRS7IRrZAaHRrXEMBEL5wmdUvzawASQWtZAMNBr90Gattw3IGzeJ7pZBBUthMewXDvnmBELCgZDZD"
 # Google Access Token
 Google_Acces_Token = "key=AIzaSyDNYsLn4JGIR4UaZMFTAgDB9gKN3rty2aM&cx=003066316917117435589%3Avcms6hy5lxs&q="
 # NewsAPI Access Token
@@ -36,9 +33,13 @@ weather_update_key = "747d84ccfe063ba9"
 #    All Webhook requests lands within the method --webhook                          #
 #                                                                                    #
 #************************************************************************************#
+# Webhook requests are coming to this method
 @context.route('/webhook', methods=['POST'])
 def webhook():
     reqContext = request.get_json(silent=True, force=True)
+    #print(json.dumps(reqContext, indent=4))
+    print(reqContext.get("result").get("action"))
+    print ("webhook is been hit ONCE ONLY")
     if reqContext.get("result").get("action") == "input.welcome":
        return welcome()
     elif reqContext.get("result").get("action") == "firstIntroductionSureOptionStatement":
@@ -71,20 +72,26 @@ def webhook():
        return youtubeTopic(reqContext)
     elif reqContext.get("result").get("action") == "youtubeVideoSearch":
        return youtubeVideoSearch(reqContext)
-    elif reqContext.get("result").get("action") == "contact":
-       return contact(reqContext)
     elif reqContext.get("result").get("action") == "Help":
        return help(reqContext)
+    elif reqContext.get("result").get("action") == "contact.us":
+       return contact(reqContext)
+    elif reqContext.get("result").get("action") == "requestdemo":
+       return requestDemo(reqContext)
+    elif reqContext.get("result").get("action") == "forsalebottemplate":
+       return forsale(reqContext)
     else:
        print("Good Bye")
 
+ 
 #************************************************************************************#
 #                                                                                    #
 #   This method is to get the Facebook User Deatails via graph.facebook.com/v2.6     #
 #                                                                                    #
 #************************************************************************************#
-user_name = ""
+user_name = None
 def welcome():
+    global user_name
     print ("within welcome method")
     data = request.json
     print (data)
@@ -100,31 +107,10 @@ def welcome():
     result = urllib.request.urlopen(fb_info).read()
     print (result)
     data = json.loads(result)
-
-    # Insert Data into MongoDB table:
-    USER_DATA = [
-    {
-        'id': data.get('access_token'),
-        'first_name': data.get('first_name'),
-        'last_name': data.get('last_name'),
-        'locale': data.get('locale'),
-        'timezone': data.get('timezone'),
-        'gender': data.get('gender')
-    }]
-    uri = 'mongodb://marvinai:marvinai@ds163232.mlab.com:63232/heroku_stgdzdbp'
-    #client = pymongo.MongoClient(uri)
-    client = client = MongoClient("mongodb://marvinai:marvinai@ds163232.mlab.com:63232/heroku_stgdzdbp")
-    db = client.get_default_database()
-    name_table = db['name_table']
-    name_table.insert_many(USER_DATA)
-
-    #db.name_table.find()
-    ###################################
-    
     first_name = data.get('first_name')
     print (first_name)
     user_name = data.get('first_name')
-    speech1 = "I'm the official chatbot of Marvin.ai but you can call me 'Marvin'"
+    speech1 = "I am 'Marvin' - your personal assistant"
     res = {
           "speech": speech1,
           "displayText": speech1,
@@ -165,23 +151,26 @@ def welcome():
                       }
                   },
                  {
-                  "text": "Do you want to know more about Marvin.ai?",
+                  "text": "Do you want to know more about me?",
                   "quick_replies": [
                  {
                   "content_type": "text",
-                  "title": "Ummm, yeah sure",
+                  "title": "Yeah Sure",
                   "payload": "Ummm, yeah sure",
                   "image_url": "http://www.thehindubusinessline.com/multimedia/dynamic/02337/bl12_smiley_jpg_2337780e.jpg"
                  },
                  {
                   "content_type": "text",
-                  "title": "No, thank you",
+                  "title": "No Thanks",
                   "payload": "No, thank you",
                   "image_url": "https://www.colourbox.com/preview/7036940-exited-emoticon.jpg"
                    },
-                  {
-                    "content_type":"location"
-                  }
+                 {
+                  "content_type": "text",
+                  "title": "For Sale",
+                  "payload": "For Sale",
+                  "image_url": "http://p.lnwfile.com/_/p/_raw/pg/vn/cm.png"
+                  },
                   ]
                  }
                 ]
@@ -207,6 +196,7 @@ def reply(user_id, msg):
 ###################################THIS IS THE START OF FIRST BLOCK OF CUSTOMER ENGAGEMENT#########################################
 
 def firstIntroductionSureOptionStatement(reqContext):
+    print ("firstIntroductionSureOptionStatement..........YES..........")
     option = reqContext.get("result").get("action")
     res = {
         "speech": "...",
@@ -217,19 +207,25 @@ def firstIntroductionSureOptionStatement(reqContext):
                     "sender_action": "typing_on"
                 },
                {
-                "text": "Marvin.ai is a chatbot development company."
+                "text": "I can provide weather report with 7 day weather forecast of any city across the world"
                },
                {
                     "sender_action": "typing_on"
                 },
                {
-                "text": "We build best Customer Support chatbots for any kind of businesses."
+                "text": "Ask me any topic, I can bring info from Wikipedia"
                },
                {
                     "sender_action": "typing_on"
                 },
                {
-                "text": "For example: Restaurant, Hotel, Retail, Healthcare, Real Estate, Banking, Insurance etc"
+                "text": "Read out live newsfeed from 33 Nespapers - choose your favorite category"
+               },
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                "text": "Looking for something special? Search and watch YouTube videos here :)"
                },
                {
                     "sender_action": "typing_on"
@@ -238,18 +234,18 @@ def firstIntroductionSureOptionStatement(reqContext):
                  "attachment":{
                         "type":"image", 
                         "payload":{
-                        "url":"https://media.giphy.com/media/3ov9kapGIiW3DQHAM8/giphy.gif"
+                        "url":"https://media.giphy.com/media/c6DcchsqBlGCY/giphy.gif"
                      }
                  }
                },
                {
-                  "text": "Do you wanna know some secrets?",
+                  "text": "Do you wanna know more some amazing bot-news?",
                   "quick_replies": [
                  {
                   "content_type": "text",
-                  "title": "Okkk, Tell Me",
-                  "payload": "Okkk, Tell Me",
-                  "image_url": "http://www.thehindubusinessline.com/multimedia/dynamic/02337/bl12_smiley_jpg_2337780e.jpg"
+                  "title": "Show More Bots",
+                  "payload": "Tell me right now",
+                  "image_url": "https://previews.123rf.com/images/krisdog/krisdog1509/krisdog150900014/44577557-A-cartoon-emoji-emoticon-icon-character-looking-very-happy-with-his-thumbs-up-he-likes-it-Stock-Vector.jpg"
                  },
                  {
                   "content_type": "text",
@@ -259,7 +255,13 @@ def firstIntroductionSureOptionStatement(reqContext):
                   },
                   {
                   "content_type": "text",
-                  "title": "Contact us",
+                  "title": "For Sale",
+                  "payload": "For Sale",
+                  "image_url": "http://p.lnwfile.com/_/p/_raw/pg/vn/cm.png"
+                  },
+                  {
+                  "content_type": "text",
+                  "title": "Contact Me",
                   "payload": "contact",
                   "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT82m3I34RXj5OqXvJUqczmgCWoqS9U2EZmdJKXMjZx24Jpp-Z6lQ"
                    }
@@ -275,6 +277,7 @@ def firstIntroductionSureOptionStatement(reqContext):
 
 #####################################################################
 def firstIntroductionNoOptionStatement(reqContext):
+    print ("firstIntroductionNoOptionStatement...........NO.........")
     option = reqContext.get("result").get("action")
     res = {
         "speech": "...",
@@ -285,25 +288,13 @@ def firstIntroductionNoOptionStatement(reqContext):
                     "sender_action": "typing_on"
                 },
                {
-                "text": "Don't worry, still you can enjoy tons of features that I offer."
+                "text": "Now it's time for you to enjoy tons of features that I offer."
                },
                {
                     "sender_action": "typing_on"
                 },
                {
-                "text": "I provide special features to search News (30 Newspapers), Weather, Wikipedia or YouTube within this chat window which is unique is nature." + emoji.emojize(':fire:', use_aliases=True),
-               },
-               {
-                    "sender_action": "typing_on"
-                },
-               {
-                "text": "Give it a try and enjoy my personal assistance."
-               },
-               {
-                    "sender_action": "typing_on"
-               },
-               {
-                  "text": "Also click on 'Menu' option to explore more!!!",
+                  "text": "Click on 'Menu' option to explore more!!!",
                   "quick_replies": [
                  {
                   "content_type": "text",
@@ -331,7 +322,13 @@ def firstIntroductionNoOptionStatement(reqContext):
                    },
                   {
                   "content_type": "text",
-                  "title": "Contact Us",
+                  "title": "For Sale",
+                  "payload": "For Sale",
+                  "image_url": "http://p.lnwfile.com/_/p/_raw/pg/vn/cm.png"
+                  },
+                  {
+                  "content_type": "text",
+                  "title": "Contact Me",
                   "payload": "contact",
                   "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
                   }
@@ -358,25 +355,7 @@ def secondExplanationOKStatement(reqContext):
                     "sender_action": "typing_on"
                },
                {
-                "text": "Global trend shows that People prefer messaging" + emoji.emojize(':iphone:', use_aliases=True) + "over calling." + emoji.emojize(':telephone_receiver:', use_aliases=True)
-               },
-               {
-                    "sender_action": "typing_on"
-               },
-               {
-                "text": "Customers search in FB pages for your business brand before landing to your website."
-               },
-               {
-                    "sender_action": "typing_on"
-               },
-               {
-                 "text": "Instant reply to customer FAQ helps you to grow customer interaction & satisfaction level" + emoji.emojize(':white_check_mark:', use_aliases=True)
-               },
-               {
-                    "sender_action": "typing_on"
-               },
-               {
-                 "text": "This helps to grow your business with rapid and steady growth" + emoji.emojize(':moneybag:', use_aliases=True) + emoji.emojize(':moneybag:', use_aliases=True)
+                "text": "I can introduce to some other chatbots worth to give a try" + emoji.emojize(':iphone:', use_aliases=True)
                },
                {
                     "sender_action": "typing_on"
@@ -390,11 +369,11 @@ def secondExplanationOKStatement(reqContext):
                  }
                },
                {
-                  "text": "Want to know how chatbot can help you?",
+                  "text": "Want you like to see the chatbots?",
                   "quick_replies": [
                  {
                   "content_type": "text",
-                  "title": "Tell me right now",
+                  "title": "Show More Bots",
                   "payload": "Tell me right now",
                   "image_url": "https://previews.123rf.com/images/krisdog/krisdog1509/krisdog150900014/44577557-A-cartoon-emoji-emoticon-icon-character-looking-very-happy-with-his-thumbs-up-he-likes-it-Stock-Vector.jpg"
                  },
@@ -406,7 +385,13 @@ def secondExplanationOKStatement(reqContext):
                  },
                  {
                   "content_type": "text",
-                  "title": "Contact us",
+                  "title": "For Sale",
+                  "payload": "For Sale",
+                  "image_url": "http://p.lnwfile.com/_/p/_raw/pg/vn/cm.png"
+                  },
+                 {
+                  "content_type": "text",
+                  "title": "Contact Me",
                   "payload": "contact",
                   "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT82m3I34RXj5OqXvJUqczmgCWoqS9U2EZmdJKXMjZx24Jpp-Z6lQ"
                    }
@@ -439,49 +424,79 @@ def thirdExplanationOKStatement(reqContext):
                     "sender_action": "typing_on"
                },
                {
-                "text": "Chatbots are virtual assistants capable of talking to unlimited number of users simultaneously 24/7/365"
-               },
-               {
-                    "sender_action": "typing_on"
-               },
-               {
-                "text": "So people don't have to wait too long to get simple information like: 'When your restaurant will open today?'"
-               },
-               {
-                    "sender_action": "typing_on"
-               },
-               {
-                 "attachment":{
-                        "type":"image", 
-                        "payload":{
-                        "url":"https://media.giphy.com/media/11sBLVxNs7v6WA/giphy.gif"
-                     }
-                 }
-               },
-               {
-                    "sender_action": "typing_on"
-               },
-               {
-                 "text": "Chatbots also help in Sales promotion and marketing"
-               },
+                 "attachment" : {
+                   "type" : "template",
+                     "payload" : {
+                      "template_type" : "generic",
+                       "elements" : [ 
+                                 {
+                                   "title" : "Gym & Fitness Bot",
+                                   "image_url" : "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-1/p200x200/26195385_569070333435665_9188504885334618347_n.png?oh=19fc1eb02a02f7d3fdf806b8085cda05&oe=5B0A00C3",
+                                   "subtitle" : "Perfect assistant for Workoutaholics and Gym Owners",
+                                   "buttons": [{
+                                        "type": "web_url",
+                                        "url": "https://m.me/566837733658925",
+                                        "title": "Chat on Messenger"
+                                    }]
+                                 },
+                                 {
+                                   "title" : "Travel Agency Bot",
+                                   "image_url" : "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-1/p200x200/26166318_926208967546025_4430339635846451822_n.png?oh=ce94c397dec959b2ffc169ab5490c9c4&oe=5B0DE5AC",
+                                   "subtitle" : "A must have bot for Travel agencies",
+                                   "buttons": [{
+                                        "type": "web_url",
+                                        "url": "https://m.me/926146750885580",
+                                        "title": "Chat on Messenger"
+                                    }]
+                                 }, 
+                                 {
+                                   "title" : "Real Estate Bot",
+                                   "image_url" : "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-1/p200x200/26168932_398499143936085_8598978959270948418_n.png?oh=89724083b9818ed8c5a4149c5d38db65&oe=5B1906C1",
+                                   "subtitle" : "Searching for property deals would never be easier",
+                                   "buttons": [{
+                                        "type": "web_url",
+                                        "url": "https://m.me/realestatebotai",
+                                        "title": "Chat on Messenger"
+                                    }]
+                                 },
+                                 {
+                                   "title" : "Food Bot",
+                                   "image_url" : "https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-1/p200x200/22045693_736432773208910_6374064816237587571_n.png?oh=a232a944b6b0c4601b01a8bf6c73af90&oe=5B0F0300",
+                                   "subtitle" : "Your virtual assistant in any restaurant",
+                                   "buttons": [{
+                                        "type": "web_url",
+                                        "url": "https://m.me/730273667158154",
+                                        "title": "Chat on Messenger"
+                                    }]
+                                 }
+                           ]
+                       } 
+                   }
+                },
                {
                   "text": "Ready to know more about the deal?",
                   "quick_replies": [
                  {
                   "content_type": "text",
-                  "title": "Show it to Me",
-                  "payload": "Show it to Me",
-                  "image_url": "https://previews.123rf.com/images/krisdog/krisdog1509/krisdog150900014/44577557-A-cartoon-emoji-emoticon-icon-character-looking-very-happy-with-his-thumbs-up-he-likes-it-Stock-Vector.jpg"
+                  "title": "Request for a DEMO",
+                  "payload": "requestdemo",
+                  "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT82m3I34RXj5OqXvJUqczmgCWoqS9U2EZmdJKXMjZx24Jpp-Z6lQ"
                  },
                  {
                   "content_type": "text",
                   "title": "No, Later Sometime",
-                  "payload": "No, Later Sometime",
+                  "payload": "No, thanks",
                   "image_url": "https://www.colourbox.com/preview/7036940-exited-emoticon.jpg"
                  },
                  {
                   "content_type": "text",
-                  "title": "Contact us",
+                  "title": "For Sale",
+                  "payload": "For Sale",
+                  "image_url": "http://p.lnwfile.com/_/p/_raw/pg/vn/cm.png"
+                  },
+                 {
+                  "content_type": "text",
+                  "title": "Contact Me",
                   "payload": "contact",
                   "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT82m3I34RXj5OqXvJUqczmgCWoqS9U2EZmdJKXMjZx24Jpp-Z6lQ"
                    }
@@ -543,7 +558,13 @@ def fourthExplanationOKStatement(reqContext):
                   "quick_replies": [
                  {
                   "content_type": "text",
-                  "title": "Contact Us Now",
+                  "title": "Request for a DEMO",
+                  "payload": "requestdemo",
+                  "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT82m3I34RXj5OqXvJUqczmgCWoqS9U2EZmdJKXMjZx24Jpp-Z6lQ"
+                 },
+                 {
+                  "content_type": "text",
+                  "title": "Contact Me",
                   "payload": "contact",
                   "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT82m3I34RXj5OqXvJUqczmgCWoqS9U2EZmdJKXMjZx24Jpp-Z6lQ"
                  },
@@ -552,8 +573,14 @@ def fourthExplanationOKStatement(reqContext):
                   "title": "No, Later Sometime",
                   "payload": "No, Later Sometime",
                   "image_url": "https://www.colourbox.com/preview/7036940-exited-emoticon.jpg"
-                 }
-                  ]
+                 },
+                 {
+                  "content_type": "text",
+                  "title": "For Sale",
+                  "payload": "For Sale",
+                  "image_url": "http://p.lnwfile.com/_/p/_raw/pg/vn/cm.png"
+                  }
+                 ]
                 }
              ]
            } 
@@ -562,13 +589,15 @@ def fourthExplanationOKStatement(reqContext):
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
-##################################################
+
+
 #************************************************************************************#
 #                                                                                    #
 #   Below method is to get the Facebook Quick Reply Webhook Handling - Weather       #
 #                                                                                    #
 #************************************************************************************#
 def weather(reqContext):
+    print (reqContext.get("result").get("action"))
     option = reqContext.get("result").get("action")
     res = {
         "speech": "Please provide a city name for weather report:",
@@ -586,19 +615,25 @@ def weather(reqContext):
     r.headers['Content-Type'] = 'application/json'
     return r
 
+
+
 #************************************************************************************#
 #                                                                                    #
 #   Below 3 methods are to get the Yahoo Weather Report for a location via API       #
 #                                                                                    #
 #************************************************************************************#
 def weatherhook(reqContext):
+   #req = request.get_json(silent=True, force=True)
    result = reqContext.get("result")
    parameters = result.get("parameters")
    city = parameters.get("geo-city")
    if not parameters.get("geo-city"):
       city = parameters.get("geo-city-dk")
+      #return 
+
    ###########################################################
    data = yahoo_weatherapi(city)
+   #print (data)
    ############################################################
    query = data.get('query')
    if query is None:
@@ -622,14 +657,34 @@ def weatherhook(reqContext):
    if condition is None:
        return {}
 
+   #description = item.get('description')
+   #if description is None:
+   #    return {}
+    
+   #print ("URL Link and Condition code should be printed afterwards")
    link = item.get('link')
    link_forecast = link.split("*",1)[1]
+   #print (link_forecast)
+   #print ("<<<<<>>>>")
+   #print (condition.get('code')) 
    condition_get_code = condition.get('code')
    condition_code = weather_code(condition_get_code)
    image_url = "http://gdurl.com/" + condition_code
- 
-   speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
+
+   #if condition.get('code') != condition_code:
+   #   image_url = "http://l.yimg.com/a/i/us/we/" + condition.get('code') + "/14.gif"
+   #print (image_url) 
+    
+   speech = "Today in " + location.get('city') + "(" +location.get('country') + ")" + ": " + condition.get('text') + \
             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
+   #print ("City - Country: " +location.get('city') + "-" + location.get('country'))
+   #print ("image url: " + image_url)
+   #print ("forecast link: " + link_forecast)
+   #print("speech: " + speech)
+   ##############################################################
+   #res = {"speech": speech,
+   #       "displayText": speech,
+   #       "source": "apiai-weather-webhook-sample"}
    res = {
          "speech": speech,
          "displayText": speech,
@@ -638,7 +693,7 @@ def weatherhook(reqContext):
                  {
                     "sender_action": "typing_on"
                   },
-                 {
+                  {
                     "sender_action": "typing_on"
                   },
                  {
@@ -693,7 +748,13 @@ def weatherhook(reqContext):
                    },
                   {
                   "content_type": "text",
-                  "title": "Contact Us",
+                  "title": "For Sale",
+                  "payload": "For Sale",
+                  "image_url": "http://p.lnwfile.com/_/p/_raw/pg/vn/cm.png"
+                  },
+                  {
+                  "content_type": "text",
+                  "title": "Contact Me",
                   "payload": "contact",
                   "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
                   }
@@ -702,9 +763,11 @@ def weatherhook(reqContext):
               ]
             } 
         };
+   #print (res)
    res = json.dumps(res, indent=4)
    r = make_response(res)
    r.headers['Content-Type'] = 'application/json'
+   #print ("City - Country: " +location.get('city') + "-" + location.get('country'))
    return r
 
 def yahoo_weatherapi(city):
@@ -714,6 +777,7 @@ def yahoo_weatherapi(city):
         return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
     yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
+    #print (yql_url)
     result = urllib.request.urlopen(yql_url).read()
     data = json.loads(result)
     return data
@@ -828,6 +892,7 @@ def weather_code(condition_get_code):
 #                                                                                    #
 #************************************************************************************#
 def wikipedia_search(reqContext):
+    #print (reqContext.get("result").get("action"))
     option = reqContext.get("result").get("action")
     res = {
         "speech": "Please provide the topic you want to search in Wikipedia",
@@ -853,17 +918,22 @@ def wikipedia_search(reqContext):
 # Searchhook is for searching for Wkipedia information via Google API
 def searchhook(reqContext):
     req = request.get_json(silent=True, force=True)
+    print("Within Search function......!!")
     resolvedQuery = reqContext.get("result").get("resolvedQuery")
+    print ("resolvedQuery: " + resolvedQuery)
     true_false = True
     baseurl = "https://www.googleapis.com/customsearch/v1?"
 ###########################################################
     result = req.get("result")
     parameters = result.get("parameters")
     search_list0 = parameters.get("any")
+    #print ("search_list0" + search_list0)
     search_u_string_removed = [str(i) for i in search_list0]
     search_list1 = str(search_u_string_removed)
+    #print ("search_list1" + search_list1)
     cumulative_string = search_list1.strip('[]')
     search_string = cumulative_string.replace(" ", "%20")
+    print(search_string)
     search_string_ascii = search_string.encode('ascii')
     if search_string_ascii is None:
         return None
@@ -873,8 +943,11 @@ def searchhook(reqContext):
         return {}
     #google_url = baseurl + urllib.parse.urlencode({google_query})
     google_url = baseurl + google_query
+    print("google_url::::"+google_url)
     result = urllib.request.urlopen(google_url).read()
+    #print (result)
     data = json.loads(result)
+    print ("data = json.loads(result)")
 ############################################################
     speech = data['items'][0]['snippet'].encode('utf-8').strip()
     for data_item in data['items']:
@@ -888,18 +961,25 @@ def searchhook(reqContext):
     cse_thumbnail_brace_removed_1 = cse_thumbnail_u_removed.strip('[')
     cse_thumbnail_brace_removed_2 = cse_thumbnail_brace_removed_1.strip(']')
     cse_thumbnail_brace_removed_final =  cse_thumbnail_brace_removed_2.strip("'")
+    #print (cse_thumbnail_brace_removed_final)
     keys = ('cse_thumbnail', 'metatags', 'cse_image')
     for key in keys:
+        # print(key in cse_thumbnail_brace_removed_final)
+        #print ('cse_thumbnail' in cse_thumbnail_brace_removed_final)
         true_false = 'cse_thumbnail' in cse_thumbnail_brace_removed_final
         if true_false == True:
+            #print ('Condition matched -- Within IF block')
             for key in pagemap:
                 cse_thumbnail = key['cse_thumbnail']
+                #print ('Within the For loop -- cse_thumbnail is been assigned')
                 for image_data in cse_thumbnail:
                     raw_str = image_data['src']
+                    
                     break
         else:
             raw_str = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwdc3ra_4N2X5G06Rr5-L0QY8Gi6SuhUb3DiSN_M-C_nalZnVA"
-            
+            #print ('***FALSE***') 
+    
     
     src_brace_removed_final = raw_str
     # Remove junk charaters from URL
@@ -910,6 +990,7 @@ def searchhook(reqContext):
     link_final =  link_brace_removed_2.strip("'")
     # Remove junk character from search item
     search_string_final = cumulative_string.strip("'")
+    
 ############################################################
     res = {
           "speech": speech,
@@ -971,7 +1052,13 @@ def searchhook(reqContext):
                    },
                   {
                   "content_type": "text",
-                  "title": "Contact Us",
+                  "title": "For Sale",
+                  "payload": "For Sale",
+                  "image_url": "http://p.lnwfile.com/_/p/_raw/pg/vn/cm.png"
+                  },
+                  {
+                  "content_type": "text",
+                  "title": "Contact Me",
                   "payload": "contact",
                   "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
                   }
@@ -994,6 +1081,7 @@ def searchhook(reqContext):
 def wikipediaInformationSearch(reqContext):
     #req = request.get_json(silent=True, force=True)
     resolvedQuery = reqContext.get("result").get("resolvedQuery")
+    #print ("resolvedQuery: " + resolvedQuery)
     true_false = True
     baseurl = "https://www.googleapis.com/customsearch/v1?"
     resolvedQueryFinal = resolvedQuery.replace(" ", "%20")
@@ -1005,8 +1093,10 @@ def wikipediaInformationSearch(reqContext):
     if google_query is None:
         return {}
     google_url = baseurl + google_query
+    #print("google_url::::"+google_url)
     result = urllib.request.urlopen(google_url).read()
     data = json.loads(result)
+    #print (data)
 ############################################################
     speech = data['items'][0]['snippet'].encode('utf-8').strip()
     for data_item in data['items']:
@@ -1041,6 +1131,7 @@ def wikipediaInformationSearch(reqContext):
     link_final =  link_brace_removed_2.strip("'")
     # Remove junk character from search item
     search_string_final = resolvedQuery.strip("'")
+    
 ############################################################
     res = {
           "speech": speech,
@@ -1102,7 +1193,13 @@ def wikipediaInformationSearch(reqContext):
                    },
                   {
                   "content_type": "text",
-                  "title": "Contact Us",
+                  "title": "For Sale",
+                  "payload": "For Sale",
+                  "image_url": "http://p.lnwfile.com/_/p/_raw/pg/vn/cm.png"
+                  },
+                  {
+                  "content_type": "text",
+                  "title": "Contact Me",
                   "payload": "contact",
                   "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
                   }
@@ -1119,11 +1216,11 @@ def wikipediaInformationSearch(reqContext):
 
 #************************************************************************************#
 #                                                                                    #
-
 #   Below method is to get the Facebook Quick Reply Webhook Handling - YOUTUBE       #
 #                                                                                    #
 #************************************************************************************#
 def youtubeTopic(reqContext):
+    #print (reqContext.get("result").get("action"))
     option = reqContext.get("result").get("action")
     res = {
         "speech": "Please provide a topic to search in YouTube:",
@@ -1149,6 +1246,7 @@ def youtubeTopic(reqContext):
 
 def youtubeVideoSearch(reqContext):
     resolvedQuery = reqContext.get("result").get("resolvedQuery")
+    #print ("resolvedQuery: " + resolvedQuery)
     true_false = True
     baseurl = "https://www.googleapis.com/youtube/v3/search?part=id&q="
     resolvedQueryFinal = resolvedQuery.replace(" ", "%20")
@@ -1159,14 +1257,18 @@ def youtubeVideoSearch(reqContext):
     if youtube_query is None:
         return {}
     youtube_query = baseurl + search_string_ascii + youtube_query
+    #print("youtube_query::::"+youtube_query)
     result = urllib.request.urlopen(youtube_query).read()
     data = json.loads(result)
-    
+    #print (data)
+
     items = data['items']
+    #print (items)
     id_list = []
 
     for id_block in items:
         id = id_block['id']
+        #print (id)
         id_list.append(id)
 
     
@@ -1272,7 +1374,13 @@ def youtubeVideoSearch(reqContext):
                    },
                   {
                   "content_type": "text",
-                  "title": "Contact Us",
+                  "title": "For Sale",
+                  "payload": "For Sale",
+                  "image_url": "http://p.lnwfile.com/_/p/_raw/pg/vn/cm.png"
+                  },
+                  {
+                  "content_type": "text",
+                  "title": "Contact Me",
                   "payload": "contact",
                   "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
                   }
@@ -1292,6 +1400,8 @@ def youtubeVideoSearch(reqContext):
 #                                                                                    #
 #************************************************************************************#
 def newsCategory(reqContext):
+    print (reqContext.get("result").get("action"))
+    #option = reqContext.get("result").get("action")
     res = {
             "speech": "Please select the category",
             "displayText": "Please select the category",
@@ -1353,6 +1463,7 @@ def newsCategory(reqContext):
 #************************************************************************************#
 def news_category_topnews(reqContext):
     resolvedQuery = reqContext.get("result").get("resolvedQuery")
+    print ("resolvedQuery: " + resolvedQuery)
     if resolvedQuery == "topnews":
         res = {
             "speech": "Please select your favourite Newspaper:",
@@ -1649,10 +1760,12 @@ newspaper_url = ''
 data = ''
 def topFourNewsArticle(reqContext):
     resolvedQuery = reqContext.get("result").get("resolvedQuery")
+    #print ("resolvedQuery: " + resolvedQuery)
     newsAPI = "https://newsapi.org/v1/articles?source=" + resolvedQuery + "&sortBy=top&apiKey=" + newspai_access_token
     result = urllib.request.urlopen(newsAPI).read()
     data = json.loads(result)
     newspaper_url = newsWebsiteIdentification(resolvedQuery)
+    #print ("newspaper_url finally: " + newspaper_url)
     res = {
             "speech": "NewsList",
             "displayText": "NewsList",
@@ -1781,7 +1894,13 @@ def topFourNewsArticle(reqContext):
                    },
                   {
                   "content_type": "text",
-                  "title": "Contact Us",
+                  "title": "For Sale",
+                  "payload": "For Sale",
+                  "image_url": "http://p.lnwfile.com/_/p/_raw/pg/vn/cm.png"
+                  },
+                  {
+                  "content_type": "text",
+                  "title": "Contact Me",
                   "payload": "contact",
                   "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
                   }
@@ -1790,6 +1909,7 @@ def topFourNewsArticle(reqContext):
                ]
              } 
            };
+    #print (res)
     res = json.dumps(res, indent=4)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
@@ -1870,11 +1990,11 @@ def newsWebsiteIdentification(resolvedQuery):
     elif resolvedQuery == "new-scientist":
        newspaper_url = "https://www.newscientist.com"
     elif resolvedQuery == "nfl-news":
-       newspaper_url = "https://www.nfl.com"
-
+       newspaper_url = "https://www.nfl.com/"
     else: 
        print ("Newspaper name did not match the input")
 
+    print ("Within newsWebsiteIdentification Method, the newspaper_url is: " + newspaper_url)
     return newspaper_url
 
 #************************************************************************************#
@@ -1905,8 +2025,8 @@ def help(resolvedQuery):
 #                                                                                    #
 #************************************************************************************#
 def contact(resolvedQuery):
-    print ("Within CONTACT US method")
-    speech = "Our company is now present in Denmark & Australia. \nGrow your business with AI Chatbot. \nRequest for a free Demo now."
+    print ("Within Contact Me method")
+    speech = "Marvin.ai is now present from Denmark to help businesses all over the world. \nRequest for a free Demo now."
     res = {
         "speech": speech,
         "displayText": speech,
@@ -1924,7 +2044,7 @@ def contact(resolvedQuery):
                                  {
                                    "title" : "Swapratim Roy",
                                    "image_url" : "https://marvinchatbot.files.wordpress.com/2017/06/swapratim-roy-founder-owner-of-marvin-ai.jpg?w=700&h=&crop=1",
-                                   "subtitle" : "Founder & Owner of Marvin.ai \nAarhus, Denmark \nCall: +45-7182-5584",
+                                   "subtitle" : "An innovative entrepreneur, founder at Marvin.ai \nAarhus, Denmark \nCall: +45-7182-5584",
                                    "buttons": [{
                                         "type": "web_url",
                                         "url": "https://www.messenger.com/t/swapratim.roy",
@@ -1935,25 +2055,13 @@ def contact(resolvedQuery):
                                         "url": "https://marvinai.live",
                                         "title": "View Website"
                                     }]
-                                 },
-                                 {
-                                   "title" : "Arnab Dasgupta",
-                                   "image_url" : "https://marvinchatbot.files.wordpress.com/2017/06/arnab-dasgupta-ceo-of-marvin-ai.jpg?w=700&h=&crop=1",
-                                   "subtitle" : "CEO of Marvin.ai \nMelbourne, Australia \nCall: +61-469-029-387",
-                                   "buttons": [{
-                                        "type": "web_url",
-                                        "url": "https://www.messenger.com/t/arnabdasgupta.uk",
-                                        "title": "Connect on Messenger"
-                                    },
-                                    {
-                                        "type": "web_url",
-                                        "url": "https://marvinai.live",
-                                        "title": "View Website"
-                                    }]
-                                 } 
+                                 }
                            ]
                        } 
                    }
+                },
+                {
+                    "sender_action": "typing_on"
                 },
                 {
                   "text": "Start over again",
@@ -1984,7 +2092,13 @@ def contact(resolvedQuery):
                    },
                   {
                   "content_type": "text",
-                  "title": "Contact Us",
+                  "title": "For Sale",
+                  "payload": "For Sale",
+                  "image_url": "http://p.lnwfile.com/_/p/_raw/pg/vn/cm.png"
+                  },
+                  {
+                  "content_type": "text",
+                  "title": "Contact Me",
                   "payload": "contact",
                   "image_url": "https://cdn3.iconfinder.com/data/icons/communication-mass-media-news/512/phone_marketing-128.png"
                   }
@@ -1997,6 +2111,194 @@ def contact(resolvedQuery):
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
+
+
+def requestDemo(resolvedQuery):
+    print ("Within requestDemo method")
+    speech = "Marvin.ai is now present from Denmark to help businesses all over the world. \nRequest for a free Demo now."
+    res = {
+        "speech": speech,
+        "displayText": speech,
+        "data" : {
+        "facebook" : [
+               {
+                    "sender_action": "typing_on"
+               },
+               {
+                    "text": "Thank you " + user_name + " for requesting a Demo. Please say Hi to Swapratim on Messenger to get him notified. :-)"
+               },
+                {
+                 "attachment" : {
+                   "type" : "template",
+                     "payload" : {
+                      "template_type" : "generic",
+                       "elements" : [ 
+                                 {
+                                   "title" : "Swapratim Roy",
+                                   "image_url" : "https://marvinchatbot.files.wordpress.com/2017/06/swapratim-roy-founder-owner-of-marvin-ai.jpg?w=700&h=&crop=1",
+                                   "subtitle" : "An innovative entrepreneur, founder at Marvin.ai \nAarhus, Denmark \nCall: +45-7182-5584",
+                                   "buttons": [{
+                                        "type": "web_url",
+                                        "url": "https://www.messenger.com/t/swapratim.roy",
+                                        "title": "Connect on Messenger"
+                                    },
+                                    {
+                                        "type": "web_url",
+                                        "url": "https://marvinai.live",
+                                        "title": "View Website"
+                                    }]
+                                 }
+                           ]
+                       } 
+                   }
+                }
+            ]
+           } 
+         };
+    res = json.dumps(res, indent=4)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
+
+
+#************************************************************************************#
+#                                                                                    #
+#   Displaying ALL CHATBOTS - For Sale                                               #
+#                                                                                    #
+#************************************************************************************#
+def forsale(resolvedQuery):
+    print ("Within forsale method")
+    speech = "This bot is been created by marvin.ai. \nDo you like it?"
+    res = {
+        "speech": speech,
+        "displayText": speech,
+        "data" : {
+        "facebook" : [
+               {
+                    "sender_action": "typing_on"
+               },
+                {
+                 "attachment" : {
+                   "type" : "template",
+                     "payload" : {
+                      "template_type" : "generic",
+                       "elements" : [ 
+                                 {
+                                   "title" : "You like Personal Assistant Bot Template?",
+                                   "image_url" : "https://media.sproutsocial.com/uploads/2017/09/Real-Estate-Marketing-Ideas-1.png",
+                                   "subtitle" : "Get customized virtual assistant for your Restaurant today",
+                                   "buttons": [{
+                                        "type": "web_url",
+                                        "url": "https://marvinai.live",
+                                        "title": "Buy Template"
+                                    },
+                                    {
+                                        "type": "web_url",
+                                        "url": "https://www.facebook.com/marvinai.live",
+                                        "title": "Facebook Page"
+                                    },
+                                    {
+                                        "type": "element_share"
+                                   }]
+                                 },
+                                 {
+                                   "title" : "Travel Agency Bot Template",
+                                   "image_url" : "http://www.sunsail.eu/files/Destinations/Mediteranean/Greece/Athens/thira.jpg",
+                                   "subtitle" : "Get customized virtual assistant for your Restaurant today",
+                                   "buttons": [{
+                                        "type": "web_url",
+                                        "url": "https://marvinai.live",
+                                        "title": "Buy Template"
+                                    },
+                                    {
+                                        "type": "web_url",
+                                        "url": "https://m.me/926146750885580",
+                                        "title": "Chat"
+                                    },
+                                    {
+                                        "type": "element_share"
+                                   }]
+                                 },
+                                 {
+                                   "title" : "Real Estate Bot Template",
+                                   "image_url" : "https://husvild-static.s3.eu-central-1.amazonaws.com/images/files/000/280/915/large/3674bd34e6c1bc42b690adeacfe9c778507f261a?1516032863",
+                                   "subtitle" : "Get qualified buyer and seller leads automatically delivered to your inbox!",
+                                   "buttons": [{
+                                        "type": "web_url",
+                                        "url": "https://marvinai.live",
+                                        "title": "Buy Template"
+                                    },
+                                    {
+                                        "type": "web_url",
+                                        "url": "https://m.me/realestatebotai",
+                                        "title": "Chat"
+                                    },
+                                    {
+                                        "type": "element_share"
+                                   }]
+                                 },
+                                 {
+                                   "title" : "Restaurant Bot Template",
+                                   "image_url" : "https://www.outlookhindi.com/public/uploads/article/gallery/6eb226c14abd79a801172ab8d473e6d2_342_660.jpg",
+                                   "subtitle" : "Perfectly crafted bot from assisting online customers to handle orders",
+                                   "buttons": [{
+                                        "type": "web_url",
+                                        "url": "https://marvinai.live",
+                                        "title": "Buy Template"
+                                    },
+                                    {
+                                        "type": "web_url",
+                                        "url": "https://m.me/730273667158154",
+                                        "title": "Chat"
+                                    },
+                                    {
+                                        "type": "element_share"
+                                   }]
+                                 },
+                                 {
+                                   "title" : "Coffee Shop Bot Template",
+                                   "image_url" : "https://images-na.ssl-images-amazon.com/images/I/71Crz9MYPPL._SY355_.jpg",
+                                   "subtitle" : "Your bot can deal with online customers, take orders and many more ",
+                                   "buttons": [{
+                                        "type": "web_url",
+                                        "url": "https://marvinai.live",
+                                        "title": "Buy Template"
+                                    },
+                                    {
+                                        "type": "web_url",
+                                        "url": "https://m.me/200138490717876",
+                                        "title": "Chat"
+                                    },
+                                    {
+                                        "type": "element_share"
+                                   }]
+                                 },
+                                 {
+                                   "title" : "VISA Check Bot",
+                                   "image_url" : "http://famousdestinations.in/wp-content/uploads/2016/03/howtogetthere.png",
+                                   "subtitle" : "One stop solution for all your VISA requirements...Coming Soon!",
+                                   "buttons": [{
+                                        "type": "web_url",
+                                        "url": "https://marvinai.live",
+                                        "title": "Visit Website"
+                                    },
+                                    {
+                                        "type": "element_share"
+                                   }]
+                                 }
+                           ]
+                       } 
+                   }
+                }
+           ]
+    } 
+   };
+    res = json.dumps(res, indent=4)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
+
+
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
     print("Starting APPLICATION on port %d" % port)
