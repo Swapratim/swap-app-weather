@@ -116,7 +116,13 @@ def welcome():
     client = MongoClient("mongodb://marvinai:marvinai@ds163232.mlab.com:63232/heroku_stgdzdbp")
     db = client.get_default_database()
     name_table = db['name_table']
-    name_table.insert_many(USER_DATA)
+
+    # Check if already the user is present in database
+    if name_table.find( { "id" : id } ):
+       print ("Data is already PRESENT in the Database")
+    else:
+       name_table.insert_many(USER_DATA)
+       print ("Data has been INSERTED")
 
     #db.name_table.find()
     ###################################
