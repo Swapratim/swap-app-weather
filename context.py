@@ -104,7 +104,7 @@ def welcome():
     # Insert Data into MongoDB table:
     USER_DATA = [
     {
-        'id': data.get('access_token'),
+        'id': data.get('facebook_sender_id'),
         'first_name': data.get('first_name'),
         'last_name': data.get('last_name'),
         'locale': data.get('locale'),
@@ -113,7 +113,7 @@ def welcome():
     }]
     uri = 'mongodb://marvinai:marvinai@ds163232.mlab.com:63232/heroku_stgdzdbp'
     #client = pymongo.MongoClient(uri)
-    client = client = MongoClient("mongodb://marvinai:marvinai@ds163232.mlab.com:63232/heroku_stgdzdbp")
+    client = MongoClient("mongodb://marvinai:marvinai@ds163232.mlab.com:63232/heroku_stgdzdbp")
     db = client.get_default_database()
     name_table = db['name_table']
     name_table.insert_many(USER_DATA)
