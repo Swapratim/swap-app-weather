@@ -104,7 +104,7 @@ def welcome():
     # Insert Data into MongoDB table:
     USER_DATA = [
     {
-        'id': data.get('facebook_sender_id'),
+        'id': data.get('id'),
         'first_name': data.get('first_name'),
         'last_name': data.get('last_name'),
         'locale': data.get('locale'),
